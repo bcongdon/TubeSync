@@ -1,0 +1,514 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		78395B641C44247700B7B2E7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78395B631C44247700B7B2E7 /* MainMenu.xib */; };
+		78395B6C1C4433AD00B7B2E7 /* youtube@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */; };
+		78395B761C44394500B7B2E7 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78395B751C44394500B7B2E7 /* Preferences.xib */; };
+		788B8D271C44068400FDD122 /* Watch_Later_Sync.py in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D261C44068400FDD122 /* Watch_Later_Sync.py */; };
+		788B8D2A1C44176500FDD122 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788B8D281C44176500FDD122 /* ContentViewController.swift */; };
+		788B8D2B1C44176500FDD122 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D291C44176500FDD122 /* ContentViewController.xib */; };
+		788B8D2D1C4417F200FDD122 /* Status@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D2C1C4417F200FDD122 /* Status@2x.png */; };
+		788B8D2F1C44196200FDD122 /* DummyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788B8D2E1C44196200FDD122 /* DummyControl.swift */; };
+		78BBFC6F1C42EC1800421236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC6E1C42EC1800421236 /* AppDelegate.swift */; };
+		78BBFC731C42EC1800421236 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78BBFC721C42EC1800421236 /* Assets.xcassets */; };
+		78BBFC811C42EC1900421236 /* Playlist_SyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC801C42EC1900421236 /* Playlist_SyncTests.swift */; };
+		78BBFC8C1C42EC1900421236 /* Playlist_SyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		78BBFC7D1C42EC1900421236 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 78BBFC631C42EC1800421236 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 78BBFC6A1C42EC1800421236;
+			remoteInfo = "Playlist Sync";
+		};
+		78BBFC881C42EC1900421236 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 78BBFC631C42EC1800421236 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 78BBFC6A1C42EC1800421236;
+			remoteInfo = "Playlist Sync";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		78395B631C44247700B7B2E7 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube@2x.png"; sourceTree = "<group>"; };
+		78395B751C44394500B7B2E7 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = SOURCE_ROOT; };
+		788B8D261C44068400FDD122 /* Watch_Later_Sync.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = Watch_Later_Sync.py; path = ../Scripts/watch_later/Watch_Later_Sync.py; sourceTree = "<group>"; };
+		788B8D281C44176500FDD122 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		788B8D291C44176500FDD122 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContentViewController.xib; path = "Playlist Sync/ContentViewController.xib"; sourceTree = SOURCE_ROOT; };
+		788B8D2C1C4417F200FDD122 /* Status@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Status@2x.png"; sourceTree = "<group>"; };
+		788B8D2E1C44196200FDD122 /* DummyControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyControl.swift; sourceTree = "<group>"; };
+		78BBFC6B1C42EC1800421236 /* Playlist Sync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Playlist Sync.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		78BBFC6E1C42EC1800421236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		78BBFC721C42EC1800421236 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		78BBFC771C42EC1800421236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78BBFC7C1C42EC1900421236 /* Playlist SyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Playlist SyncTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		78BBFC801C42EC1900421236 /* Playlist_SyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist_SyncTests.swift; sourceTree = "<group>"; };
+		78BBFC821C42EC1900421236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78BBFC871C42EC1900421236 /* Playlist SyncUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Playlist SyncUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist_SyncUITests.swift; sourceTree = "<group>"; };
+		78BBFC8D1C42EC1900421236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		78BBFC681C42EC1800421236 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78BBFC791C42EC1900421236 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78BBFC841C42EC1900421236 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		78BBFC621C42EC1800421236 = {
+			isa = PBXGroup;
+			children = (
+				78BBFC6D1C42EC1800421236 /* Playlist Sync */,
+				78BBFC7F1C42EC1900421236 /* Playlist SyncTests */,
+				78BBFC8A1C42EC1900421236 /* Playlist SyncUITests */,
+				78BBFC6C1C42EC1800421236 /* Products */,
+				788B8D261C44068400FDD122 /* Watch_Later_Sync.py */,
+				788B8D2C1C4417F200FDD122 /* Status@2x.png */,
+				78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */,
+			);
+			sourceTree = "<group>";
+		};
+		78BBFC6C1C42EC1800421236 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				78BBFC6B1C42EC1800421236 /* Playlist Sync.app */,
+				78BBFC7C1C42EC1900421236 /* Playlist SyncTests.xctest */,
+				78BBFC871C42EC1900421236 /* Playlist SyncUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		78BBFC6D1C42EC1800421236 /* Playlist Sync */ = {
+			isa = PBXGroup;
+			children = (
+				78395B751C44394500B7B2E7 /* Preferences.xib */,
+				78BBFC6E1C42EC1800421236 /* AppDelegate.swift */,
+				788B8D2E1C44196200FDD122 /* DummyControl.swift */,
+				788B8D281C44176500FDD122 /* ContentViewController.swift */,
+				788B8D291C44176500FDD122 /* ContentViewController.xib */,
+				78BBFC721C42EC1800421236 /* Assets.xcassets */,
+				78BBFC771C42EC1800421236 /* Info.plist */,
+				78395B631C44247700B7B2E7 /* MainMenu.xib */,
+			);
+			path = "Playlist Sync";
+			sourceTree = "<group>";
+		};
+		78BBFC7F1C42EC1900421236 /* Playlist SyncTests */ = {
+			isa = PBXGroup;
+			children = (
+				78BBFC801C42EC1900421236 /* Playlist_SyncTests.swift */,
+				78BBFC821C42EC1900421236 /* Info.plist */,
+			);
+			path = "Playlist SyncTests";
+			sourceTree = "<group>";
+		};
+		78BBFC8A1C42EC1900421236 /* Playlist SyncUITests */ = {
+			isa = PBXGroup;
+			children = (
+				78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */,
+				78BBFC8D1C42EC1900421236 /* Info.plist */,
+			);
+			path = "Playlist SyncUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		78BBFC6A1C42EC1800421236 /* Playlist Sync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 78BBFC901C42EC1900421236 /* Build configuration list for PBXNativeTarget "Playlist Sync" */;
+			buildPhases = (
+				78BBFC671C42EC1800421236 /* Sources */,
+				78BBFC681C42EC1800421236 /* Frameworks */,
+				78BBFC691C42EC1800421236 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Playlist Sync";
+			productName = "Playlist Sync";
+			productReference = 78BBFC6B1C42EC1800421236 /* Playlist Sync.app */;
+			productType = "com.apple.product-type.application";
+		};
+		78BBFC7B1C42EC1900421236 /* Playlist SyncTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 78BBFC931C42EC1900421236 /* Build configuration list for PBXNativeTarget "Playlist SyncTests" */;
+			buildPhases = (
+				78BBFC781C42EC1900421236 /* Sources */,
+				78BBFC791C42EC1900421236 /* Frameworks */,
+				78BBFC7A1C42EC1900421236 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				78BBFC7E1C42EC1900421236 /* PBXTargetDependency */,
+			);
+			name = "Playlist SyncTests";
+			productName = "Playlist SyncTests";
+			productReference = 78BBFC7C1C42EC1900421236 /* Playlist SyncTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		78BBFC861C42EC1900421236 /* Playlist SyncUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 78BBFC961C42EC1900421236 /* Build configuration list for PBXNativeTarget "Playlist SyncUITests" */;
+			buildPhases = (
+				78BBFC831C42EC1900421236 /* Sources */,
+				78BBFC841C42EC1900421236 /* Frameworks */,
+				78BBFC851C42EC1900421236 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				78BBFC891C42EC1900421236 /* PBXTargetDependency */,
+			);
+			name = "Playlist SyncUITests";
+			productName = "Playlist SyncUITests";
+			productReference = 78BBFC871C42EC1900421236 /* Playlist SyncUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		78BBFC631C42EC1800421236 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Benjamin Congdon";
+				TargetAttributes = {
+					78BBFC6A1C42EC1800421236 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					78BBFC7B1C42EC1900421236 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 78BBFC6A1C42EC1800421236;
+					};
+					78BBFC861C42EC1900421236 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 78BBFC6A1C42EC1800421236;
+					};
+				};
+			};
+			buildConfigurationList = 78BBFC661C42EC1800421236 /* Build configuration list for PBXProject "Playlist Sync" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 78BBFC621C42EC1800421236;
+			productRefGroup = 78BBFC6C1C42EC1800421236 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				78BBFC6A1C42EC1800421236 /* Playlist Sync */,
+				78BBFC7B1C42EC1900421236 /* Playlist SyncTests */,
+				78BBFC861C42EC1900421236 /* Playlist SyncUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		78BBFC691C42EC1800421236 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78395B761C44394500B7B2E7 /* Preferences.xib in Resources */,
+				78395B6C1C4433AD00B7B2E7 /* youtube@2x.png in Resources */,
+				788B8D2B1C44176500FDD122 /* ContentViewController.xib in Resources */,
+				788B8D2D1C4417F200FDD122 /* Status@2x.png in Resources */,
+				78BBFC731C42EC1800421236 /* Assets.xcassets in Resources */,
+				788B8D271C44068400FDD122 /* Watch_Later_Sync.py in Resources */,
+				78395B641C44247700B7B2E7 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78BBFC7A1C42EC1900421236 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78BBFC851C42EC1900421236 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		78BBFC671C42EC1800421236 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				788B8D2A1C44176500FDD122 /* ContentViewController.swift in Sources */,
+				788B8D2F1C44196200FDD122 /* DummyControl.swift in Sources */,
+				78BBFC6F1C42EC1800421236 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78BBFC781C42EC1900421236 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78BBFC811C42EC1900421236 /* Playlist_SyncTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78BBFC831C42EC1900421236 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78BBFC8C1C42EC1900421236 /* Playlist_SyncUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		78BBFC7E1C42EC1900421236 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 78BBFC6A1C42EC1800421236 /* Playlist Sync */;
+			targetProxy = 78BBFC7D1C42EC1900421236 /* PBXContainerItemProxy */;
+		};
+		78BBFC891C42EC1900421236 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 78BBFC6A1C42EC1800421236 /* Playlist Sync */;
+			targetProxy = 78BBFC881C42EC1900421236 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		78BBFC8E1C42EC1900421236 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		78BBFC8F1C42EC1900421236 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		78BBFC911C42EC1900421236 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Playlist Sync/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.benjamincongdon.Playlist-Sync";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		78BBFC921C42EC1900421236 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Playlist Sync/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.benjamincongdon.Playlist-Sync";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		78BBFC941C42EC1900421236 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Playlist SyncTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.benjamincongdon.Playlist-SyncTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Playlist Sync.app/Contents/MacOS/Playlist Sync";
+			};
+			name = Debug;
+		};
+		78BBFC951C42EC1900421236 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Playlist SyncTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.benjamincongdon.Playlist-SyncTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Playlist Sync.app/Contents/MacOS/Playlist Sync";
+			};
+			name = Release;
+		};
+		78BBFC971C42EC1900421236 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Playlist SyncUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.benjamincongdon.Playlist-SyncUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Playlist Sync";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		78BBFC981C42EC1900421236 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Playlist SyncUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.benjamincongdon.Playlist-SyncUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Playlist Sync";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		78BBFC661C42EC1800421236 /* Build configuration list for PBXProject "Playlist Sync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78BBFC8E1C42EC1900421236 /* Debug */,
+				78BBFC8F1C42EC1900421236 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		78BBFC901C42EC1900421236 /* Build configuration list for PBXNativeTarget "Playlist Sync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78BBFC911C42EC1900421236 /* Debug */,
+				78BBFC921C42EC1900421236 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		78BBFC931C42EC1900421236 /* Build configuration list for PBXNativeTarget "Playlist SyncTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78BBFC941C42EC1900421236 /* Debug */,
+				78BBFC951C42EC1900421236 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		78BBFC961C42EC1900421236 /* Build configuration list for PBXNativeTarget "Playlist SyncUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78BBFC971C42EC1900421236 /* Debug */,
+				78BBFC981C42EC1900421236 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 78BBFC631C42EC1800421236 /* Project object */;
+}
