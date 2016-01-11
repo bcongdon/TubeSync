@@ -13,6 +13,10 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     @IBAction func syncPressed(sender: NSButton) {
         data.append("x")
         tableView.reloadData()
+        
+    }
+    
+    func getURL(){
         let panel:NSOpenPanel = NSOpenPanel()
         panel.allowsMultipleSelection = false
         panel.canChooseDirectories = true
@@ -25,6 +29,12 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     }
     
     @IBAction func goToPreferences(sender: AnyObject) {
+        let menu = NSMenu(title: "Sync")
+        menu.insertItem(NSMenuItem(title: "Test", action: "preferences", keyEquivalent: ""), atIndex: 0)
+        NSMenu.popUpContextMenu(menu, withEvent: NSApplication.sharedApplication().currentEvent!, forView: self.view)
+    }
+    
+    func preferences(){
         let delegate:AppDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
         delegate.openPreferences()
     }

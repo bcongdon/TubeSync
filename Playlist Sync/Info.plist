@@ -31,7 +31,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2016 Benjamin Congdon. All rights reserved.</string>
 	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
+	<string>Preferences</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

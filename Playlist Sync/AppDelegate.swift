@@ -24,6 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
         super.init()
         setupStatusButton()
+        print("done")
     }
     
     func openPreferences(){
