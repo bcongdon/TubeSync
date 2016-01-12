@@ -11,11 +11,17 @@ import Cocoa
 class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
     
+    @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var syncFrequency: NSPopUpButtonCell!
     @IBOutlet weak var syncEnabledButton: NSButton!
     @IBOutlet weak var usernameField: NSTextFieldCell!
-    @IBOutlet weak var passwordField: NSView!
+    @IBOutlet weak var passwordField: NSSecureTextField!
     @IBOutlet weak var outputDirTextField: NSTextField!
+    @IBOutlet weak var twoFAField: NSTextField!
+    @IBOutlet weak var submitDisconnectButton: NSButton!
+    @IBOutlet weak var usernameLabel: NSTextField!
+    @IBOutlet weak var passwordLabel: NSTextField!
+    @IBOutlet weak var twoFALabel: NSTextField!
     
     var outputDir:NSURL
     
@@ -48,15 +54,84 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     @IBAction func promptNewOutputDir(sender: AnyObject) {
         outputDir = getURL()
         outputDirTextField.stringValue = outputDir.path!
+        NSUserDefaults.standardUserDefaults().setURL(outputDir, forKey: "OutputDirectory")
+    }
+        
+    @IBAction func onSubmitCredentials(sender: NSButton) {
+        let delegate = NSApplication.sharedApplication().delegate as! AppDelegate
+        let client = delegate.youtubeClient
+        //Submit credentials
+        if sender.title == "Submit" {
+            if client.authenticated {
+                lockInAccount()
+            }
+            let response = client.authenticate(usernameField.stringValue, password: passwordField.stringValue, twoFA: twoFAField.stringValue)
+            NSUserDefaults.standardUserDefaults().setObject(usernameField.stringValue, forKey: "accountName")
+            print(response)
+            if response == YoutubeResponse.Success{
+                statusLabel.stringValue = "Success"
+                lockInAccount()
+            }
+            else{
+                statusLabel.stringValue = "Failure"
+            }
+        }
+        //Disconnect account
+        else{
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("accountName")
+            client.deauthenticate()
+            unlockAccount()
+        }
     }
     
-    @IBAction func onSubmitCredentials(sender: AnyObject) {
-        print("Click!")
+    func lockInAccount(){
+        resetPasswordField()
+        passwordField.enabled = false
+        usernameField.enabled = false
+        twoFAField.enabled = false
+        twoFAField.stringValue = ""
+        submitDisconnectButton.title = "Disconnect"
+        usernameLabel.textColor = NSColor.disabledControlTextColor()
+        passwordLabel.textColor = NSColor.disabledControlTextColor()
+        twoFALabel.textColor = NSColor.disabledControlTextColor()
+    }
+    
+    func unlockAccount(){
+        passwordField.enabled = true
+        passwordField.stringValue = ""
+        usernameField.enabled = true
+        usernameField.stringValue = ""
+        twoFAField.enabled = true
+        twoFAField.stringValue = ""
+        submitDisconnectButton.title = "Submit"
+        usernameLabel.textColor = NSColor.controlTextColor()
+        passwordLabel.textColor = NSColor.controlTextColor()
+        twoFALabel.textColor = NSColor.controlTextColor()
+    }
+    
+    func resetPasswordField(){
+        passwordField.stringValue = "********"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        
+        let delegate = NSApplication.sharedApplication().delegate as! AppDelegate
+        let client = delegate.youtubeClient
+        print(client.authenticated)
+        print(client)
+        if client.authenticated{
+            lockInAccount()
+            resetPasswordField()
+            if let username = NSUserDefaults.standardUserDefaults().valueForKey("accountName"){
+                usernameField.stringValue = username as! String
+            }
+        }
+        
+        if let outputDir = NSUserDefaults.standardUserDefaults().URLForKey("OutputDirectory") {
+            outputDirTextField.stringValue = outputDir.path!
+        }
     }
     
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {

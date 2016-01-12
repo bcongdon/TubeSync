@@ -23,45 +23,59 @@ class YoutubeClient: NSObject {
     }
     
     //Tries to authenticate with cookie
-    func authenticate() -> Bool{
-        return false
+    func authenticate() -> YoutubeResponse{
+        return authYoutubeDL([])
     }
     
-    func authenticate(username:String, password: String, twoFA:String) -> Bool{
-        options.setValue(username, forKey: " -u")
-        options.setValue(password, forKey: " -p")
-        options.setValue(twoFA, forKey: " -2")
-        return false
+    //Tries to authenticate with username + password + (optional) 2fa key
+    func authenticate(username:String, password: String, twoFA:String) -> YoutubeResponse{
+        return authYoutubeDL([username, password, twoFA])
     }
     
     //Runs YoutubeDL with current options and returns output
-    func runYoutubeDL(){
-        print("calling")
+    private func authYoutubeDL(options:Array<String>) -> YoutubeResponse{
         let task = NSTask()
-        let filePath = NSBundle.mainBundle().pathForResource("Authenticate", ofType: "py")! as String
-        task.launchPath = filePath
-        //task.arguments = [filePath]
-        task.standardOutput = NSPipe()
+        task.launchPath = NSBundle.mainBundle().pathForResource("Authenticate", ofType: "py")! as String
+        task.arguments = options
+        print(options)
+        let out = NSPipe()
+        task.standardError = out
         task.launch()
         task.waitUntilExit()
-        let response = task.standardOutput?.fileHandleForReading.readDataToEndOfFile()
-        let str = NSString(data: response!, encoding: NSUTF8StringEncoding)!
-        print(str)
-    }
-    
-    func readCompleted(notification:NSNotification){
-        print("log")
-        print(notification.valueForKey(NSFileHandleNotificationDataItem))
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    func clearCookies(){
+        let response = out.fileHandleForReading.readDataToEndOfFile()
+        let str = NSString(data: response, encoding: NSUTF8StringEncoding)!
         
+        //No credentials provided
+        if str.containsString("The playlist doesn't exist or is private, use --username or --netrc"){
+            return YoutubeResponse.NeedCredentials
+        }
+        //Credential check failed
+        else if str.containsString("Please use your account password"){
+            return YoutubeResponse.IncorrectCredentials
+        }
+        //Able to login
+        else{
+            authenticated = true
+            print(str)
+
+            return YoutubeResponse.Success
+        }
     }
-    
-    static func validCookie() -> Bool {
-        return false
-        //FIXME
+    func deauthenticate(){
+        authenticated = false
+        deleteCookie()
     }
-    
+    func deleteCookie(){
+        let fileManager = NSFileManager.defaultManager()
+        do {
+            try fileManager.removeItemAtPath(".cookie.txt")
+        }
+        catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
+        }
+    }
+}
+
+enum YoutubeResponse{
+    case Success, NeedCredentials, IncorrectCredentials
 }

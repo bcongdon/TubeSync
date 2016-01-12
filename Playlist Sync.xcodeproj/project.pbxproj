@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		781AD7051C457097005AE4A9 /* Authenticate.py in Resources */ = {isa = PBXBuildFile; fileRef = 781AD7041C457097005AE4A9 /* Authenticate.py */; };
+		781AD7071C4576F3005AE4A9 /* youtube_dl in Resources */ = {isa = PBXBuildFile; fileRef = 781AD7061C4576F3005AE4A9 /* youtube_dl */; };
 		78395B6C1C4433AD00B7B2E7 /* youtube@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */; };
 		78395B761C44394500B7B2E7 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78395B751C44394500B7B2E7 /* Preferences.xib */; };
 		7879E6D11C4460DD0010443B /* cog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7879E6D01C4460DD0010443B /* cog@2x.png */; };
 		7879E6D91C446C2E0010443B /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7879E6D81C446C2E0010443B /* PreferencesWindowController.swift */; };
 		7879E6DD1C44737A0010443B /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7879E6DC1C44737A0010443B /* PreferencesViewController.swift */; };
 		7879E6E01C448AFD0010443B /* YoutubeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7879E6DF1C448AFD0010443B /* YoutubeClient.swift */; };
+		787B6E631C45AE76008F66FA /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 787B6E621C45AE76008F66FA /* Locksmith.framework */; };
 		788B8D271C44068400FDD122 /* Watch_Later_Sync.py in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D261C44068400FDD122 /* Watch_Later_Sync.py */; };
 		788B8D2A1C44176500FDD122 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788B8D281C44176500FDD122 /* ContentViewController.swift */; };
 		788B8D2B1C44176500FDD122 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D291C44176500FDD122 /* ContentViewController.xib */; };
@@ -21,6 +23,7 @@
 		78BBFC6F1C42EC1800421236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC6E1C42EC1800421236 /* AppDelegate.swift */; };
 		78BBFC811C42EC1900421236 /* Playlist_SyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC801C42EC1900421236 /* Playlist_SyncTests.swift */; };
 		78BBFC8C1C42EC1900421236 /* Playlist_SyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */; };
+		C2C41D935DFF19F6E4BC7B0D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA0408BE4DA2A6B7C2B405 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,13 +44,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37C8921B7F2EC1CD4765895A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		781AD7041C457097005AE4A9 /* Authenticate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Authenticate.py; sourceTree = "<group>"; };
+		781AD7061C4576F3005AE4A9 /* youtube_dl */ = {isa = PBXFileReference; lastKnownFileType = folder; path = youtube_dl; sourceTree = "<group>"; };
 		78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube@2x.png"; sourceTree = "<group>"; };
 		78395B751C44394500B7B2E7 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = SOURCE_ROOT; };
 		7879E6D01C4460DD0010443B /* cog@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cog@2x.png"; sourceTree = "<group>"; };
 		7879E6D81C446C2E0010443B /* PreferencesWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferencesWindowController.swift; path = "Playlist Sync/PreferencesWindowController.swift"; sourceTree = SOURCE_ROOT; };
 		7879E6DC1C44737A0010443B /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		7879E6DF1C448AFD0010443B /* YoutubeClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeClient.swift; sourceTree = "<group>"; };
+		787B6E621C45AE76008F66FA /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = "../../../Library/Developer/Xcode/DerivedData/Playlist_Sync-ddvkrlzmzmbpafapjbalfjijutxs/Build/Products/Debug/Locksmith.framework"; sourceTree = "<group>"; };
 		788B8D261C44068400FDD122 /* Watch_Later_Sync.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = Watch_Later_Sync.py; path = ../Scripts/watch_later/Watch_Later_Sync.py; sourceTree = "<group>"; };
 		788B8D281C44176500FDD122 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		788B8D291C44176500FDD122 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContentViewController.xib; path = "Playlist Sync/ContentViewController.xib"; sourceTree = SOURCE_ROOT; };
@@ -61,6 +67,8 @@
 		78BBFC871C42EC1900421236 /* Playlist SyncUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Playlist SyncUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist_SyncUITests.swift; sourceTree = "<group>"; };
 		78BBFC8D1C42EC1900421236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC85D9742821B8B39F490D44 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		FAFA0408BE4DA2A6B7C2B405 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +76,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				787B6E631C45AE76008F66FA /* Locksmith.framework in Frameworks */,
+				C2C41D935DFF19F6E4BC7B0D /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,10 +98,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7337208105742B98C4A795EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				787B6E621C45AE76008F66FA /* Locksmith.framework */,
+				FAFA0408BE4DA2A6B7C2B405 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		781AD7031C457036005AE4A9 /* Python Scripts */ = {
 			isa = PBXGroup;
 			children = (
 				781AD7041C457097005AE4A9 /* Authenticate.py */,
+				781AD7061C4576F3005AE4A9 /* youtube_dl */,
 			);
 			name = "Python Scripts";
 			sourceTree = "<group>";
@@ -107,6 +127,8 @@
 				78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */,
 				7879E6D01C4460DD0010443B /* cog@2x.png */,
 				781AD7031C457036005AE4A9 /* Python Scripts */,
+				C0A4CD8F4B0AB55E8C3A1778 /* Pods */,
+				7337208105742B98C4A795EC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,6 +176,15 @@
 			path = "Playlist SyncUITests";
 			sourceTree = "<group>";
 		};
+		C0A4CD8F4B0AB55E8C3A1778 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BC85D9742821B8B39F490D44 /* Pods.debug.xcconfig */,
+				37C8921B7F2EC1CD4765895A /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -161,10 +192,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 78BBFC901C42EC1900421236 /* Build configuration list for PBXNativeTarget "Playlist Sync" */;
 			buildPhases = (
+				54CA46E0FB631FE69EDBF24B /* Check Pods Manifest.lock */,
 				78BBFC671C42EC1800421236 /* Sources */,
 				78BBFC681C42EC1800421236 /* Frameworks */,
 				78BBFC691C42EC1800421236 /* Resources */,
 				7879E6DE1C44773B0010443B /* ShellScript */,
+				01C204C7D39C20D91CAFA8AB /* Embed Pods Frameworks */,
+				13986B609877286666828031 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -265,6 +299,7 @@
 				78395B6C1C4433AD00B7B2E7 /* youtube@2x.png in Resources */,
 				788B8D2B1C44176500FDD122 /* ContentViewController.xib in Resources */,
 				788B8D271C44068400FDD122 /* Watch_Later_Sync.py in Resources */,
+				781AD7071C4576F3005AE4A9 /* youtube_dl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +320,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		01C204C7D39C20D91CAFA8AB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		13986B609877286666828031 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		54CA46E0FB631FE69EDBF24B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		7879E6DE1C44773B0010443B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -428,6 +508,7 @@
 		};
 		78BBFC911C42EC1900421236 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC85D9742821B8B39F490D44 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -441,6 +522,7 @@
 		};
 		78BBFC921C42EC1900421236 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37C8921B7F2EC1CD4765895A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;

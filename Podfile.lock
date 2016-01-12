@@ -1,0 +1,10 @@
+PODS:
+  - Locksmith (2.0.2)
+
+DEPENDENCIES:
+  - Locksmith
+
+SPEC CHECKSUMS:
+  Locksmith: 7f2b68448449a7712348f9a4ed60604c1cc8dfa6
+
+COCOAPODS: 0.39.0

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9A171B72A79AEBFBD91FBFA6996E8039AEB45690",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6F7D610D93269D045AF83B8543031C16DA5E6585" : 0,
+    "9A171B72A79AEBFBD91FBFA6996E8039AEB45690" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3266CC8B-0206-4FB1-A4DA-B607A10E1E93",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6F7D610D93269D045AF83B8543031C16DA5E6585" : "Scripts\/",
+    "9A171B72A79AEBFBD91FBFA6996E8039AEB45690" : "Playlist%20Sync\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Playlist Sync",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Playlist Sync.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/benjamincongdon\/Scripts.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6F7D610D93269D045AF83B8543031C16DA5E6585"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/benjamincongdon\/Playlist-Sync",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9A171B72A79AEBFBD91FBFA6996E8039AEB45690"
+    }
+  ]
+}

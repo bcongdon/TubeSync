@@ -17,15 +17,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     let popover:NSPopover
     var popoverMonitor:AnyObject?
     var preferencesWindowController:PreferencesWindowController
+    let youtubeClient:YoutubeClient
     
     override init(){
+        //Initialize and try to authenticate Youtube Client
+        youtubeClient = YoutubeClient()
+        youtubeClient.authenticate()
+        
         popover = NSPopover()
         popover.contentViewController = ContentViewController(nibName:"ContentViewController",bundle:nil)
         statusItem =  NSStatusBar.systemStatusBar().statusItemWithLength(24)
         preferencesWindowController = PreferencesWindowController(windowNibName: "Preferences")
         super.init()
+        
         setupStatusButton()
         NSApplication.sharedApplication().delegate = self
+        
     }
     
     func openPreferences(){
@@ -73,12 +80,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
             popoverMonitor = nil
         }
     }
+
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        // Insert code here to initialize your applicatio
-        let client = YoutubeClient()
-        client.runYoutubeDL()
-        
+        // Insert code here to initialize your application
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
