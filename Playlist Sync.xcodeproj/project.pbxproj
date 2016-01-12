@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		781AD7051C457097005AE4A9 /* Authenticate.py in Resources */ = {isa = PBXBuildFile; fileRef = 781AD7041C457097005AE4A9 /* Authenticate.py */; };
 		78395B6C1C4433AD00B7B2E7 /* youtube@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */; };
 		78395B761C44394500B7B2E7 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78395B751C44394500B7B2E7 /* Preferences.xib */; };
 		7879E6D11C4460DD0010443B /* cog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7879E6D01C4460DD0010443B /* cog@2x.png */; };
 		7879E6D91C446C2E0010443B /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7879E6D81C446C2E0010443B /* PreferencesWindowController.swift */; };
 		7879E6DD1C44737A0010443B /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7879E6DC1C44737A0010443B /* PreferencesViewController.swift */; };
+		7879E6E01C448AFD0010443B /* YoutubeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7879E6DF1C448AFD0010443B /* YoutubeClient.swift */; };
 		788B8D271C44068400FDD122 /* Watch_Later_Sync.py in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D261C44068400FDD122 /* Watch_Later_Sync.py */; };
 		788B8D2A1C44176500FDD122 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788B8D281C44176500FDD122 /* ContentViewController.swift */; };
 		788B8D2B1C44176500FDD122 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D291C44176500FDD122 /* ContentViewController.xib */; };
 		788B8D2F1C44196200FDD122 /* DummyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788B8D2E1C44196200FDD122 /* DummyControl.swift */; };
 		78BBFC6F1C42EC1800421236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC6E1C42EC1800421236 /* AppDelegate.swift */; };
-		78BBFC731C42EC1800421236 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78BBFC721C42EC1800421236 /* Assets.xcassets */; };
 		78BBFC811C42EC1900421236 /* Playlist_SyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC801C42EC1900421236 /* Playlist_SyncTests.swift */; };
 		78BBFC8C1C42EC1900421236 /* Playlist_SyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */; };
 /* End PBXBuildFile section */
@@ -40,18 +41,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		781AD7041C457097005AE4A9 /* Authenticate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Authenticate.py; sourceTree = "<group>"; };
 		78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube@2x.png"; sourceTree = "<group>"; };
 		78395B751C44394500B7B2E7 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = SOURCE_ROOT; };
 		7879E6D01C4460DD0010443B /* cog@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cog@2x.png"; sourceTree = "<group>"; };
 		7879E6D81C446C2E0010443B /* PreferencesWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferencesWindowController.swift; path = "Playlist Sync/PreferencesWindowController.swift"; sourceTree = SOURCE_ROOT; };
 		7879E6DC1C44737A0010443B /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		7879E6DF1C448AFD0010443B /* YoutubeClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeClient.swift; sourceTree = "<group>"; };
 		788B8D261C44068400FDD122 /* Watch_Later_Sync.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = Watch_Later_Sync.py; path = ../Scripts/watch_later/Watch_Later_Sync.py; sourceTree = "<group>"; };
 		788B8D281C44176500FDD122 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		788B8D291C44176500FDD122 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContentViewController.xib; path = "Playlist Sync/ContentViewController.xib"; sourceTree = SOURCE_ROOT; };
 		788B8D2E1C44196200FDD122 /* DummyControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyControl.swift; sourceTree = "<group>"; };
 		78BBFC6B1C42EC1800421236 /* Playlist Sync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Playlist Sync.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BBFC6E1C42EC1800421236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		78BBFC721C42EC1800421236 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78BBFC771C42EC1800421236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78BBFC7C1C42EC1900421236 /* Playlist SyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Playlist SyncTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BBFC801C42EC1900421236 /* Playlist_SyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist_SyncTests.swift; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		781AD7031C457036005AE4A9 /* Python Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				781AD7041C457097005AE4A9 /* Authenticate.py */,
+			);
+			name = "Python Scripts";
+			sourceTree = "<group>";
+		};
 		78BBFC621C42EC1800421236 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +106,7 @@
 				788B8D261C44068400FDD122 /* Watch_Later_Sync.py */,
 				78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */,
 				7879E6D01C4460DD0010443B /* cog@2x.png */,
+				781AD7031C457036005AE4A9 /* Python Scripts */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,8 +130,8 @@
 				788B8D2E1C44196200FDD122 /* DummyControl.swift */,
 				788B8D281C44176500FDD122 /* ContentViewController.swift */,
 				788B8D291C44176500FDD122 /* ContentViewController.xib */,
-				78BBFC721C42EC1800421236 /* Assets.xcassets */,
 				78BBFC771C42EC1800421236 /* Info.plist */,
+				7879E6DF1C448AFD0010443B /* YoutubeClient.swift */,
 			);
 			path = "Playlist Sync";
 			sourceTree = "<group>";
@@ -249,10 +260,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7879E6D11C4460DD0010443B /* cog@2x.png in Resources */,
+				781AD7051C457097005AE4A9 /* Authenticate.py in Resources */,
 				78395B761C44394500B7B2E7 /* Preferences.xib in Resources */,
 				78395B6C1C4433AD00B7B2E7 /* youtube@2x.png in Resources */,
 				788B8D2B1C44176500FDD122 /* ContentViewController.xib in Resources */,
-				78BBFC731C42EC1800421236 /* Assets.xcassets in Resources */,
 				788B8D271C44068400FDD122 /* Watch_Later_Sync.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,7 +296,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+			shellScript = "TAGS=\"TODO:|FIXME:|FIXME\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -294,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7879E6E01C448AFD0010443B /* YoutubeClient.swift in Sources */,
 				7879E6DD1C44737A0010443B /* PreferencesViewController.swift in Sources */,
 				788B8D2A1C44176500FDD122 /* ContentViewController.swift in Sources */,
 				788B8D2F1C44196200FDD122 /* DummyControl.swift in Sources */,

@@ -35,6 +35,7 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        
     }
     
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {

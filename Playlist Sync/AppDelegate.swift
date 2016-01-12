@@ -76,6 +76,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your applicatio
+        let client = YoutubeClient()
+        client.runYoutubeDL()
         
     }
 

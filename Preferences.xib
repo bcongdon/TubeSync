@@ -24,12 +24,12 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Account" identifier="1" id="Q9h-kV-Msz">
-                                <view key="view" id="NKk-v7-4h1">
-                                    <rect key="frame" x="10" y="33" width="204" height="0.0"/>
+                                <view key="view" ambiguous="YES" id="NKk-v7-4h1">
+                                    <rect key="frame" x="10" y="33" width="413" height="262"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCI-Cc-JBJ">
-                                            <rect key="frame" x="82" y="-23" width="249" height="20"/>
+                                            <rect key="frame" x="82" y="239" width="249" height="20"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Enter your Google Account Credentials:" id="zth-lW-Bok">
                                                 <font key="font" size="13" name="HelveticaNeue-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -37,7 +37,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ly-F2-9mf">
-                                            <rect key="frame" x="82" y="-50" width="71" height="17"/>
+                                            <rect key="frame" x="82" y="212" width="71" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Username:" id="ea1-rk-raI">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -45,7 +45,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zHA-PZ-h0w">
-                                            <rect key="frame" x="82" y="-75" width="69" height="17"/>
+                                            <rect key="frame" x="82" y="187" width="69" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Password:" id="7jM-UR-nu6">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -53,7 +53,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kpc-fT-f3j">
-                                            <rect key="frame" x="159" y="-80" width="168" height="22"/>
+                                            <rect key="frame" x="159" y="182" width="168" height="22"/>
                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="AmB-ss-jni">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -64,7 +64,7 @@
                                             </secureTextFieldCell>
                                         </secureTextField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFh-3M-XJP">
-                                            <rect key="frame" x="244" y="-116" width="89" height="32"/>
+                                            <rect key="frame" x="244" y="146" width="89" height="32"/>
                                             <buttonCell key="cell" type="push" title="Submit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vwD-9v-Leh">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -74,7 +74,7 @@
                                             </connections>
                                         </button>
                                         <secureTextField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1hN-Eo-GVv">
-                                            <rect key="frame" x="159" y="-55" width="168" height="22"/>
+                                            <rect key="frame" x="159" y="207" width="168" height="22"/>
                                             <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="9w7-lh-uFj">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -88,7 +88,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Sync Settings" identifier="2" id="B4p-wC-n1I">
-                                <view key="view" ambiguous="YES" id="cBa-Hf-TTK">
+                                <view key="view" id="cBa-Hf-TTK">
                                     <rect key="frame" x="10" y="33" width="413" height="262"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
