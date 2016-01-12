@@ -16,15 +16,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     let statusItem:NSStatusItem
     let popover:NSPopover
     var popoverMonitor:AnyObject?
+    var preferencesWindowController:PreferencesWindowController
     
     override init(){
         popover = NSPopover()
         popover.contentViewController = ContentViewController(nibName:"ContentViewController",bundle:nil)
         statusItem =  NSStatusBar.systemStatusBar().statusItemWithLength(24)
-
+        preferencesWindowController = PreferencesWindowController(windowNibName: "Preferences")
         super.init()
         setupStatusButton()
-        print("done")
+        NSApplication.sharedApplication().delegate = self
     }
     
     func openPreferences(){
@@ -75,7 +76,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your applicatio
-        self.window.orderOut(self)
         
     }
 
