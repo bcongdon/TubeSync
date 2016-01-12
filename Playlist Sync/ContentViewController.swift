@@ -16,22 +16,11 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
         
     }
     
-    func getURL(){
-        let panel:NSOpenPanel = NSOpenPanel()
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = true
-        panel.canChooseFiles = false
-        let delegate:AppDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-        delegate.closePopover()
-        if panel.runModal() != NSModalResponseOK {return}
-        delegate.openPopover()
-        print(panel.URLs.last)
-    }
-    
     @IBAction func goToPreferences(sender: AnyObject) {
-        let menu = NSMenu(title: "Sync")
-        menu.insertItem(NSMenuItem(title: "Test", action: "preferences", keyEquivalent: ""), atIndex: 0)
-        NSMenu.popUpContextMenu(menu, withEvent: NSApplication.sharedApplication().currentEvent!, forView: self.view)
+//        let menu = NSMenu(title: "Sync")
+//        menu.insertItem(NSMenuItem(title: "Test", action: "preferences", keyEquivalent: ""), atIndex: 0)
+//        NSMenu.popUpContextMenu(menu, withEvent: NSApplication.sharedApplication().currentEvent!, forView: self.view)
+        preferences()
     }
     
     func preferences(){
