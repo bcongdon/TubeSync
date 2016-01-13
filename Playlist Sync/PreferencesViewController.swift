@@ -88,8 +88,6 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     
     func synchronizePlaylistData(){
         let playlistData = NSKeyedArchiver.archivedDataWithRootObject(playlists)
-        print(playlists)
-        print(NSKeyedUnarchiver.unarchiveObjectWithData(playlistData) as? Array<Playlist>)
         NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
         NSUserDefaults.standardUserDefaults().synchronize()
     }
@@ -217,6 +215,10 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             resetPasswordField()
             if let username = NSUserDefaults.standardUserDefaults().valueForKey("accountName"){
                 usernameField.stringValue = username as! String
+            }
+            else{
+                //Account name lost from NSUserDefaults
+                usernameField.stringValue = "Account Linked"
             }
         }
         
