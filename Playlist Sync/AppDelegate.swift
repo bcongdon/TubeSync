@@ -26,6 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         youtubeClient = YoutubeClient()
         youtubeClient.authenticate()
         print(youtubeClient.isValidPlaylist("https://www.youtube.com/watch?v=5jDiqeoh8no"))
+        youtubeClient.downloadVideo("https://www.youtube.com/watch?v=3WzF13htZoI", path: "/Users/bencongdon/Documents")
         popover = NSPopover()
         popover.contentViewController = ContentViewController(nibName:"ContentViewController",bundle:nil)
         statusItem =  NSStatusBar.systemStatusBar().statusItemWithLength(24)

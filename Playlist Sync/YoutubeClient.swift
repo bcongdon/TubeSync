@@ -14,6 +14,8 @@ class YoutubeClient: NSObject {
     
     var options:NSMutableDictionary
     var authenticated:Bool = false
+    var busy = false
+    var outHandler = {() -> String in return ""}
 
     
     override init(){
@@ -64,6 +66,51 @@ class YoutubeClient: NSObject {
         let logResponse = NSString(data: logOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
         let errResponse = NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
         return (logResponse as String, errResponse as String)
+    }
+    
+    private func runAsyncYTDLTask(options:Array<String>, scriptName:String){
+        let task = NSTask()
+        task.launchPath = NSBundle.mainBundle().pathForResource(scriptName, ofType: "py")! as String
+        task.arguments = options
+        let logOutPipe = NSPipe()
+        let errOutPipe = NSPipe()
+        task.standardOutput = logOutPipe
+        task.standardError = errOutPipe
+        let logOut = logOutPipe.fileHandleForReading
+        let errOut = errOutPipe.fileHandleForReading
+        errOut.waitForDataInBackgroundAndNotify()
+        busy = true
+        task.launch()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logOut)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
+            NSTaskDidTerminateNotification, object: task)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errOut)
+        logOut.waitForDataInBackgroundAndNotify()
+        errOut.waitForDataInBackgroundAndNotify()
+    }
+    
+    func receivedData(notification:NSNotification){
+        let handle = notification.object as! NSFileHandle
+        let data = handle.availableData
+        if data.length != 0 {
+            print(String(data: data, encoding: NSUTF8StringEncoding)!)
+        }
+        handle.waitForDataInBackgroundAndNotify()
+    }
+    
+    func terminated(){
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        busy = false
+    }
+    
+    func receivedError(notification:NSNotification){
+        let handle = notification.object as! NSFileHandle
+        let data = handle.availableData
+        if data.length != 0 {
+            print(String(data: data, encoding: NSUTF8StringEncoding)!)
+        }
+        handle.waitForDataInBackgroundAndNotify()
     }
     
     func deauthenticate(){
@@ -119,6 +166,10 @@ class YoutubeClient: NSObject {
                 return(nil,nil)
         }
         return(title,entries)
+    }
+    
+    func downloadVideo(url:String, path:String){
+        runAsyncYTDLTask([url,path], scriptName: "Download")
     }
 }
 

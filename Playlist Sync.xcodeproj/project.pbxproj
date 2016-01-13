@@ -23,6 +23,7 @@
 		788B8D2B1C44176500FDD122 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D291C44176500FDD122 /* ContentViewController.xib */; };
 		788B8D2F1C44196200FDD122 /* DummyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788B8D2E1C44196200FDD122 /* DummyControl.swift */; };
 		788F0B8B1C46AE8D00BA9BF9 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788F0B8A1C46AE8D00BA9BF9 /* Playlist.swift */; };
+		78938DFF1C4701EF003F9047 /* Download.py in Resources */ = {isa = PBXBuildFile; fileRef = 78938DFE1C4701EF003F9047 /* Download.py */; };
 		78BBFC6F1C42EC1800421236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC6E1C42EC1800421236 /* AppDelegate.swift */; };
 		78BBFC811C42EC1900421236 /* Playlist_SyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC801C42EC1900421236 /* Playlist_SyncTests.swift */; };
 		78BBFC8C1C42EC1900421236 /* Playlist_SyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */; };
@@ -64,6 +65,7 @@
 		788B8D291C44176500FDD122 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContentViewController.xib; path = "Playlist Sync/ContentViewController.xib"; sourceTree = SOURCE_ROOT; };
 		788B8D2E1C44196200FDD122 /* DummyControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyControl.swift; sourceTree = "<group>"; };
 		788F0B8A1C46AE8D00BA9BF9 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		78938DFE1C4701EF003F9047 /* Download.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Download.py; sourceTree = "<group>"; };
 		78BBFC6B1C42EC1800421236 /* Playlist Sync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Playlist Sync.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BBFC6E1C42EC1800421236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78BBFC771C42EC1800421236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				781AD7041C457097005AE4A9 /* Authenticate.py */,
+				78938DFE1C4701EF003F9047 /* Download.py */,
 				787B6E641C45C8D7008F66FA /* Playlist.py */,
 				781AD7061C4576F3005AE4A9 /* youtube_dl */,
 			);
@@ -302,6 +305,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78938DFF1C4701EF003F9047 /* Download.py in Resources */,
 				7879E6D11C4460DD0010443B /* cog@2x.png in Resources */,
 				781AD7051C457097005AE4A9 /* Authenticate.py in Resources */,
 				78395B761C44394500B7B2E7 /* Preferences.xib in Resources */,
