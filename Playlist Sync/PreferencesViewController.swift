@@ -29,7 +29,6 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     
     var outputDir:NSURL
     var playlists = Array<Playlist>()
-    var playlistButtons = Array<NSButtonCell>()
     
     override init(nibName: String?, bundle: NSBundle?){
         outputDir = NSURL()
@@ -65,7 +64,8 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             }
             let response = YoutubeClient().isValidPlaylist(url.absoluteString)
             if response == YoutubeResponse.ValidPlaylist{
-                playlists.append(Playlist(url: url.description, title: url.description))
+                let info = YoutubeClient().playlistInfo(url.absoluteString)
+                playlists.append(Playlist(url: url.description, title: info.title!,enabled:true))
                 playlistTable.reloadData()
                 synchronizePlaylistData()
             }
@@ -80,7 +80,6 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         let row = playlistTable.selectedRow
         if row > -1 {
             playlists.removeAtIndex(row)
-            playlistButtons.removeAtIndex(row)
             synchronizePlaylistData()
             playlistTable.reloadData()
         }
@@ -94,8 +93,8 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     
     @IBAction func playlistShouldSyncChanged(sender: NSTableView) {
         let row = sender.clickedRow
-        let cell = playlistButtons[row]
-        cell.state = (cell.state == NSOnState) ? NSOffState : NSOnState
+        playlists[row].enabled = !playlists[row].enabled
+        synchronizePlaylistData()
     }
     
     func alertForInvalidPlaylist(response:YoutubeResponse){
@@ -204,10 +203,9 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     }
     
     override func viewDidLoad() {
-    
         super.viewDidLoad()
         // Do view setup here.
-        
+        playlistTable.reloadData()
         let delegate = NSApplication.sharedApplication().delegate as! AppDelegate
         let client = delegate.youtubeClient
         if client.authenticated{
@@ -247,7 +245,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
         let cell = tableColumn?.dataCell as! NSButtonCell
         cell.title = playlists[row].title
-        playlistButtons.insert(cell, atIndex: row)
+        cell.state = playlists[row].enabled! ? NSOnState : NSOffState
         return cell
     }
     
@@ -262,5 +260,9 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         }
         return false
     }
-    
+    //TODO: Remove at some point
+    func resetDefaults(){
+        let appDomain = NSBundle.mainBundle().bundleIdentifier!
+        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+    }
 }
