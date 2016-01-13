@@ -18,12 +18,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     var popoverMonitor:AnyObject?
     var preferencesWindowController:PreferencesWindowController
     let youtubeClient:YoutubeClient
+
+
     
     override init(){
         //Initialize and try to authenticate Youtube Client
         youtubeClient = YoutubeClient()
         youtubeClient.authenticate()
-        
         popover = NSPopover()
         popover.contentViewController = ContentViewController(nibName:"ContentViewController",bundle:nil)
         statusItem =  NSStatusBar.systemStatusBar().statusItemWithLength(24)

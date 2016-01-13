@@ -86,8 +86,6 @@ class YoutubeClient: NSObject {
     
     func isValidPlaylist(url:String) -> YoutubeResponse {
         let result = runYTDLTask([url], scriptName: "Playlist")
-        print("Err: \n" + result.errResult)
-        print("Out: \n" + result.logResult)
         if result.errResult == "" {
             return YoutubeResponse.ValidPlaylist
         }
@@ -98,6 +96,23 @@ class YoutubeClient: NSObject {
             return YoutubeResponse.NeedCredentials
         }
         return YoutubeResponse.InvalidPlaylist
+    }
+    
+    func playlistInfo(url:String) -> (title:String?, entries:[JSON]?){
+        let result = runYTDLTask([url], scriptName: "Playlist")
+        let jsonResult = JSON(string:result.logResult)
+        //print(jsonResult)
+        guard let title = jsonResult["title"].asString
+            else{
+                print(jsonResult["title"].asError)
+                return(nil,nil)
+        }
+        guard let entries = jsonResult["entries"].asArray
+            else{
+                print(jsonResult["entries"].asError)
+                return(nil,nil)
+        }
+        return(title,entries)
     }
 }
 
