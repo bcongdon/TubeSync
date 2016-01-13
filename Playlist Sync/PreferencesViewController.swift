@@ -13,6 +13,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var syncFrequency: NSPopUpButtonCell!
+    @IBOutlet weak var syncFrequencyModifierField: NSTextFieldCell!
     @IBOutlet weak var syncEnabledButton: NSButton!
     @IBOutlet weak var usernameField: NSTextFieldCell!
     @IBOutlet weak var passwordField: NSSecureTextField!
