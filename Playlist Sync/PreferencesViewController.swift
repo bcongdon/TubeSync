@@ -28,7 +28,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     @IBOutlet weak var playlistTable: NSTableView!
     
     var outputDir:NSURL
-    var playlists:Array<NSURL> = [NSURL(string: "watchlater")!]
+    var playlists = Array<Playlist>()
     var playlistButtons = Array<NSButtonCell>()
     
     override init(nibName: String?, bundle: NSBundle?){
@@ -65,14 +65,33 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             }
             let response = YoutubeClient().isValidPlaylist(url.absoluteString)
             if response == YoutubeResponse.ValidPlaylist{
-                playlists.append(url)
+                playlists.append(Playlist(url: url.description, title: url.description))
                 playlistTable.reloadData()
+                synchronizePlaylistData()
             }
             else{
                 //Alert user to failed playlist lookup
                 alertForInvalidPlaylist(response)
             }
         }
+    }
+    
+    @IBAction func deletePlaylist(sender: AnyObject){
+        let row = playlistTable.selectedRow
+        if row > -1 {
+            playlists.removeAtIndex(row)
+            playlistButtons.removeAtIndex(row)
+            synchronizePlaylistData()
+            playlistTable.reloadData()
+        }
+    }
+    
+    func synchronizePlaylistData(){
+        let playlistData = NSKeyedArchiver.archivedDataWithRootObject(playlists)
+        print(playlists)
+        print(NSKeyedUnarchiver.unarchiveObjectWithData(playlistData) as? Array<Playlist>)
+        NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
     
     @IBAction func playlistShouldSyncChanged(sender: NSTableView) {
@@ -119,8 +138,11 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     }
     
     @IBAction func promptNewOutputDir(sender: AnyObject) {
-        outputDir = getURL()
-        outputDirTextField.stringValue = outputDir.path!
+        let directory = getURL()
+        if directory.description != ""{
+            outputDir = directory
+            outputDirTextField.stringValue = outputDir.path!
+        }
         NSUserDefaults.standardUserDefaults().setURL(outputDir, forKey: "OutputDirectory")
     }
         
@@ -184,6 +206,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     }
     
     override func viewDidLoad() {
+    
         super.viewDidLoad()
         // Do view setup here.
         
@@ -197,13 +220,20 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             }
         }
         
-        if let outputDir = NSUserDefaults.standardUserDefaults().URLForKey("OutputDirectory") {
-            outputDirTextField.stringValue = outputDir.path!
+        //Get current output directory
+        if let directory = NSUserDefaults.standardUserDefaults().URLForKey("OutputDirectory") {
+            outputDir = directory
+        }
+        else{
+            outputDir = NSFileManager.defaultManager().URLsForDirectory(.MoviesDirectory, inDomains: .UserDomainMask).first! as NSURL
+        }
+        outputDirTextField.stringValue = outputDir.path!
+        if let storedPlaylistData = NSUserDefaults.standardUserDefaults().dataForKey("playlists"){
+            if let decodedPlaylists = NSKeyedUnarchiver.unarchiveObjectWithData(storedPlaylistData) as? Array<Playlist>{
+                playlists = decodedPlaylists
+            }
         }
         
-        if let storedPlaylists = NSUserDefaults.standardUserDefaults().arrayForKey("playlists"){
-            playlists = storedPlaylists as! Array<NSURL>
-        }
     }
     
     override func viewWillDisappear() {
@@ -214,7 +244,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
 
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
         let cell = tableColumn?.dataCell as! NSButtonCell
-        cell.title = playlists[row].absoluteString
+        cell.title = playlists[row].title
         playlistButtons.insert(cell, atIndex: row)
         return cell
     }

@@ -28,7 +28,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Account" identifier="1" id="Q9h-kV-Msz">
-                                <view key="view" id="NKk-v7-4h1">
+                                <view key="view" ambiguous="YES" id="NKk-v7-4h1">
                                     <rect key="frame" x="10" y="33" width="413" height="262"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -132,7 +132,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Sync Settings" identifier="2" id="B4p-wC-n1I">
-                                <view key="view" ambiguous="YES" id="cBa-Hf-TTK">
+                                <view key="view" id="cBa-Hf-TTK">
                                     <rect key="frame" x="10" y="33" width="413" height="262"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -238,6 +238,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="promptNewOutputDir:" target="WUR-gE-l9W" id="za3-cS-qHp"/>
+                                            </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hZh-51-79T">
                                             <rect key="frame" x="137" y="208" width="19" height="21"/>
@@ -255,7 +258,7 @@
                                                 <rect key="frame" x="1" y="1" width="195" height="133"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <tableView appearanceType="aqua" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" id="Qe6-HU-bXe">
+                                                    <tableView appearanceType="aqua" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" id="Qe6-HU-bXe">
                                                         <rect key="frame" x="0.0" y="0.0" width="195" height="133"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
@@ -268,7 +271,7 @@
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                 </tableHeaderCell>
-                                                                <buttonCell key="dataCell" type="check" title="test" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="FHq-Gb-xYw">
+                                                                <buttonCell key="dataCell" type="check" title="test" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="FHq-Gb-xYw">
                                                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                     <connections>
@@ -295,6 +298,16 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSD-Wp-GxN">
+                                            <rect key="frame" x="164" y="208" width="19" height="21"/>
+                                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Irc-ea-X0L">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="deletePlaylist:" target="WUR-gE-l9W" id="j5T-1C-rwF"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -999,10 +1012,12 @@
                 <outlet property="twoFALabel" destination="Q38-6q-zLE" id="tp8-JL-uzL"/>
                 <outlet property="usernameField" destination="RJO-J1-3oi" id="7IE-be-T36"/>
                 <outlet property="usernameLabel" destination="6ly-F2-9mf" id="gxd-rw-tl1"/>
+                <outlet property="view" destination="se5-gp-TjO" id="6iT-ud-7BG"/>
             </connections>
         </customObject>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
     </resources>
 </document>
