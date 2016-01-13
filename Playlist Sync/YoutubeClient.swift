@@ -87,7 +87,14 @@ class YoutubeClient: NSObject {
     func isValidPlaylist(url:String) -> YoutubeResponse {
         let result = runYTDLTask([url], scriptName: "Playlist")
         if result.errResult == "" {
-            return YoutubeResponse.ValidPlaylist
+            //No error in getting result
+            let jsonResult = JSON(string:result.logResult)
+            for(k,v) in jsonResult{
+                if k as! String == "_type" && v.asString == "playlist"{
+                    return YoutubeResponse.ValidPlaylist
+                }
+            }
+            return YoutubeResponse.NotPlaylist
         }
         else if result.errResult.containsString("Error 404"){
             return YoutubeResponse.InvalidPlaylist
@@ -101,7 +108,6 @@ class YoutubeClient: NSObject {
     func playlistInfo(url:String) -> (title:String?, entries:[JSON]?){
         let result = runYTDLTask([url], scriptName: "Playlist")
         let jsonResult = JSON(string:result.logResult)
-        //print(jsonResult)
         guard let title = jsonResult["title"].asString
             else{
                 print(jsonResult["title"].asError)
@@ -117,5 +123,5 @@ class YoutubeClient: NSObject {
 }
 
 enum YoutubeResponse{
-    case AuthSuccess, NeedCredentials, IncorrectCredentials, ValidPlaylist, InvalidPlaylist
+    case AuthSuccess, NeedCredentials, IncorrectCredentials, ValidPlaylist, InvalidPlaylist, NotPlaylist
 }

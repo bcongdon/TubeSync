@@ -44,8 +44,8 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         let alert = NSAlert()
         alert.messageText = "Add new playlist:"
         alert.informativeText = "Enter the URL of a valid Youtube playlist."
-        alert.addButtonWithTitle("Cancel")
         alert.addButtonWithTitle("Add")
+        alert.addButtonWithTitle("Cancel")
         let field = NSTextField(frame: NSMakeRect(0,0,200,24))
         field.cell!.scrollable = false
         field.cell!.wraps = false
@@ -55,7 +55,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         alert.alertStyle = NSAlertStyle.InformationalAlertStyle
         let result = alert.runModal()
         //'Add' Pressed
-        if result == NSAlertSecondButtonReturn {
+        if result == NSAlertFirstButtonReturn {
             guard let url = NSURL(string: field.stringValue)
                 else{
                     print("Error converting \(field.stringValue) to NSURL")
@@ -90,6 +90,12 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         }
         else if response == YoutubeResponse.InvalidPlaylist{
             alert.informativeText = "Playlist URL is invalid."
+        }
+        else if response == YoutubeResponse.NotPlaylist{
+            alert.informativeText = "Specified URL does not reference a Youtube Playlist (perhaps it's a link to a video?)"
+        }
+        else{
+            print("Error type not handled: ",response)
         }
         alert.runModal()
     }

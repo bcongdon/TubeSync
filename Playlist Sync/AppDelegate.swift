@@ -25,6 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         //Initialize and try to authenticate Youtube Client
         youtubeClient = YoutubeClient()
         youtubeClient.authenticate()
+        print(youtubeClient.isValidPlaylist("https://www.youtube.com/watch?v=5jDiqeoh8no"))
         popover = NSPopover()
         popover.contentViewController = ContentViewController(nibName:"ContentViewController",bundle:nil)
         statusItem =  NSStatusBar.systemStatusBar().statusItemWithLength(24)
