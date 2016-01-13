@@ -33,18 +33,9 @@ class YoutubeClient: NSObject {
     }
     
     //Runs YoutubeDL with current options and returns output
-    private func authYoutubeDL(options:Array<String>) -> YoutubeResponse{
-        let task = NSTask()
-        task.launchPath = NSBundle.mainBundle().pathForResource("Authenticate", ofType: "py")! as String
-        task.arguments = options
-        print(options)
-        let out = NSPipe()
-        task.standardError = out
-        task.launch()
-        task.waitUntilExit()
-        let response = out.fileHandleForReading.readDataToEndOfFile()
-        let str = NSString(data: response, encoding: NSUTF8StringEncoding)!
-        
+    private func authYoutubeDL(options:Array<String>) -> YoutubeResponse {
+        let response = runYTDLTask(options, scriptName: "Authenticate")
+        let str = response.errResult
         //No credentials provided
         if str.containsString("The playlist doesn't exist or is private, use --username or --netrc"){
             return YoutubeResponse.NeedCredentials
@@ -56,11 +47,25 @@ class YoutubeClient: NSObject {
         //Able to login
         else{
             authenticated = true
-            print(str)
-
-            return YoutubeResponse.Success
+            return YoutubeResponse.AuthSuccess
         }
     }
+    
+    private func runYTDLTask(options:Array<String>, scriptName:String) -> (logResult:String, errResult:String){
+        let task = NSTask()
+        task.launchPath = NSBundle.mainBundle().pathForResource(scriptName, ofType: "py")! as String
+        task.arguments = options
+        let logOut = NSPipe()
+        let errOut = NSPipe()
+        task.standardOutput = logOut
+        task.standardError = errOut
+        task.launch()
+        task.waitUntilExit()
+        let logResponse = NSString(data: logOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
+        let errResponse = NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
+        return (logResponse as String, errResponse as String)
+    }
+    
     func deauthenticate(){
         authenticated = false
         deleteCookie()
@@ -74,8 +79,28 @@ class YoutubeClient: NSObject {
             print("Ooops! Something went wrong: \(error)")
         }
     }
+    func getPlaylistItems() -> Array<String> {
+        return []
+        //FIXME: Need to implement
+    }
+    
+    func isValidPlaylist(url:String) -> YoutubeResponse {
+        let result = runYTDLTask([url], scriptName: "Playlist")
+        print("Err: \n" + result.errResult)
+        print("Out: \n" + result.logResult)
+        if result.errResult == "" {
+            return YoutubeResponse.ValidPlaylist
+        }
+        else if result.errResult.containsString("Error 404"){
+            return YoutubeResponse.InvalidPlaylist
+        }
+        else if result.errResult.containsString("playlist doesn't exist or is private") {
+            return YoutubeResponse.NeedCredentials
+        }
+        return YoutubeResponse.InvalidPlaylist
+    }
 }
 
 enum YoutubeResponse{
-    case Success, NeedCredentials, IncorrectCredentials
+    case AuthSuccess, NeedCredentials, IncorrectCredentials, ValidPlaylist, InvalidPlaylist
 }

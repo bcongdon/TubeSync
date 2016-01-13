@@ -16,6 +16,7 @@
 		7879E6DD1C44737A0010443B /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7879E6DC1C44737A0010443B /* PreferencesViewController.swift */; };
 		7879E6E01C448AFD0010443B /* YoutubeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7879E6DF1C448AFD0010443B /* YoutubeClient.swift */; };
 		787B6E631C45AE76008F66FA /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 787B6E621C45AE76008F66FA /* Locksmith.framework */; };
+		787B6E651C45C8D7008F66FA /* Playlist.py in Resources */ = {isa = PBXBuildFile; fileRef = 787B6E641C45C8D7008F66FA /* Playlist.py */; };
 		788B8D271C44068400FDD122 /* Watch_Later_Sync.py in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D261C44068400FDD122 /* Watch_Later_Sync.py */; };
 		788B8D2A1C44176500FDD122 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788B8D281C44176500FDD122 /* ContentViewController.swift */; };
 		788B8D2B1C44176500FDD122 /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 788B8D291C44176500FDD122 /* ContentViewController.xib */; };
@@ -54,6 +55,7 @@
 		7879E6DC1C44737A0010443B /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		7879E6DF1C448AFD0010443B /* YoutubeClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeClient.swift; sourceTree = "<group>"; };
 		787B6E621C45AE76008F66FA /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = "../../../Library/Developer/Xcode/DerivedData/Playlist_Sync-ddvkrlzmzmbpafapjbalfjijutxs/Build/Products/Debug/Locksmith.framework"; sourceTree = "<group>"; };
+		787B6E641C45C8D7008F66FA /* Playlist.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Playlist.py; sourceTree = "<group>"; };
 		788B8D261C44068400FDD122 /* Watch_Later_Sync.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = Watch_Later_Sync.py; path = ../Scripts/watch_later/Watch_Later_Sync.py; sourceTree = "<group>"; };
 		788B8D281C44176500FDD122 /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		788B8D291C44176500FDD122 /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ContentViewController.xib; path = "Playlist Sync/ContentViewController.xib"; sourceTree = SOURCE_ROOT; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				781AD7041C457097005AE4A9 /* Authenticate.py */,
+				787B6E641C45C8D7008F66FA /* Playlist.py */,
 				781AD7061C4576F3005AE4A9 /* youtube_dl */,
 			);
 			name = "Python Scripts";
@@ -297,6 +300,7 @@
 				781AD7051C457097005AE4A9 /* Authenticate.py in Resources */,
 				78395B761C44394500B7B2E7 /* Preferences.xib in Resources */,
 				78395B6C1C4433AD00B7B2E7 /* youtube@2x.png in Resources */,
+				787B6E651C45C8D7008F66FA /* Playlist.py in Resources */,
 				788B8D2B1C44176500FDD122 /* ContentViewController.xib in Resources */,
 				788B8D271C44068400FDD122 /* Watch_Later_Sync.py in Resources */,
 				781AD7071C4576F3005AE4A9 /* youtube_dl in Resources */,

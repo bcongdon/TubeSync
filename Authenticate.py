@@ -22,8 +22,6 @@ if len(sys.argv) >= 3:
 if len(sys.argv) >= 4:
     ydl_opts["twofactor"] = sys.argv[3]
 
-import os
-print os.getcwd()
 
 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
     #Fast download to generate cookies file quickly

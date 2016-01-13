@@ -34,6 +34,20 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         fatalError("init(coder:) has not been implemented")
     }
     
+    @IBAction func newPlaylist(sender: AnyObject) {
+        let alert = NSAlert()
+        alert.messageText = "Add new playlist:"
+        alert.informativeText = "Enter the URL of a valid Youtube playlist."
+        alert.addButtonWithTitle("Cancel")
+        alert.addButtonWithTitle("Add")
+        let field = NSTextField(frame: NSMakeRect(0,0,200,24))
+        field.stringValue = ""
+        alert.accessoryView = field
+        alert.icon = NSImage(byReferencingFile: "youtube")
+        alert.alertStyle = NSAlertStyle.InformationalAlertStyle
+        let result = alert.runModal()
+        print(result)
+    }
     @IBAction func onChangeEnabled(sender: NSButton) {
         let state = (sender.state == NSOnState)
         NSUserDefaults.standardUserDefaults().setValue(state, forKey: "syncEnabled")
@@ -57,23 +71,23 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         NSUserDefaults.standardUserDefaults().setURL(outputDir, forKey: "OutputDirectory")
     }
         
-    @IBAction func onSubmitCredentials(sender: NSButton) {
+    @IBAction func onSubmitCredentials(sender: AnyObject?) {
         let delegate = NSApplication.sharedApplication().delegate as! AppDelegate
         let client = delegate.youtubeClient
+        
         //Submit credentials
-        if sender.title == "Submit" {
+        if submitDisconnectButton.title == "Submit" {
             if client.authenticated {
                 lockInAccount()
             }
             let response = client.authenticate(usernameField.stringValue, password: passwordField.stringValue, twoFA: twoFAField.stringValue)
             NSUserDefaults.standardUserDefaults().setObject(usernameField.stringValue, forKey: "accountName")
-            print(response)
-            if response == YoutubeResponse.Success{
-                statusLabel.stringValue = "Success"
+            if response == YoutubeResponse.AuthSuccess{
+                statusLabel.stringValue = "Account Linked"
                 lockInAccount()
             }
             else{
-                statusLabel.stringValue = "Failure"
+                statusLabel.stringValue = "Authentication failure."
             }
         }
         //Disconnect account
@@ -107,10 +121,11 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         usernameLabel.textColor = NSColor.controlTextColor()
         passwordLabel.textColor = NSColor.controlTextColor()
         twoFALabel.textColor = NSColor.controlTextColor()
+        statusLabel.stringValue = "Account unlinked."
     }
     
     func resetPasswordField(){
-        passwordField.stringValue = "********"
+        passwordField.stringValue = "**********"
     }
     
     override func viewDidLoad() {
@@ -119,8 +134,6 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         
         let delegate = NSApplication.sharedApplication().delegate as! AppDelegate
         let client = delegate.youtubeClient
-        print(client.authenticated)
-        print(client)
         if client.authenticated{
             lockInAccount()
             resetPasswordField()
@@ -132,6 +145,12 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         if let outputDir = NSUserDefaults.standardUserDefaults().URLForKey("OutputDirectory") {
             outputDirTextField.stringValue = outputDir.path!
         }
+    }
+    
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        //Status dissappears when view goes away
+        statusLabel.stringValue = ""
     }
     
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
