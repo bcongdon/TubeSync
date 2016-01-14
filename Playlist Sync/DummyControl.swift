@@ -9,9 +9,16 @@
 import Cocoa
 
 class DummyControl: NSControl {
+    var currentClickIsLeft = false
 
     override func mouseDown(theEvent: NSEvent) {
+        currentClickIsLeft = true
         superview!.mouseDown(theEvent)
+        sendAction(action, to: target)
+    }
+    override func rightMouseDown(theEvent: NSEvent) {
+        currentClickIsLeft = false
+        superview!.rightMouseDown(theEvent)
         sendAction(action, to: target)
     }
     

@@ -152,9 +152,13 @@ class YoutubeClient: NSObject {
         return YoutubeResponse.InvalidPlaylist
     }
     
-    func playlistInfo(url:String) -> (title:String?, entries:[JSON]?){
+    func youtubeInfo(url:String) -> JSON {
         let result = runYTDLTask([url], scriptName: "Playlist")
-        let jsonResult = JSON(string:result.logResult)
+        return JSON(string:result.logResult)
+    }
+    
+    func playlistInfo(url:String) -> (title:String?, entries:[JSON]?){
+        let jsonResult = youtubeInfo(url)
         guard let title = jsonResult["title"].asString
             else{
                 print(jsonResult["title"].asError)
@@ -167,6 +171,7 @@ class YoutubeClient: NSObject {
         }
         return(title,entries)
     }
+    
     
     func downloadVideo(url:String, path:String){
         runAsyncYTDLTask([url,path], scriptName: "Download")

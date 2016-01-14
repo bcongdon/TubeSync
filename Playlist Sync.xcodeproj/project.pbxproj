@@ -24,6 +24,7 @@
 		788B8D2F1C44196200FDD122 /* DummyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788B8D2E1C44196200FDD122 /* DummyControl.swift */; };
 		788F0B8B1C46AE8D00BA9BF9 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788F0B8A1C46AE8D00BA9BF9 /* Playlist.swift */; };
 		78938DFF1C4701EF003F9047 /* Download.py in Resources */ = {isa = PBXBuildFile; fileRef = 78938DFE1C4701EF003F9047 /* Download.py */; };
+		78938E011C471C68003F9047 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78938E001C471C68003F9047 /* Utils.swift */; };
 		78BBFC6F1C42EC1800421236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC6E1C42EC1800421236 /* AppDelegate.swift */; };
 		78BBFC811C42EC1900421236 /* Playlist_SyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC801C42EC1900421236 /* Playlist_SyncTests.swift */; };
 		78BBFC8C1C42EC1900421236 /* Playlist_SyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */; };
@@ -66,6 +67,7 @@
 		788B8D2E1C44196200FDD122 /* DummyControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyControl.swift; sourceTree = "<group>"; };
 		788F0B8A1C46AE8D00BA9BF9 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		78938DFE1C4701EF003F9047 /* Download.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Download.py; sourceTree = "<group>"; };
+		78938E001C471C68003F9047 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		78BBFC6B1C42EC1800421236 /* Playlist Sync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Playlist Sync.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BBFC6E1C42EC1800421236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78BBFC771C42EC1800421236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				7879E6DC1C44737A0010443B /* PreferencesViewController.swift */,
 				7879E6D81C446C2E0010443B /* PreferencesWindowController.swift */,
 				78BBFC6E1C42EC1800421236 /* AppDelegate.swift */,
+				78938E001C471C68003F9047 /* Utils.swift */,
 				788B8D2E1C44196200FDD122 /* DummyControl.swift */,
 				788B8D281C44176500FDD122 /* ContentViewController.swift */,
 				788B8D291C44176500FDD122 /* ContentViewController.xib */,
@@ -401,6 +404,7 @@
 			files = (
 				7879E6E01C448AFD0010443B /* YoutubeClient.swift in Sources */,
 				7879E6DD1C44737A0010443B /* PreferencesViewController.swift in Sources */,
+				78938E011C471C68003F9047 /* Utils.swift in Sources */,
 				788B8D2A1C44176500FDD122 /* ContentViewController.swift in Sources */,
 				788F0B8B1C46AE8D00BA9BF9 /* Playlist.swift in Sources */,
 				787B6E671C45EA7E008F66FA /* json.swift in Sources */,

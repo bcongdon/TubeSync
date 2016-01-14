@@ -11,6 +11,7 @@ import Cocoa
 class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
 
     
+    @IBOutlet weak var tabView: NSTabView!
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var syncFrequency: NSPopUpButtonCell!
     @IBOutlet weak var syncFrequencyModifierField: NSTextFieldCell!
@@ -24,6 +25,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     @IBOutlet weak var passwordLabel: NSTextField!
     @IBOutlet weak var twoFALabel: NSTextField!
     @IBOutlet weak var spinningStatusIndicator: NSProgressIndicator!
+    @IBOutlet weak var playlistAddSpinningIndicator: NSProgressIndicator!
     @IBOutlet weak var mainMenu: NSMenu!
     @IBOutlet weak var playlistTable: NSTableView!
     
@@ -62,16 +64,20 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
                     alertForInvalidPlaylist(YoutubeResponse.InvalidPlaylist)
                     return
             }
-            let response = YoutubeClient().isValidPlaylist(url.absoluteString)
-            if response == YoutubeResponse.ValidPlaylist{
-                let info = YoutubeClient().playlistInfo(url.absoluteString)
-                playlists.append(Playlist(url: url.description, title: info.title!,enabled:true))
-                playlistTable.reloadData()
-                synchronizePlaylistData()
-            }
-            else{
-                //Alert user to failed playlist lookup
-                alertForInvalidPlaylist(response)
+            self.playlistAddSpinningIndicator.startAnimation(self)
+            dispatch_async(GlobalMainQueue){
+                let response = YoutubeClient().isValidPlaylist(url.absoluteString)
+                if response == YoutubeResponse.ValidPlaylist{
+                    let info = YoutubeClient().playlistInfo(url.absoluteString)
+                    self.playlists.append(Playlist(url: url.description, title: info.title!,enabled:true))
+                    self.playlistTable.reloadData()
+                    self.synchronizePlaylistData()
+                }
+                else{
+                    //Alert user to failed playlist lookup
+                    self.alertForInvalidPlaylist(response)
+                }
+                self.playlistAddSpinningIndicator.stopAnimation(self)
             }
         }
     }
@@ -144,7 +150,6 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     }
         
     @IBAction func onSubmitCredentials(sender: AnyObject?) {
-        spinningStatusIndicator.startAnimation(self)
         let delegate = NSApplication.sharedApplication().delegate as! AppDelegate
         let client = delegate.youtubeClient
         
@@ -153,14 +158,20 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             if client.authenticated {
                 lockInAccount()
             }
-            let response = client.authenticate(usernameField.stringValue, password: passwordField.stringValue, twoFA: twoFAField.stringValue)
-            NSUserDefaults.standardUserDefaults().setObject(usernameField.stringValue, forKey: "accountName")
-            if response == YoutubeResponse.AuthSuccess{
-                statusLabel.stringValue = "Account Linked"
-                lockInAccount()
-            }
-            else{
-                statusLabel.stringValue = "Authentication failure."
+            spinningStatusIndicator.startAnimation(self)
+
+            dispatch_async(GlobalMainQueue){
+                let response = client.authenticate(self.usernameField.stringValue, password: self.passwordField.stringValue, twoFA: self.twoFAField.stringValue)
+                NSUserDefaults.standardUserDefaults().setObject(self.usernameField.stringValue, forKey: "accountName")
+                if response == YoutubeResponse.AuthSuccess{
+                    self.statusLabel.stringValue = "Account Linked"
+                    self.lockInAccount()
+                }
+                else{
+                    self.statusLabel.stringValue = "Authentication failure."
+                }
+                self.spinningStatusIndicator.stopAnimation(self)
+
             }
         }
         //Disconnect account
@@ -169,7 +180,6 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             client.deauthenticate()
             unlockAccount()
         }
-        spinningStatusIndicator.stopAnimation(self)
     }
     
     func lockInAccount(){
@@ -264,5 +274,8 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     func resetDefaults(){
         let appDomain = NSBundle.mainBundle().bundleIdentifier!
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+    }
+    func switchToAbout(){
+        tabView.selectTabViewItemAtIndex(2)
     }
 }
