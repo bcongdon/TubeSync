@@ -21,13 +21,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     var preferencesWindowController:PreferencesWindowController
     let youtubeClient:YoutubeClient
     let dummyControl = DummyControl()
-
-
+    internal private(set) var timer = NSTimer()
+    internal private(set) var interval:Double? = nil
     
     override init(){
         //Initialize and try to authenticate Youtube Client
         youtubeClient = YoutubeClient()
         self.youtubeClient.authenticate()
+        
+        self.interval = NSUserDefaults.standardUserDefaults().doubleForKey("syncFrequency")
         
         popover = NSPopover()
         popover.contentViewController = ContentViewController(nibName:"ContentViewController",bundle:nil)
@@ -35,13 +37,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         preferencesWindowController = PreferencesWindowController(windowNibName: "Preferences")
         super.init()
         
-        dispatch_async(GlobalMainQueue,{
-            print(self.youtubeClient.isValidPlaylist("https://www.youtube.com/watch?v=5jDiqeoh8no"))
-            self.youtubeClient.downloadVideo("https://www.youtube.com/watch?v=0i-9D92bzu8", path: "/Users/bencongdon/Documents")
-        })
         setupStatusButton()
         NSApplication.sharedApplication().delegate = self
-        
     }
     
     func openPreferences(){
@@ -112,6 +109,36 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         // Insert code here to tear down your application
     }
 
+    func setSyncInterval(seconds:Double){
+        if let currInterval = self.interval{
+            if currInterval == seconds{
+                return
+            }
+        }
+        self.interval = seconds
+        if let newInterval = self.interval {
+            NSUserDefaults.standardUserDefaults().setDouble(newInterval, forKey: "syncFrequency")
+        }
+        if(timer.valid){
+            disableTimer()
+            enableTimer()
+        }
+    }
+    
+    func enableTimer(){
+        if let seconds = self.interval{
+            timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: "syncTimerFired", userInfo: nil, repeats: true)
+        }
+    }
+    
+    func disableTimer(){
+        timer.invalidate()
+    }
+
+    func syncTimerFired(){
+        //TODO: Sync when timer fires
+        
+    }
 
 }
 

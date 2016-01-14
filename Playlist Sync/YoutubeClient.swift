@@ -203,5 +203,5 @@ class YoutubeClient: NSObject {
 }
 
 enum YoutubeResponse{
-    case AuthSuccess, NeedCredentials, IncorrectCredentials, ValidPlaylist, InvalidPlaylist, NotPlaylist
+    case AuthSuccess, NeedCredentials, IncorrectCredentials, ValidPlaylist, InvalidPlaylist, NotPlaylist, DuplicatePlaylist
 }

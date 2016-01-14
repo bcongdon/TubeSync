@@ -13,7 +13,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     
     @IBOutlet weak var tabView: NSTabView!
     @IBOutlet weak var statusLabel: NSTextField!
-    @IBOutlet weak var syncFrequency: NSPopUpButtonCell!
+    @IBOutlet weak var syncFrequency: NSPopUpButton!
     @IBOutlet weak var syncFrequencyModifierField: NSTextFieldCell!
     @IBOutlet weak var syncEnabledButton: NSButton!
     @IBOutlet weak var usernameField: NSTextFieldCell!
@@ -41,6 +41,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
     @IBAction func newPlaylist(sender: AnyObject) {
         let alert = NSAlert()
@@ -63,6 +64,13 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
                     print("Error converting \(field.stringValue) to NSURL")
                     alertForInvalidPlaylist(YoutubeResponse.InvalidPlaylist)
                     return
+            }
+            //Check to make sure the new playlist isn't already being tracked
+            for playlist in self.playlists{
+                if url.absoluteString.rangeOfString(playlist.url) != nil {
+                    alertForInvalidPlaylist(YoutubeResponse.DuplicatePlaylist)
+                    return
+                }
             }
             self.playlistAddSpinningIndicator.startAnimation(self)
             dispatch_async(GlobalMainQueue){
@@ -120,6 +128,9 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         }
         else if response == YoutubeResponse.NotPlaylist{
             alert.informativeText = "Specified URL does not reference a Youtube Playlist (perhaps it's a link to a video?)"
+        }
+        else if response == YoutubeResponse.DuplicatePlaylist {
+            alert.informativeText = "Playlist is already being synced."
         }
         else{
             print("Error type not handled: ",response)
@@ -257,6 +268,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         super.viewWillDisappear()
         //Status dissappears when view goes away
         statusLabel.stringValue = ""
+        syncIntervalChanged()
     }
 
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
@@ -277,6 +289,43 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         }
         return false
     }
+    
+    @IBAction func syncMultiplierChanged(sender: AnyObject) {
+        syncIntervalChanged()
+    }
+    
+    @IBAction func syncUnitChanged(sender: AnyObject) {
+        syncIntervalChanged()
+    }
+    
+    func syncIntervalChanged(){
+        let delegate = NSApp.delegate! as! AppDelegate
+        var interval = syncFrequencyModifierField.doubleValue
+        switch syncFrequency.indexOfSelectedItem{
+        case 0:
+            //Minutes
+            interval *= 60
+            break
+        case 1:
+            //Hours
+            interval *= 3600
+            break
+        case 2:
+            //Days
+            interval *= 86400
+            break
+        default:
+            //??
+            break
+        }
+        print(interval)
+        if interval <= 1 {
+            syncFrequencyModifierField.stringValue = ""
+            return
+        }
+        delegate.setSyncInterval(interval)
+    }
+    
     //TODO: Remove at some point
     func resetDefaults(){
         let appDomain = NSBundle.mainBundle().bundleIdentifier!
