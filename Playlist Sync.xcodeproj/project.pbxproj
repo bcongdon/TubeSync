@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		781AD7051C457097005AE4A9 /* Authenticate.py in Resources */ = {isa = PBXBuildFile; fileRef = 781AD7041C457097005AE4A9 /* Authenticate.py */; };
 		781AD7071C4576F3005AE4A9 /* youtube_dl in Resources */ = {isa = PBXBuildFile; fileRef = 781AD7061C4576F3005AE4A9 /* youtube_dl */; };
+		781C27BA1C47EA590089EEE9 /* SyncHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781C27B91C47EA590089EEE9 /* SyncHelper.swift */; };
 		78395B6C1C4433AD00B7B2E7 /* youtube@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */; };
 		78395B761C44394500B7B2E7 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78395B751C44394500B7B2E7 /* Preferences.xib */; };
 		7879E6D11C4460DD0010443B /* cog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7879E6D01C4460DD0010443B /* cog@2x.png */; };
@@ -52,6 +53,7 @@
 		37C8921B7F2EC1CD4765895A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		781AD7041C457097005AE4A9 /* Authenticate.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Authenticate.py; sourceTree = "<group>"; };
 		781AD7061C4576F3005AE4A9 /* youtube_dl */ = {isa = PBXFileReference; lastKnownFileType = folder; path = youtube_dl; sourceTree = "<group>"; };
+		781C27B91C47EA590089EEE9 /* SyncHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncHelper.swift; sourceTree = "<group>"; };
 		78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube@2x.png"; sourceTree = "<group>"; };
 		78395B751C44394500B7B2E7 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Preferences.xib; path = ../Preferences.xib; sourceTree = "<group>"; };
 		7879E6D01C4460DD0010443B /* cog@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cog@2x.png"; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				788B8D281C44176500FDD122 /* ContentViewController.swift */,
 				788B8D291C44176500FDD122 /* ContentViewController.xib */,
 				78BBFC771C42EC1800421236 /* Info.plist */,
+				781C27B91C47EA590089EEE9 /* SyncHelper.swift */,
 				7879E6DF1C448AFD0010443B /* YoutubeClient.swift */,
 				787B6E661C45EA7E008F66FA /* json.swift */,
 			);
@@ -404,6 +407,7 @@
 			files = (
 				7879E6E01C448AFD0010443B /* YoutubeClient.swift in Sources */,
 				7879E6DD1C44737A0010443B /* PreferencesViewController.swift in Sources */,
+				781C27BA1C47EA590089EEE9 /* SyncHelper.swift in Sources */,
 				78938E011C471C68003F9047 /* Utils.swift in Sources */,
 				788B8D2A1C44176500FDD122 /* ContentViewController.swift in Sources */,
 				788F0B8B1C46AE8D00BA9BF9 /* Playlist.swift in Sources */,

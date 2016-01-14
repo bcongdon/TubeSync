@@ -13,9 +13,8 @@ class YoutubeClient: NSObject {
 
     
     var options:NSMutableDictionary
-    var authenticated:Bool = false
+    internal private(set) var authenticated:Bool = false
     var busy = false
-    var outHandler = {() -> String in return ""}
 
     
     override init(){
@@ -126,10 +125,6 @@ class YoutubeClient: NSObject {
             print("Ooops! Something went wrong: \(error)")
         }
     }
-    func getPlaylistItems() -> Array<String> {
-        return []
-        //FIXME: Need to implement
-    }
     
     func isValidPlaylist(url:String) -> YoutubeResponse {
         let result = runYTDLTask([url], scriptName: "Playlist")
@@ -157,25 +152,54 @@ class YoutubeClient: NSObject {
         return JSON(string:result.logResult)
     }
     
-    func playlistInfo(url:String) -> (title:String?, entries:[JSON]?){
+    func playlistInfo(url:String) -> (title:String?, entries:Array<String>){
         let jsonResult = youtubeInfo(url)
         guard let title = jsonResult["title"].asString
             else{
                 print(jsonResult["title"].asError)
-                return(nil,nil)
+                return(nil,[""])
         }
         guard let entries = jsonResult["entries"].asArray
             else{
                 print(jsonResult["entries"].asError)
-                return(nil,nil)
+                return(nil,[""])
         }
-        return(title,entries)
+        return(title,extractIDs(entries))
     }
     
-    
-    func downloadVideo(url:String, path:String){
-        runAsyncYTDLTask([url,path], scriptName: "Download")
+    //Returns filename
+    func downloadVideo(url:String, path:String) -> String{
+        //Actually download video
+        let result = runYTDLTask([url,path], scriptName: "Download")
+        
+        //Extract file name from output
+        let logResultArray = result.logResult.characters.split{$0 == "\n"}.map(String.init)
+        for line in logResultArray {
+            let beginString = "[download] Destination: "
+            let endString = " has already been downloaded"
+            if line.hasPrefix(beginString){
+                let fileName = line.substringFromIndex(line.startIndex.advancedBy(beginString.characters.count))
+                return fileName
+            }
+            else if line.hasSuffix(endString) {
+                var fileName = line.substringFromIndex(line.startIndex.advancedBy("[download] ".characters.count))
+                fileName = fileName.substringToIndex(fileName.endIndex.advancedBy(-1 * endString.characters.count))
+                return fileName
+            }
+        }
+        return ""
     }
+    
+    func extractIDs(entries:[JSON]) -> Array<String>{
+        var entryIDList = Array<String>()
+        for jsonEntry in entries{
+            guard let title = jsonEntry["id"].asString
+                else{ continue }
+            entryIDList.append(title)
+        }
+        return entryIDList
+    }
+    
 }
 
 enum YoutubeResponse{

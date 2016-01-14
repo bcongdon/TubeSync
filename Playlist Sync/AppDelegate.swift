@@ -28,8 +28,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         //Initialize and try to authenticate Youtube Client
         youtubeClient = YoutubeClient()
         self.youtubeClient.authenticate()
-
-        
         
         popover = NSPopover()
         popover.contentViewController = ContentViewController(nibName:"ContentViewController",bundle:nil)
@@ -39,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         
         dispatch_async(GlobalMainQueue,{
             print(self.youtubeClient.isValidPlaylist("https://www.youtube.com/watch?v=5jDiqeoh8no"))
-            self.youtubeClient.downloadVideo("3WzF13htZoI", path: "/Users/bencongdon/Documents")
+            self.youtubeClient.downloadVideo("https://www.youtube.com/watch?v=0i-9D92bzu8", path: "/Users/bencongdon/Documents")
         })
         setupStatusButton()
         NSApplication.sharedApplication().delegate = self

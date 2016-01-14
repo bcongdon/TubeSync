@@ -11,6 +11,7 @@ ydl_opts = {
     'extract_flat':True,
     'dump_single_json':True,
     'quiet':True,
+    'socket-timeout':5,
 }
 
 if len(sys.argv) < 2:

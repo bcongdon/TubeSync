@@ -69,7 +69,11 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
                 let response = YoutubeClient().isValidPlaylist(url.absoluteString)
                 if response == YoutubeResponse.ValidPlaylist{
                     let info = YoutubeClient().playlistInfo(url.absoluteString)
-                    self.playlists.append(Playlist(url: url.description, title: info.title!,enabled:true))
+                    var entryDict = Dictionary<String,String>()
+                    for entry in info.entries {
+                        entryDict[entry] = ""
+                    }
+                    self.playlists.append(Playlist(url: url.description, title: info.title!,enabled:true,entries:entryDict))
                     self.playlistTable.reloadData()
                     self.synchronizePlaylistData()
                 }
@@ -243,7 +247,10 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
                 playlists = decodedPlaylists
             }
         }
-        
+        self.synchronizePlaylistData()
+        SyncHelper(outputDir: outputDir.path!).downloadPlaylist(self.playlists[0])
+        self.synchronizePlaylistData()
+
     }
     
     override func viewWillDisappear() {

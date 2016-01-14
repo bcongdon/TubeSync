@@ -8,11 +8,12 @@ ydl_opts = {
     #'logger': MyLogger(),
     'cookiefile': '.cookie.txt',
     'skip_download':True,
-    'restrictfilenames':True,
+    #'restrictfilenames':True,
     'outtmpl':'%(title)s.%(ext)s',
     #'progress_hooks':[title_hook],
     'consoletitle':True,
     'extract_flat':True,
+    'socket-timeout':5,
 }
 
 if len(sys.argv) >= 2:
