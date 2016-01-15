@@ -10,12 +10,12 @@ import Cocoa
 
 class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
-    var playlists = Array<Playlist>()
+    var delegate:AppDelegate?
     
     @IBAction func syncPressed(sender: NSButton) {
         data.append("x")
         SyncHelper.defaultHelper.outputDir = "/Users/bencongdon/Documents/Test"
-        SyncHelper.defaultHelper.syncPlaylists(playlists)
+        SyncHelper.defaultHelper.syncPlaylists(self.delegate!.playlists)
         tableView.reloadData()
         
     }
@@ -39,7 +39,13 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.delegate = (NSApp.delegate as! AppDelegate)
+        
         self.onPlaylistsChanged(nil)
+        
+        print(self.delegate!.playlists)
+        tableView.reloadData()
+
 
         //Receive notifications from Preferences that playlist list has changed
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onPlaylistsChanged:", name: "playlistsChanged", object: nil)
@@ -47,29 +53,38 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     }
     
     func onPlaylistsChanged(notification:NSNotification?){
-        NSUserDefaults.standardUserDefaults().synchronize()
-        if let storedPlaylistData = NSUserDefaults.standardUserDefaults().dataForKey("playlists"){
-            if let decodedPlaylists = NSKeyedUnarchiver.unarchiveObjectWithData(storedPlaylistData) as? Array<Playlist> {
-                playlists = decodedPlaylists
-                tableView.reloadData()
-            }
-        }
+//        NSUserDefaults.standardUserDefaults().synchronize()
+//        if let storedPlaylistData = NSUserDefaults.standardUserDefaults().dataForKey("playlists"){
+//            if let decodedPlaylists = NSKeyedUnarchiver.unarchiveObjectWithData(storedPlaylistData) as? Array<Playlist> {
+//                playlists = decodedPlaylists
+//                tableView.reloadData()
+//            }
+//        }
+        //print(playlists)
+        tableView.reloadData()
+        print(self.delegate!.playlists)
     }
     
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        if tableColumn?.identifier == "playlist"{
-            let cellView = tableView.makeViewWithIdentifier("playlist", owner: self) as! NSTableCellView
-            cellView.textField?.stringValue = self.playlists[row].title
-            return cellView
+        if let delegate = self.delegate {
+            if tableColumn?.identifier == "playlist"{
+                let cellView = tableView.makeViewWithIdentifier("playlist", owner: self) as! NSTableCellView
+                cellView.textField?.stringValue = delegate.playlists[row].title
+                return cellView
+            }
+            else {
+                let imgView = tableView.makeViewWithIdentifier("status", owner: self) as! NSTableCellView
+                imgView.imageView?.image = NSImage(named: "cog")
+                return imgView
+            }
         }
-        else {
-            let imgView = tableView.makeViewWithIdentifier("status", owner: self) as! NSTableCellView
-            imgView.imageView?.image = NSImage(named: "cog")
-            return imgView
-        }
+        return NSView()
     }
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return playlists.count
+        if let delegate = self.delegate{
+            return delegate.playlists.count
+        }
+        return 0
     }
 
 }

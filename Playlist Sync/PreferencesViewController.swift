@@ -30,7 +30,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     @IBOutlet weak var playlistTable: NSTableView!
     
     var outputDir:NSURL
-    var playlists = Array<Playlist>()
+    let delegate = (NSApp.delegate as! AppDelegate)
     
     override init(nibName: String?, bundle: NSBundle?){
         outputDir = NSURL()
@@ -66,7 +66,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
                     return
             }
             //Check to make sure the new playlist isn't already being tracked
-            for playlist in self.playlists{
+            for playlist in self.delegate.playlists{
                 if url.absoluteString.rangeOfString(playlist.url) != nil {
                     alertForInvalidPlaylist(YoutubeResponse.DuplicatePlaylist)
                     return
@@ -81,7 +81,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
                     for entry in info.entries {
                         entryDict[entry] = ""
                     }
-                    self.playlists.append(Playlist(url: url.description, title: info.title!,enabled:true,entries:entryDict))
+                    self.delegate.playlists.append(Playlist(url: url.description, title: info.title!,enabled:true,entries:entryDict))
                     self.playlistTable.reloadData()
                     self.synchronizePlaylistData()
                 }
@@ -97,22 +97,22 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     @IBAction func deletePlaylist(sender: AnyObject){
         let row = playlistTable.selectedRow
         if row > -1 {
-            playlists.removeAtIndex(row)
+            delegate.playlists.removeAtIndex(row)
             synchronizePlaylistData()
         }
     }
     
     func synchronizePlaylistData(){
-        pushPlaylistData(playlists)
-        let playlistData = NSKeyedArchiver.archivedDataWithRootObject(playlists)
-        NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
-        NSUserDefaults.standardUserDefaults().synchronize()
+//        let playlistData = NSKeyedArchiver.archivedDataWithRootObject(playlists)
+//        NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
+//        NSUserDefaults.standardUserDefaults().synchronize()
+        NSNotificationCenter.defaultCenter().postNotificationName("playlistsChanged", object: nil)
         self.playlistTable.reloadData()
     }
     
     @IBAction func playlistShouldSyncChanged(sender: NSTableView) {
         let row = sender.clickedRow
-        playlists[row].enabled = !playlists[row].enabled
+        self.delegate.playlists[row].enabled = !self.delegate.playlists[row].enabled
         synchronizePlaylistData()
     }
     
@@ -266,13 +266,13 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
 
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
         let cell = tableColumn?.dataCell as! NSButtonCell
-        cell.title = playlists[row].title
-        cell.state = playlists[row].enabled! ? NSOnState : NSOffState
+        cell.title = self.delegate.playlists[row].title
+        cell.state = self.delegate.playlists[row].enabled! ? NSOnState : NSOffState
         return cell
     }
     
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return playlists.count
+        return self.delegate.playlists.count
     }
     
     func control(control: NSControl, textView: NSTextView, doCommandBySelector commandSelector: Selector) -> Bool {

@@ -9,6 +9,7 @@
 import Cocoa
 
 class Playlist: NSObject,NSCoding {
+    
     var url:String!
     var title:String!
     var enabled:Bool!

@@ -66,6 +66,7 @@ class SyncHelper: NSObject {
                     NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: playlist)
                     //Inform playlist of the resulting file name
                     NSNotificationCenter.defaultCenter().postNotificationName("playlistFileDownloaded", object: [entry.0, fileName])
+                    print(playlist.progress)
                 }
             }
             else{
@@ -79,6 +80,7 @@ class SyncHelper: NSObject {
     func syncPlaylists(playlists:Array<Playlist>){
         for playlist in playlists{
             dispatch_async(GlobalBackgroundQueue){
+                print(playlist)
                 self.downloadPlaylist(playlist)
                 NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadComplete", object: playlist)
             }

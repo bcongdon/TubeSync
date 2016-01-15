@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     internal private(set) var timer = NSTimer()
     internal private(set) var interval:Double? = nil
     
-    internal private(set) var playlists = getUpToDatePlaylistData()
+    internal var playlists = getUpToDatePlaylistData()
     
     override init(){
         //Initialize and try to authenticate Youtube Client
