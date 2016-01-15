@@ -27,3 +27,7 @@ var GlobalUtilityQueue: dispatch_queue_t {
 var GlobalBackgroundQueue: dispatch_queue_t {
     return dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
 }
+
+let SecondsInMinute:Double = 60
+let SecondsInHour:Double = 3600
+let SecondsInDay:Double = 86400

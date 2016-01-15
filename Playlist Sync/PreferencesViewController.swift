@@ -304,15 +304,15 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         switch syncFrequency.indexOfSelectedItem{
         case 0:
             //Minutes
-            interval *= 60
+            interval *= SecondsInMinute
             break
         case 1:
             //Hours
-            interval *= 3600
+            interval *= SecondsInHour
             break
         case 2:
             //Days
-            interval *= 86400
+            interval *= SecondsInDay
             break
         default:
             //??
@@ -333,5 +333,21 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     }
     func switchToAbout(){
         tabView.selectTabViewItemAtIndex(2)
+    }
+    func setupFreqUI(interval:Double?){
+        if let safeInterval = interval{
+            if safeInterval / SecondsInDay >= 1 {
+                syncFrequency.selectItemAtIndex(2)
+                syncFrequencyModifierField.doubleValue = safeInterval / SecondsInDay
+            }
+            else if safeInterval / SecondsInHour >= 1 {
+                syncFrequency.selectItemAtIndex(1)
+                syncFrequencyModifierField.doubleValue = safeInterval / SecondsInHour
+            }
+            else {
+                syncFrequency.selectItemAtIndex(0)
+                syncFrequencyModifierField.doubleValue = safeInterval / SecondsInMinute
+            }
+        }
     }
 }

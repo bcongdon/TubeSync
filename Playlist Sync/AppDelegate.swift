@@ -31,6 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         
         self.interval = NSUserDefaults.standardUserDefaults().doubleForKey("syncFrequency")
         
+        
         popover = NSPopover()
         popover.contentViewController = ContentViewController(nibName:"ContentViewController",bundle:nil)
         statusItem =  NSStatusBar.systemStatusBar().statusItemWithLength(24)
@@ -103,6 +104,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     }
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
+        self.prefViewController.setupFreqUI(self.interval)
+
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
