@@ -74,9 +74,9 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             }
             self.playlistAddSpinningIndicator.startAnimation(self)
             dispatch_async(GlobalMainQueue){
-                let response = YoutubeClient().isValidPlaylist(url.absoluteString)
+                let response = YoutubeClient.defaultClient.isValidPlaylist(url.absoluteString)
                 if response == YoutubeResponse.ValidPlaylist{
-                    let info = YoutubeClient().playlistInfo(url.absoluteString)
+                    let info = YoutubeClient.defaultClient.playlistInfo(url.absoluteString)
                     var entryDict = Dictionary<String,String>()
                     for entry in info.entries {
                         entryDict[entry] = ""
@@ -103,11 +103,11 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     }
     
     func synchronizePlaylistData(){
+        pushPlaylistData(playlists)
         let playlistData = NSKeyedArchiver.archivedDataWithRootObject(playlists)
         NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
         NSUserDefaults.standardUserDefaults().synchronize()
         self.playlistTable.reloadData()
-        NSNotificationCenter.defaultCenter().postNotificationName("playlistsChanged", object: self)
     }
     
     @IBAction func playlistShouldSyncChanged(sender: NSTableView) {
@@ -254,15 +254,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             outputDir = NSFileManager.defaultManager().URLsForDirectory(.MoviesDirectory, inDomains: .UserDomainMask).first! as NSURL
         }
         outputDirTextField.stringValue = outputDir.path!
-        if let storedPlaylistData = NSUserDefaults.standardUserDefaults().dataForKey("playlists"){
-            if let decodedPlaylists = NSKeyedUnarchiver.unarchiveObjectWithData(storedPlaylistData) as? Array<Playlist>{
-                playlists = decodedPlaylists
-            }
-        }
         self.synchronizePlaylistData()
-        //SyncHelper(outputDir: outputDir.path!).downloadPlaylist(self.playlists[0])
-        self.synchronizePlaylistData()
-
     }
     
     override func viewWillDisappear() {

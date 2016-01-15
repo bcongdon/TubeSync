@@ -10,7 +10,10 @@ import Cocoa
 
 class SyncHelper: NSObject {
     
-    let outputDir:String
+    static let defaultHelper = SyncHelper(outputDir: "")
+    
+    var outputDir:String
+    
     private let fileManager = NSFileManager.defaultManager()
     let youtubeClient = YoutubeClient()
     
@@ -42,20 +45,43 @@ class SyncHelper: NSObject {
         }
     }
     
+    //NOT a blocking function
     func downloadPlaylist(playlist:Playlist){
-        //Loop through playlist videos
+        playlist.progress = 0
+        
+        let folderList = listOutputDirectory()
         for entry in playlist.entries {
-            let folderList = listOutputDirectory()
+            if !folderList.contains(entry.1){
+                print(entry.1)
+                playlist.entries[entry.0] = ""
+            }
+        }
+        for entry in playlist.entries {
+            //print(folderList)
             
             //Download video is filename is unknown, or if the video file isn't in outputDir
-            if entry.1.isEmpty || !folderList.contains(entry.1){
+            if entry.1.isEmpty {
                 dispatch_async(GlobalBackgroundQueue){
                     let fileName = self.youtubeClient.downloadVideo(entry.0, path: self.outputDir)
+                    NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: playlist)
                     //Inform playlist of the resulting file name
-                    playlist.entries[entry.0] = fileName
+                    NSNotificationCenter.defaultCenter().postNotificationName("playlistFileDownloaded", object: [entry.0, fileName])
                 }
+            }
+            else{
+                playlist.progress = playlist.progress + (1 / Double(playlist.entries.count))
+                NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: playlist)
+                print("found completed file")
+                //print(playlist.progress)
             }
         }
     }
-    
+    func syncPlaylists(playlists:Array<Playlist>){
+        for playlist in playlists{
+            dispatch_async(GlobalBackgroundQueue){
+                self.downloadPlaylist(playlist)
+                NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadComplete", object: playlist)
+            }
+        }
+    }
 }

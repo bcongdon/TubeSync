@@ -24,13 +24,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     internal private(set) var timer = NSTimer()
     internal private(set) var interval:Double? = nil
     
+    internal private(set) var playlists = getUpToDatePlaylistData()
+    
     override init(){
         //Initialize and try to authenticate Youtube Client
-        youtubeClient = YoutubeClient()
-        self.youtubeClient.authenticate()
+        youtubeClient = YoutubeClient.defaultClient
+        youtubeClient.authenticate()
         
         self.interval = NSUserDefaults.standardUserDefaults().doubleForKey("syncFrequency")
-        
         
         popover = NSPopover()
         popover.contentViewController = ContentViewController(nibName:"ContentViewController",bundle:nil)
@@ -38,9 +39,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         preferencesWindowController = PreferencesWindowController(windowNibName: "Preferences")
         super.init()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: "playlistFileDownloaded", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: "playlistFileDownloaded", object: nil)
         
         setupStatusButton()
         NSApplication.sharedApplication().delegate = self
+    }
+    
+    func playlistUpdate(notification:NSNotification){
+        pushPlaylistData(playlists)
     }
     
     

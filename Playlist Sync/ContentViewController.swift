@@ -14,6 +14,8 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     
     @IBAction func syncPressed(sender: NSButton) {
         data.append("x")
+        SyncHelper.defaultHelper.outputDir = "/Users/bencongdon/Documents/Test"
+        SyncHelper.defaultHelper.syncPlaylists(playlists)
         tableView.reloadData()
         
     }

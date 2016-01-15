@@ -31,3 +31,18 @@ var GlobalBackgroundQueue: dispatch_queue_t {
 let SecondsInMinute:Double = 60
 let SecondsInHour:Double = 3600
 let SecondsInDay:Double = 86400
+
+func pushPlaylistData(playlists:Array<Playlist>){
+    let playlistData = NSKeyedArchiver.archivedDataWithRootObject(playlists)
+    NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
+    NSUserDefaults.standardUserDefaults().synchronize()
+}
+
+func getUpToDatePlaylistData() -> Array<Playlist>{
+    if let storedPlaylistData = NSUserDefaults.standardUserDefaults().dataForKey("playlists"){
+        if let decodedPlaylists = NSKeyedUnarchiver.unarchiveObjectWithData(storedPlaylistData) as? Array<Playlist>{
+            return decodedPlaylists
+        }
+    }
+    return Array<Playlist>()
+}

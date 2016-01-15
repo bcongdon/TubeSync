@@ -11,12 +11,15 @@ import Python
 
 class YoutubeClient: NSObject {
 
+    static let defaultClient = YoutubeClient()
     
     var options:NSMutableDictionary
     internal private(set) var authenticated:Bool = false
     var busy = false
+    var currentDownloads = 0
+    let MAX_CONCURRENT_DOWNLOADS = 1
+    var downloadQueue = Array<(String,String)>()
 
-    
     override init(){
         //Initializes Client
         options = NSMutableDictionary()
@@ -66,28 +69,6 @@ class YoutubeClient: NSObject {
         let errResponse = NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
         return (logResponse as String, errResponse as String)
     }
-    
-//    private func runAsyncYTDLTask(options:Array<String>, scriptName:String){
-//        let task = NSTask()
-//        task.launchPath = NSBundle.mainBundle().pathForResource(scriptName, ofType: "py")! as String
-//        task.arguments = options
-//        let logOutPipe = NSPipe()
-//        let errOutPipe = NSPipe()
-//        task.standardOutput = logOutPipe
-//        task.standardError = errOutPipe
-//        let logOut = logOutPipe.fileHandleForReading
-//        let errOut = errOutPipe.fileHandleForReading
-//        errOut.waitForDataInBackgroundAndNotify()
-//        busy = true
-//        task.launch()
-//
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logOut)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
-//            NSTaskDidTerminateNotification, object: task)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errOut)
-//        logOut.waitForDataInBackgroundAndNotify()
-//        errOut.waitForDataInBackgroundAndNotify()
-//    }
     
     func receivedData(notification:NSNotification){
         let handle = notification.object as! NSFileHandle
@@ -169,8 +150,20 @@ class YoutubeClient: NSObject {
     
     //Returns filename
     func downloadVideo(url:String, path:String) -> String{
+        //Blocks until acceptable # of downloads
+        while(currentDownloads >= MAX_CONCURRENT_DOWNLOADS){
+        }
+        return internalDownload(url, path: path)
+    }
+    
+    private func internalDownload(url:String, path:String) -> String {
+        self.currentDownloads += 1
+        
         //Actually download video
         let result = runYTDLTask([url,path], scriptName: "Download")
+        
+        self.currentDownloads -= 1
+        
         NSNotificationCenter.defaultCenter().postNotificationName("videoFinished", object: result.logResult)
         
         //Extract file name from output
@@ -206,3 +199,25 @@ class YoutubeClient: NSObject {
 enum YoutubeResponse{
     case AuthSuccess, NeedCredentials, IncorrectCredentials, ValidPlaylist, InvalidPlaylist, NotPlaylist, DuplicatePlaylist
 }
+
+//    private func runAsyncYTDLTask(options:Array<String>, scriptName:String){
+//        let task = NSTask()
+//        task.launchPath = NSBundle.mainBundle().pathForResource(scriptName, ofType: "py")! as String
+//        task.arguments = options
+//        let logOutPipe = NSPipe()
+//        let errOutPipe = NSPipe()
+//        task.standardOutput = logOutPipe
+//        task.standardError = errOutPipe
+//        let logOut = logOutPipe.fileHandleForReading
+//        let errOut = errOutPipe.fileHandleForReading
+//        errOut.waitForDataInBackgroundAndNotify()
+//        busy = true
+//        task.launch()
+//
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logOut)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
+//            NSTaskDidTerminateNotification, object: task)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errOut)
+//        logOut.waitForDataInBackgroundAndNotify()
+//        errOut.waitForDataInBackgroundAndNotify()
+//    }
