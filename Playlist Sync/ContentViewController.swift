@@ -10,6 +10,8 @@ import Cocoa
 
 class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
+    var playlists = Array<Playlist>()
+    
     @IBAction func syncPressed(sender: NSButton) {
         data.append("x")
         tableView.reloadData()
@@ -34,17 +36,38 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        
+        self.onPlaylistsChanged(nil)
+
+        //Receive notifications from Preferences that playlist list has changed
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onPlaylistsChanged:", name: "playlistsChanged", object: nil)
         
     }
     
+    func onPlaylistsChanged(notification:NSNotification?){
+        NSUserDefaults.standardUserDefaults().synchronize()
+        if let storedPlaylistData = NSUserDefaults.standardUserDefaults().dataForKey("playlists"){
+            if let decodedPlaylists = NSKeyedUnarchiver.unarchiveObjectWithData(storedPlaylistData) as? Array<Playlist> {
+                playlists = decodedPlaylists
+                tableView.reloadData()
+            }
+        }
+    }
+    
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cellView = tableView.makeViewWithIdentifier((tableColumn?.identifier)!, owner: self) as! NSTableCellView
-        cellView.textField?.stringValue = data[row]
-        return cellView
+        if tableColumn?.identifier == "playlist"{
+            let cellView = tableView.makeViewWithIdentifier("playlist", owner: self) as! NSTableCellView
+            cellView.textField?.stringValue = self.playlists[row].title
+            return cellView
+        }
+        else {
+            let imgView = tableView.makeViewWithIdentifier("status", owner: self) as! NSTableCellView
+            imgView.imageView?.image = NSImage(named: "cog")
+            return imgView
+        }
     }
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return data.count
+        return playlists.count
     }
 
 }

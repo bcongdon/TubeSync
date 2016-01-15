@@ -38,15 +38,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         preferencesWindowController = PreferencesWindowController(windowNibName: "Preferences")
         super.init()
         
+        
         setupStatusButton()
         NSApplication.sharedApplication().delegate = self
     }
+    
     
     func openPreferences(){
         if(popover.shown){
             closePopover()
         }
         self.window.makeKeyAndOrderFront(self)
+        NSApp.activateIgnoringOtherApps(true)
+        self.window.makeKeyWindow()
     }
     
     func setupStatusButton(){

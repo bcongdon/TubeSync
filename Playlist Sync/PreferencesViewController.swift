@@ -99,7 +99,6 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         if row > -1 {
             playlists.removeAtIndex(row)
             synchronizePlaylistData()
-            playlistTable.reloadData()
         }
     }
     
@@ -107,6 +106,8 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         let playlistData = NSKeyedArchiver.archivedDataWithRootObject(playlists)
         NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
         NSUserDefaults.standardUserDefaults().synchronize()
+        self.playlistTable.reloadData()
+        NSNotificationCenter.defaultCenter().postNotificationName("playlistsChanged", object: self)
     }
     
     @IBAction func playlistShouldSyncChanged(sender: NSTableView) {
@@ -259,7 +260,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             }
         }
         self.synchronizePlaylistData()
-        SyncHelper(outputDir: outputDir.path!).downloadPlaylist(self.playlists[0])
+        //SyncHelper(outputDir: outputDir.path!).downloadPlaylist(self.playlists[0])
         self.synchronizePlaylistData()
 
     }
@@ -330,6 +331,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     func resetDefaults(){
         let appDomain = NSBundle.mainBundle().bundleIdentifier!
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+        print("WARNING: Cleared NSUserDefaults")
     }
     func switchToAbout(){
         tabView.selectTabViewItemAtIndex(2)
