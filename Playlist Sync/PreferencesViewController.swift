@@ -36,12 +36,30 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         outputDir = NSURL()
         NSApp.mainMenu = mainMenu
         super.init(nibName: nibName, bundle: bundle)!
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onRefreshFailed:", name: PlaylistRefreshFailedNotification, object: nil)
+        
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func onRefreshFailed(notification:NSNotification){
+        dispatch_async(GlobalMainQueue){
+            self.delegate.closePopover()
+            let alert = NSAlert()
+            alert.messageText = "Sync Failed"
+            let playlistTitle = (notification.object as! Playlist).title
+            
+            alert.informativeText = "Refreshing the playlist \"\(playlistTitle)\" failed due to credential error or network timeout. The current sync has been aborted. NOTE: Syncing has been disabled."
+            self.delegate.setSyncEnabled(false)
+            alert.addButtonWithTitle("OK")
+            alert.icon = NSImage(byReferencingFile: "youtube")
+            alert.alertStyle = NSAlertStyle.InformationalAlertStyle
+            alert.runModal()
+        }
+    }
     
     @IBAction func newPlaylist(sender: AnyObject) {
         let alert = NSAlert()

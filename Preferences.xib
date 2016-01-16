@@ -194,7 +194,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rwi-fP-ARI">
-                                            <rect key="frame" x="9" y="57" width="395" height="5"/>
+                                            <rect key="frame" x="9" y="57" width="395" height="4"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
@@ -1002,7 +1002,7 @@
         </menu>
         <customObject id="11g-7b-PFK" customClass="AppDelegate" customModule="Playlist_Sync" customModuleProvider="target">
             <connections>
-                <outlet property="prefViewController" destination="WUR-gE-l9W" id="YGB-KQ-gtx"/>
+                <outlet property="preferencesViewController" destination="WUR-gE-l9W" id="DAP-m2-sh8"/>
                 <outlet property="rightClickMenu" destination="5nQ-cN-oSc" id="V42-Sk-GqN"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="USN-Ph-TKG"/>
             </connections>

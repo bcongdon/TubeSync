@@ -55,6 +55,7 @@ let PlaylistDownloadCompletionNotification = "PlaylistDownloadCompletionNotifica
 let PlaylistFileDownloadedNotification = "PlaylistFileDownloadedNotification"
 let PlaylistDownloadProgressNotification = "PlaylistDownloadProgressNotification"
 let PlaylistSyncCompletionNotification = "PlaylistSyncCompletionNotification"
+let PlaylistRefreshFailedNotification = "PlaylistRefreshFailedNotification"
 
 let PlaylistListUpdate = "PlaylistListUpdate"
 

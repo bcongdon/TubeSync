@@ -142,24 +142,34 @@ class YoutubeClient: NSObject {
         return YoutubeResponse.InvalidPlaylist
     }
     
-    func youtubeInfo(url:String) -> JSON {
+    func youtubeInfo(url:String) -> JSON? {
         let result = runYTDLTask([url], scriptName: "Playlist")
+        if result.errResult != "" {
+            print("-----")
+            print("ERROR:")
+            print(result.errResult)
+            print("-----")
+            return nil
+        }
         return JSON(string:result.logResult)
     }
     
     func playlistInfo(url:String) -> (title:String?, entries:Array<String>){
-        let jsonResult = youtubeInfo(url)
-        guard let title = jsonResult["title"].asString
-            else{
-                print(jsonResult["title"].asError)
-                return(nil,[""])
+        let optionalResult = youtubeInfo(url)
+        if let jsonResult = optionalResult {
+            guard let title = jsonResult["title"].asString
+                else{
+                    print(jsonResult["title"].asError)
+                    return(nil,[""])
+            }
+            guard let entries = jsonResult["entries"].asArray
+                else{
+                    print(jsonResult["entries"].asError)
+                    return(nil,[""])
+            }
+            return(title,extractIDs(entries))
         }
-        guard let entries = jsonResult["entries"].asArray
-            else{
-                print(jsonResult["entries"].asError)
-                return(nil,[""])
-        }
-        return(title,extractIDs(entries))
+        return (nil,[""])
     }
     
     //Returns filename
@@ -223,18 +233,21 @@ class YoutubeClient: NSObject {
     }
     func deleteFile(path:String){
         let fileManager = NSFileManager.defaultManager()
-        print("NOTE: would remove: " + path)
-//        do {
-//            try fileManager.removeItemAtPath(path)
-//            print("Removed file: " + path)
-//        }
-//        catch let error as NSError {
-//            print("Something went wrong deleting file: \(error)")
-//        }
+        do {
+            try fileManager.removeItemAtPath(path)
+            print("DELETE: Removed file: " + path)
+        }
+        catch let error as NSError {
+            print("Something went wrong deleting file: \(error)")
+        }
     }
     
-    func refreshPlaylist(playlist:Playlist){
+    func refreshPlaylist(playlist:Playlist) throws {
         let info = YoutubeClient.defaultClient.playlistInfo(playlist.url)
+        if info.title == nil{
+            print("playlist no longer valid")
+            throw YoutubeError.CannotRefreshError
+        }
         var entryDict = Dictionary<String,String>()
         for entry in info.entries {
             entryDict[entry] = ""
@@ -267,4 +280,8 @@ class YoutubeClient: NSObject {
 
 enum YoutubeResponse{
     case AuthSuccess, NeedCredentials, IncorrectCredentials, ValidPlaylist, InvalidPlaylist, NotPlaylist, DuplicatePlaylist
+}
+
+enum YoutubeError: ErrorType{
+    case CannotRefreshError
 }

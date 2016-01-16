@@ -11,7 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
-    @IBOutlet weak var prefViewController: PreferencesViewController!
+    @IBOutlet weak var preferencesViewController: PreferencesViewController!
     @IBOutlet weak var window:NSWindow!
     @IBOutlet weak var rightClickMenu:NSMenu!
     
@@ -125,7 +125,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     }
 
     @IBAction func aboutClicked(sender: AnyObject) {
-        prefViewController.switchToAbout()
+        preferencesViewController.switchToAbout()
         openPreferences()
     }
     
@@ -134,7 +134,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     }
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
-        self.prefViewController.setupFreqUI(self.interval)
+        self.preferencesViewController.setupFreqUI(self.interval)
         self.enableTimer()
     }
 
@@ -171,6 +171,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     func setSyncEnabled(shouldBeOn:Bool){
         NSUserDefaults.standardUserDefaults().setValue(shouldBeOn, forKey: "syncEnabled")
         NSUserDefaults.standardUserDefaults().synchronize()
+        preferencesViewController.syncEnabledButton.state = shouldBeOn ? NSOnState : NSOffState
         
         if shouldBeOn {
             enableTimer()

@@ -55,13 +55,14 @@ class SyncHelper: NSObject {
     }
     
     //Tries to download the given playlist by refreshing and downloading files that haven't been downloaded yet
-    func downloadPlaylist(playlist:Playlist){
+    func downloadPlaylist(playlist:Playlist) throws {
         
         let playlistFolderPath = NSString(string: outputDir).stringByAppendingPathComponent(playlist.title
         )
         
         //Updates the URLs in the playlist entry array to reflect the most up-to-date version
-        youtubeClient.refreshPlaylist(playlist)
+        try youtubeClient.refreshPlaylist(playlist)
+
         
         //Reset the playlist's internal download counter
         playlist.progress = 0
@@ -110,7 +111,13 @@ class SyncHelper: NSObject {
         for playlist in playlists{
             if playlist.enabled! {
                 let downloadPlaylistOp = NSBlockOperation(block: {
-                    self.downloadPlaylist(playlist)
+                    do {
+                        try self.downloadPlaylist(playlist)
+                    }
+                    catch {
+                        self.haltSync()
+                        NSNotificationCenter.defaultCenter().postNotificationName(PlaylistRefreshFailedNotification, object: playlist)
+                    }
                 })
                 downloadPlaylistOp.completionBlock = {
                     print("* FINISHED DOWNLOADING " + playlist.title)

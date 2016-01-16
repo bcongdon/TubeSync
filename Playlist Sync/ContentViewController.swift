@@ -82,6 +82,9 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     }
     
     func onDownloadUpdate(notification:NSNotification){
+        if !delegate!.syncActive{
+            return
+        }
         if let playlist = notification.object as? Playlist{
             print(playlist.entries.count, playlist.progress!)
 
