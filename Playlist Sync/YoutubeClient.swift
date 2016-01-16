@@ -16,8 +16,6 @@ class YoutubeClient: NSObject {
     var options:NSMutableDictionary
     internal private(set) var authenticated:Bool = false
     //var busy = false
-    var currentDownloads = 0
-    let MAX_CONCURRENT_DOWNLOADS = 1
     var downloadQueue = Array<(String,String)>()
     var handlesForPlaylists = Dictionary<Playlist,[NSFileHandle]>()
 
@@ -166,20 +164,13 @@ class YoutubeClient: NSObject {
     
     //Returns filename
     func downloadVideo(url:String, path:String) -> String{
-        //Blocks until acceptable # of downloads
-        while(currentDownloads >= MAX_CONCURRENT_DOWNLOADS){
-            sleep(1)
-
-        }
         print("Going forward with download: " + url)
         return internalDownload(url, path: path)
     }
     
     func makeFoldersToPath(path:String){
         do {
-            dispatch_async(GlobalMainQueue){
-                print("path to " + path)
-            }
+            print("path to " + path)
             try NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
         } catch let error as NSError {
             print("ERROR: " + error.localizedDescription);
@@ -190,12 +181,8 @@ class YoutubeClient: NSObject {
         
         makeFoldersToPath(path)
         
-        self.currentDownloads += 1
-        
         //Actually download video
         let result = runYTDLTask([url,path], scriptName: "Download")
-        
-        self.currentDownloads -= 1
         
         NSNotificationCenter.defaultCenter().postNotificationName("videoFinished", object: result.logResult)
         

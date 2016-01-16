@@ -49,3 +49,9 @@ func fetchPlaylistsFromDefaults() -> Array<Playlist>{
     print("Warning: Couldn't fetch playlists from user defaults")
     return Array<Playlist>()
 }
+
+
+let PlaylistDownloadCompletionNotification = "PlaylistDownloadCompletionNotification"
+let PlaylistFileDownloadedNotification = "PlaylistFileDownloadedNotification"
+let PlaylistDownloadProgressNotification = "PlaylistDownloadProgressNotification"
+let SyncInitiatedNotification = "SyncInitiatedNotification"

@@ -12,6 +12,8 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
 
     var delegate:AppDelegate?
     
+    @IBOutlet weak var downloadProgressIndicator: NSProgressIndicator!
+    @IBOutlet weak var lastSyncLabel: NSTextField!
     @IBAction func syncPressed(sender: NSButton) {
         
         delegate?.syncTimerFired()
@@ -49,17 +51,26 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
         //Receive notifications from Preferences that playlist list has changed
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onPlaylistsChanged:", name: "playlistsChanged", object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onDownloadUpdate:", name: PlaylistDownloadProgressNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onSyncStart:", name: SyncInitiatedNotification, object: nil)
+        
+    }
+    
+    func onSyncStart(notification:NSNotification){
+        lastSyncLabel.stringValue = NSDate().description
+    }
+    
+    func onDownloadUpdate(notification:NSNotification){
+        if let playlist = notification.object as? Playlist{
+            print(playlist.entries.count, playlist.progress!)
+
+            downloadProgressIndicator.maxValue = Double(playlist.entries.count)
+            downloadProgressIndicator.doubleValue = Double(playlist.progress!)
+        }
     }
     
     func onPlaylistsChanged(notification:NSNotification?){
-//        NSUserDefaults.standardUserDefaults().synchronize()
-//        if let storedPlaylistData = NSUserDefaults.standardUserDefaults().dataForKey("playlists"){
-//            if let decodedPlaylists = NSKeyedUnarchiver.unarchiveObjectWithData(storedPlaylistData) as? Array<Playlist> {
-//                playlists = decodedPlaylists
-//                tableView.reloadData()
-//            }
-//        }
-        //print(playlists)
         tableView.reloadData()
     }
     

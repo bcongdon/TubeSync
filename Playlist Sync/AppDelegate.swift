@@ -174,7 +174,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
                 helper.syncPlaylists(self.playlists)
             }
         }
-        
+        NSNotificationCenter.defaultCenter().postNotificationName(SyncInitiatedNotification, object: nil)
     }
 
 }

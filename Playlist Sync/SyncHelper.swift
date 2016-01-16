@@ -7,17 +7,26 @@
 //
 
 import Cocoa
+import Foundation
 
 class SyncHelper: NSObject {
     
     var outputDir:String
-    var outstandingTasks:Int = 0
+    let downloadQueue = NSOperationQueue()
+    let playlistQueue = NSOperationQueue()
     
     static private let fileManager = NSFileManager.defaultManager()
+    
     let youtubeClient = YoutubeClient.defaultClient
     
     init(outputDir:String){
         self.outputDir = outputDir
+        
+        downloadQueue.maxConcurrentOperationCount = 3
+        downloadQueue.qualityOfService = .Background
+        
+        playlistQueue.maxConcurrentOperationCount = 1
+        playlistQueue.qualityOfService = .Background
     }
     
     static func listFolder(directory:String) -> Array<String>{
@@ -47,7 +56,6 @@ class SyncHelper: NSObject {
         )
         
         youtubeClient.refreshPlaylist(playlist)
-        youtubeClient.deleteStaleFiles(playlist, path: playlistFolderPath)
         
         playlist.progress = 0
         
@@ -66,41 +74,43 @@ class SyncHelper: NSObject {
             
             //Download video is filename is unknown, or if the video file isn't in outputDir
             if entry.1.isEmpty {
-                self.outstandingTasks += 1
-                dispatch_sync(GlobalBackgroundQueue){
+                let downloadOp = NSBlockOperation(block: {
                     print("Downloading: " + entry.0)
                     let fileName = self.youtubeClient.downloadVideo(entry.0, path: playlistFolderPath)
-                    NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: playlist)
                     //Inform playlist of the resulting file name
-                    NSNotificationCenter.defaultCenter().postNotificationName("playlistFileDownloaded", object: [entry.0, fileName])
-                    self.outstandingTasks -= 1
-                    print("Outstanding tasks: \(self.outstandingTasks)")
-                }
+                    NSNotificationCenter.defaultCenter().postNotificationName(PlaylistFileDownloadedNotification, object: [entry.0, fileName])
+                    NSNotificationCenter.defaultCenter().postNotificationName(PlaylistDownloadProgressNotification, object: playlist)
+                })
+                downloadQueue.addOperation(downloadOp)
+                print("Operation count: \(downloadQueue.operationCount)")
             }
             else{
-                NSNotificationCenter.defaultCenter().postNotificationName("playlistFileDownloaded", object: [entry.0,entry.1])
-                NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: [entry.0,entry.1])
+                NSNotificationCenter.defaultCenter().postNotificationName(PlaylistFileDownloadedNotification, object: [entry.0,entry.1])
+                NSNotificationCenter.defaultCenter().postNotificationName(PlaylistDownloadProgressNotification, object: playlist)
                 print("found completed file")
             }
         }
+        downloadQueue.waitUntilAllOperationsAreFinished()
     }
     
     func syncPlaylists(playlists:Array<Playlist>){
-        if(outputDir == "") {
-            print("Warning: Not syncing because outputDir is blank.")
+        if(downloadQueue.operationCount > 0){
             return
         }
-        if outstandingTasks > 0{
-            print("returning because outstanding tasks is \(self.outstandingTasks)")
+        else if(outputDir == "") {
+            print("Warning: Not syncing because outputDir is blank.")
             return
         }
         for playlist in playlists{
             if playlist.enabled! {
-                print(playlist)
-                self.downloadPlaylist(playlist)
-                NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadComplete", object: playlist)
+                let downloadPlaylistOp = NSBlockOperation(block: {
+                    self.downloadPlaylist(playlist)
+                })
+                downloadPlaylistOp.completionBlock = {
+                    print("**** FINISHED DOWNLOADING " + playlist.title)
+                }
+                playlistQueue.addOperation(downloadPlaylistOp)
             }
-            
         }
     }
 }

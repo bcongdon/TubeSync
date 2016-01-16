@@ -19,13 +19,13 @@ class Playlist: NSObject,NSCoding {
     
     override init(){
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: "playlistFileDownloaded", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: PlaylistFileDownloadedNotification, object: nil)
     }
     
     func playlistUpdate(notification:NSNotification){
         var progressCounter:Int = 0
         if let update = notification.object as? Array<String>{
-            
+
             for entry in entries{
                 //Filename found in update
                 if entry.0 == update[0]{
@@ -40,7 +40,12 @@ class Playlist: NSObject,NSCoding {
                 }
             }
             self.progress! += progressCounter
-            print("\(progress) out of \(entries.count)")
+            dispatch_async(GlobalMainQueue){
+                print("\(self.progress) out of \(self.entries.count)")
+            }
+        }
+        if self.progress! >= entries.count {
+            NSNotificationCenter.defaultCenter().postNotificationName(PlaylistDownloadCompletionNotification, object: self)
         }
     }
     

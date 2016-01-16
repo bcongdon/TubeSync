@@ -6,6 +6,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ContentViewController" customModule="Playlist_Sync" customModuleProvider="target">
             <connections>
+                <outlet property="downloadProgressIndicator" destination="QmC-4O-IX6" id="4oS-Ul-3Bz"/>
+                <outlet property="lastSyncLabel" destination="RTJ-d9-Wa2" id="VNs-AR-zUz"/>
                 <outlet property="tableView" destination="4cl-c9-ang" id="k87-fQ-CpW"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -105,7 +107,7 @@
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="uhr-tK-vhs">
-                        <rect key="frame" x="1" y="119" width="333" height="15"/>
+                        <rect key="frame" x="1" y="2" width="0.0" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="b0O-Ix-zHi">
