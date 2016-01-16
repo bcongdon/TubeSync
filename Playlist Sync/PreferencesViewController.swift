@@ -103,9 +103,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     }
     
     func synchronizePlaylistData(){
-//        let playlistData = NSKeyedArchiver.archivedDataWithRootObject(playlists)
-//        NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
-//        NSUserDefaults.standardUserDefaults().synchronize()
+        delegate.writePlaylistsToDefaults()
         NSNotificationCenter.defaultCenter().postNotificationName("playlistsChanged", object: nil)
         self.playlistTable.reloadData()
     }

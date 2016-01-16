@@ -15,7 +15,9 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     @IBAction func syncPressed(sender: NSButton) {
         data.append("x")
         SyncHelper.defaultHelper.outputDir = "/Users/bencongdon/Documents/Test"
-        SyncHelper.defaultHelper.syncPlaylists(self.delegate!.playlists)
+        dispatch_async(GlobalBackgroundQueue){
+            SyncHelper.defaultHelper.syncPlaylists(self.delegate!.playlists)
+        }
         tableView.reloadData()
         
     }

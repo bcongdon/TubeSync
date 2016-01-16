@@ -7,7 +7,7 @@ import os
 
 ydl_opts = {
     'cookiefile': '.cookie.txt',
-    #'restrictfilenames':True,
+    'restrictfilenames':True,
     'outtmpl':'%(title)s.%(ext)s',
     'consoletitle':True,
     'extract_flat':True,

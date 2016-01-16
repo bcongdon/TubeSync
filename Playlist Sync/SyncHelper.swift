@@ -22,10 +22,6 @@ class SyncHelper: NSObject {
         self.outputDir = outputDir
     }
     
-    func listOutputDirectory() -> Array<String>{
-        return listFolder(outputDir)
-    }
-    
     private func listFolder(directory:String) -> Array<String>{
         let enumerator = fileManager.enumeratorAtPath(directory)
         var fileList = Array<String>()
@@ -50,10 +46,17 @@ class SyncHelper: NSObject {
     func downloadPlaylist(playlist:Playlist){
         playlist.progress = 0
         
-        let folderList = listOutputDirectory()
+        let playlistFolderPath = NSString(string: outputDir).stringByAppendingPathComponent(playlist.title
+        )
+
+        
+        let folderList = listFolder(playlistFolderPath)
+        print("Folder list")
+        print(folderList)
+        
         for entry in playlist.entries {
-            if !folderList.contains(entry.1){
-                print(entry.1)
+            if entry.1 != "" && !folderList.contains(entry.1){
+                print("Folder doesn't contain: " + entry.1)
                 playlist.entries[entry.0] = ""
             }
         }
@@ -63,20 +66,19 @@ class SyncHelper: NSObject {
             //Download video is filename is unknown, or if the video file isn't in outputDir
             if entry.1.isEmpty {
                 self.outstandingTasks += 1
-                dispatch_async(GlobalBackgroundQueue){
-                    let fileName = self.youtubeClient.downloadVideo(entry.0, path: self.outputDir)
+                dispatch_sync(GlobalBackgroundQueue){
+                    print("Downloading: " + entry.0)
+                    let fileName = self.youtubeClient.downloadVideo(entry.0, path: playlistFolderPath)
                     NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: playlist)
                     //Inform playlist of the resulting file name
                     NSNotificationCenter.defaultCenter().postNotificationName("playlistFileDownloaded", object: [entry.0, fileName])
-                    print(playlist.progress)
                     self.outstandingTasks -= 1
+                    print("Outstanding tasks: \(self.outstandingTasks)")
                 }
             }
             else{
-                playlist.progress = playlist.progress + (1 / Double(playlist.entries.count))
-                NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: playlist)
+                NSNotificationCenter.defaultCenter().postNotificationName("playlistFileDownloaded", object: playlist)
                 print("found completed file")
-                //print(playlist.progress)
             }
         }
     }
@@ -90,11 +92,12 @@ class SyncHelper: NSObject {
             return
         }
         for playlist in playlists{
-            dispatch_async(GlobalBackgroundQueue){
+            if playlist.enabled! {
                 print(playlist)
                 self.downloadPlaylist(playlist)
                 NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadComplete", object: playlist)
             }
+            
         }
     }
 }

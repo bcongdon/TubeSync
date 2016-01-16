@@ -164,11 +164,24 @@ class YoutubeClient: NSObject {
     func downloadVideo(url:String, path:String) -> String{
         //Blocks until acceptable # of downloads
         while(currentDownloads >= MAX_CONCURRENT_DOWNLOADS){
+            sleep(1)
         }
+        print("Going forward with download: " + url)
         return internalDownload(url, path: path)
     }
     
+    func makeFoldersToPath(path:String){
+        do {
+            try NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+        } catch let error as NSError {
+            print(error.localizedDescription);
+        }
+    }
+    
     private func internalDownload(url:String, path:String) -> String {
+        
+        makeFoldersToPath(path)
+        
         self.currentDownloads += 1
         
         //Actually download video
@@ -183,16 +196,23 @@ class YoutubeClient: NSObject {
         for line in logResultArray {
             let beginString = "[download] Destination: "
             let endString = " has already been downloaded"
+            var fileName:String = ""
             if line.hasPrefix(beginString){
-                let fileName = line.substringFromIndex(line.startIndex.advancedBy(beginString.characters.count))
-                return fileName
+                fileName = line.substringFromIndex(line.startIndex.advancedBy(beginString.characters.count))
             }
             else if line.hasSuffix(endString) {
-                var fileName = line.substringFromIndex(line.startIndex.advancedBy("[download] ".characters.count))
+                fileName = line.substringFromIndex(line.startIndex.advancedBy("[download] ".characters.count))
                 fileName = fileName.substringToIndex(fileName.endIndex.advancedBy(-1 * endString.characters.count))
+            }
+            if fileName != ""{
+                print("returning file name: " + fileName)
                 return fileName
             }
+            
         }
+        print("ERROR: Returning null filename:")
+        print(result.logResult)
+        print(result.errResult)
         return ""
     }
     

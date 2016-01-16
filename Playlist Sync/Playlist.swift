@@ -15,7 +15,7 @@ class Playlist: NSObject,NSCoding {
     var enabled:Bool!
     //Key - URL; Value - Filename
     var entries:Dictionary<String,String>!
-    var progress:Double!
+    var progress:Int!
     
     override init(){
         super.init()
@@ -26,17 +26,16 @@ class Playlist: NSObject,NSCoding {
         var progressCounter:Int = 0
         if let update = notification.object as? Array<String>{
             for entry in entries{
-                if !entry.1.isEmpty {
-                    progressCounter += 1
-                }
+                //Filename found in update
                 if entry.0 == update[0]{
                     self.entries[entry.0] = update[1]
                     progressCounter += 1
                     print("New filename " + update[1])
+                    break
                 }
             }
-            self.progress = Double(progressCounter) / Double(entries.count)
-            print(progress)
+            self.progress! += progressCounter
+            print("\(progress) out of \(entries.count)")
         }
     }
     
@@ -46,7 +45,7 @@ class Playlist: NSObject,NSCoding {
         self.title = decoder.decodeObjectForKey("title") as! String
         self.enabled = decoder.decodeObjectForKey("enabled") as! Bool
         self.entries = decoder.decodeObjectForKey("entries") as! Dictionary<String,String>
-        self.progress = decoder.decodeObjectForKey("progress") as! Double
+        self.progress = decoder.decodeObjectForKey("progress") as! Int
     }
     convenience init(url:String,title:String,enabled:Bool,entries:Dictionary<String,String>){
         self.init()

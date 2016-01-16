@@ -12,6 +12,7 @@ ydl_opts = {
     'dump_single_json':True,
     'quiet':True,
     'socket-timeout':5,
+    'restrictfilenames':True
 }
 
 if len(sys.argv) < 2:
