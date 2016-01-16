@@ -62,7 +62,6 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
 //        }
         //print(playlists)
         tableView.reloadData()
-        print(self.delegate!.playlists)
     }
     
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {

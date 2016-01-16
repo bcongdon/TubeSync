@@ -24,12 +24,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     internal private(set) var timer = NSTimer()
     internal private(set) var interval:Double? = nil
     
-    internal var playlists = getUpToDatePlaylistData()
+    internal var playlists:Array<Playlist> = fetchPlaylistsFromDefaults()
     
     override init(){
         //Initialize and try to authenticate Youtube Client
         youtubeClient = YoutubeClient.defaultClient
         youtubeClient.authenticate()
+        
         
         self.interval = NSUserDefaults.standardUserDefaults().doubleForKey("syncFrequency")
         
@@ -39,6 +40,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         preferencesWindowController = PreferencesWindowController(windowNibName: "Preferences")
         super.init()
         
+
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: "playlistFileDownloaded", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: "playlistFileDownloaded", object: nil)
         
@@ -46,8 +49,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         NSApplication.sharedApplication().delegate = self
     }
     
+    
+    
     func playlistUpdate(notification:NSNotification){
-        pushPlaylistData(playlists)
+        writePlaylistsToDefaults()
     }
     
     
@@ -116,11 +121,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
         self.prefViewController.setupFreqUI(self.interval)
-
+        self.enableTimer()
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
+        //Sync @ termination w/ UserDefaults
+        writePlaylistsToDefaults()
+    }
+    
+    func writePlaylistsToDefaults(){
+        let playlistData = NSKeyedArchiver.archivedDataWithRootObject(playlists)
+        NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        print("Wrote playlists to user defaults")
     }
 
     func setSyncInterval(seconds:Double){
@@ -130,6 +144,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
             }
         }
         self.interval = seconds
+        print(self.interval)
         if let newInterval = self.interval {
             NSUserDefaults.standardUserDefaults().setDouble(newInterval, forKey: "syncFrequency")
         }
@@ -151,7 +166,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
     func syncTimerFired(){
         //TODO: Sync when timer fires
-        
+        print("should sync")
+        print(NSDate())
+        SyncHelper.defaultHelper.outputDir = "/Users/bencongdon/Documents/Test"
+        SyncHelper.defaultHelper.syncPlaylists(self.playlists)
     }
 
 }

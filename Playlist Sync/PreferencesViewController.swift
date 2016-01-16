@@ -329,6 +329,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         tabView.selectTabViewItemAtIndex(2)
     }
     func setupFreqUI(interval:Double?){
+        var cleanInterval:Double = 0
         if let safeInterval = interval{
             if safeInterval / SecondsInDay >= 1 {
                 syncFrequency.selectItemAtIndex(2)
@@ -342,6 +343,13 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
                 syncFrequency.selectItemAtIndex(0)
                 syncFrequencyModifierField.doubleValue = safeInterval / SecondsInMinute
             }
+            cleanInterval = safeInterval
+        }
+        if cleanInterval == 0 {
+            //Setup defaults if interval sent by delegate is 0
+            syncFrequency.selectItemAtIndex(1)
+            syncFrequencyModifierField.doubleValue = 1
+            self.syncIntervalChanged()
         }
     }
 }

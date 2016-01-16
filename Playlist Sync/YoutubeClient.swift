@@ -15,7 +15,7 @@ class YoutubeClient: NSObject {
     
     var options:NSMutableDictionary
     internal private(set) var authenticated:Bool = false
-    var busy = false
+    //var busy = false
     var currentDownloads = 0
     let MAX_CONCURRENT_DOWNLOADS = 1
     var downloadQueue = Array<(String,String)>()
@@ -61,9 +61,21 @@ class YoutubeClient: NSObject {
         task.arguments = options
         let logOut = NSPipe()
         let errOut = NSPipe()
+        let logFileHandle = logOut.fileHandleForReading
+        let errFileHandle = errOut.fileHandleForReading
         task.standardOutput = logOut
         task.standardError = errOut
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logFileHandle)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
+            NSTaskDidTerminateNotification, object: task)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errFileHandle)
+        
+        logFileHandle.waitForDataInBackgroundAndNotify()
+        errFileHandle.waitForDataInBackgroundAndNotify()
+        
         task.launch()
+
         task.waitUntilExit()
         let logResponse = NSString(data: logOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
         let errResponse = NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
@@ -81,7 +93,7 @@ class YoutubeClient: NSObject {
     
     func terminated(){
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        busy = false
+        //busy = false
     }
     
     func receivedError(notification:NSNotification){

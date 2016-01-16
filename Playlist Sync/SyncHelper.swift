@@ -13,6 +13,7 @@ class SyncHelper: NSObject {
     static let defaultHelper = SyncHelper(outputDir: "")
     
     var outputDir:String
+    var outstandingTasks:Int = 0
     
     private let fileManager = NSFileManager.defaultManager()
     let youtubeClient = YoutubeClient()
@@ -61,12 +62,14 @@ class SyncHelper: NSObject {
             
             //Download video is filename is unknown, or if the video file isn't in outputDir
             if entry.1.isEmpty {
+                self.outstandingTasks += 1
                 dispatch_async(GlobalBackgroundQueue){
                     let fileName = self.youtubeClient.downloadVideo(entry.0, path: self.outputDir)
                     NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: playlist)
                     //Inform playlist of the resulting file name
                     NSNotificationCenter.defaultCenter().postNotificationName("playlistFileDownloaded", object: [entry.0, fileName])
                     print(playlist.progress)
+                    self.outstandingTasks -= 1
                 }
             }
             else{
@@ -78,6 +81,14 @@ class SyncHelper: NSObject {
         }
     }
     func syncPlaylists(playlists:Array<Playlist>){
+        if(outputDir == "") {
+            print("Warning: Not syncing because outputDir is blank.")
+            return
+        }
+        if outstandingTasks > 0{
+            print("returning because outstanding tasks is \(self.outstandingTasks)")
+            return
+        }
         for playlist in playlists{
             dispatch_async(GlobalBackgroundQueue){
                 print(playlist)
