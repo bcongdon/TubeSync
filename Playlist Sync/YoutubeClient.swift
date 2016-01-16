@@ -18,7 +18,7 @@ class YoutubeClient: NSObject {
     //var busy = false
     var downloadQueue = Array<(String,String)>()
     var handlesForPlaylists = Dictionary<Playlist,[NSFileHandle]>()
-
+    
     override init(){
         //Initializes Client
         options = NSMutableDictionary()
@@ -212,23 +212,25 @@ class YoutubeClient: NSObject {
     }
     
     func deleteStaleFiles(playlist:Playlist, path:String){
-        let folderList = SyncHelper.listFolder(path)
+        let playlistPath = NSString(string: path).stringByAppendingPathComponent(playlist.title)
+        let folderList = SyncHelper.listFolder(playlistPath)
         for file in folderList{
             if file.hasSuffix(".mp4") && !playlist.entries.values.contains(file){
-                let filePath = NSString(string: path).stringByAppendingPathComponent(file)
+                let filePath = NSString(string: playlistPath).stringByAppendingPathComponent(file)
                 deleteFile(filePath)
             }
         }
     }
     func deleteFile(path:String){
         let fileManager = NSFileManager.defaultManager()
-        do {
-            try fileManager.removeItemAtPath(path)
-            print("Removed file: " + path)
-        }
-        catch let error as NSError {
-            print("Something went wrong deleting file: \(error)")
-        }
+        print("NOTE: would remove: " + path)
+//        do {
+//            try fileManager.removeItemAtPath(path)
+//            print("Removed file: " + path)
+//        }
+//        catch let error as NSError {
+//            print("Something went wrong deleting file: \(error)")
+//        }
     }
     
     func refreshPlaylist(playlist:Playlist){

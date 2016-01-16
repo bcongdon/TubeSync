@@ -13,7 +13,10 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     var delegate:AppDelegate?
     
     @IBOutlet weak var downloadProgressIndicator: NSProgressIndicator!
+    @IBOutlet weak var spinningActivityIndicator: NSProgressIndicator!
     @IBOutlet weak var lastSyncLabel: NSTextField!
+    @IBOutlet weak var downloadProgressTextField: NSTextField!
+    @IBOutlet weak var downloadingStaticLabel: NSTextField!
     @IBAction func syncPressed(sender: NSButton) {
         
         delegate?.syncTimerFired()
@@ -49,16 +52,33 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
 
 
         //Receive notifications from Preferences that playlist list has changed
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onPlaylistsChanged:", name: "playlistsChanged", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onPlaylistsChanged:", name: PlaylistListUpdate, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onDownloadUpdate:", name: PlaylistDownloadProgressNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onSyncStart:", name: SyncInitiatedNotification, object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onSyncEnd:", name: SyncCompletionNotification, object: nil)
+        
     }
     
     func onSyncStart(notification:NSNotification){
+        print("starting")
+        lastSyncLabel.stringValue = "In progress..."
+        spinningActivityIndicator.startAnimation(self)
+        downloadingStaticLabel.hidden = false
+        downloadProgressIndicator.hidden = false
+        spinningActivityIndicator.hidden = false
+    }
+    
+    func onSyncEnd(notification:NSNotification){
+        print("ending")
         lastSyncLabel.stringValue = NSDate().description
+        spinningActivityIndicator.stopAnimation(self)
+        downloadProgressTextField.stringValue = ""
+        downloadingStaticLabel.hidden = true
+        downloadProgressIndicator.hidden = true
+        spinningActivityIndicator.hidden = true
     }
     
     func onDownloadUpdate(notification:NSNotification){
@@ -67,6 +87,8 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
 
             downloadProgressIndicator.maxValue = Double(playlist.entries.count)
             downloadProgressIndicator.doubleValue = Double(playlist.progress!)
+            
+            downloadProgressTextField.stringValue = "\(playlist.title) (\(playlist.progress!) of \(playlist.entries.count))"
         }
     }
     

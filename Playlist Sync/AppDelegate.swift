@@ -20,7 +20,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     var popoverMonitor:AnyObject?
     var preferencesWindowController:PreferencesWindowController
     let youtubeClient:YoutubeClient
+    var syncHelper = SyncHelper(outputDir:"")
     let dummyControl = DummyControl()
+    var syncActive = false
+    
     internal private(set) var timer = NSTimer()
     internal private(set) var interval:Double? = nil
     
@@ -42,14 +45,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         
 
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: "playlistFileDownloaded", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: "playlistFileDownloaded", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: PlaylistFileDownloadedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: PlaylistListUpdate, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onSyncCompletion:", name: SyncCompletionNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onSyncStart:", name: SyncInitiatedNotification, object: nil)
         
         setupStatusButton()
         NSApplication.sharedApplication().delegate = self
     }
     
+    func onSyncCompletion(notification:NSNotification){
+        syncActive = false
+        for playlist in self.playlists {
+            youtubeClient.deleteStaleFiles(playlist, path: self.syncHelper.outputDir)
+        }
+    }
     
+    func onSyncStart(notification:NSNotification){
+        syncActive = true
+    }
     
     func playlistUpdate(notification:NSNotification){
         writePlaylistsToDefaults()
@@ -154,6 +168,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         }
     }
     
+    func setSyncEnabled(shouldBeOn:Bool){
+        NSUserDefaults.standardUserDefaults().setValue(shouldBeOn, forKey: "syncEnabled")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        if shouldBeOn {
+            enableTimer()
+        }
+        else{
+            disableTimer()
+            if self.syncActive{
+                syncHelper.haltSync()
+            }
+        }
+    }
+    
     func enableTimer(){
         if let seconds = self.interval{
             timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: "syncTimerFired", userInfo: nil, repeats: true)
@@ -167,11 +196,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     func syncTimerFired(){
         //TODO: Sync when timer fires
         print("should sync")
+        if(playlists.count == 0){
+            return
+        }
         print(NSDate())
         if let outputDir = NSUserDefaults.standardUserDefaults().URLForKey("OutputDirectory"){
-            let helper = SyncHelper(outputDir: outputDir.path!)
+            syncHelper = SyncHelper(outputDir: outputDir.path!)
             dispatch_async(GlobalBackgroundQueue){
-                helper.syncPlaylists(self.playlists)
+                self.syncHelper.syncPlaylists(self.playlists)
             }
         }
         NSNotificationCenter.defaultCenter().postNotificationName(SyncInitiatedNotification, object: nil)

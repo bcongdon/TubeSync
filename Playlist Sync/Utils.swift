@@ -54,4 +54,9 @@ func fetchPlaylistsFromDefaults() -> Array<Playlist>{
 let PlaylistDownloadCompletionNotification = "PlaylistDownloadCompletionNotification"
 let PlaylistFileDownloadedNotification = "PlaylistFileDownloadedNotification"
 let PlaylistDownloadProgressNotification = "PlaylistDownloadProgressNotification"
+let PlaylistSyncCompletionNotification = "PlaylistSyncCompletionNotification"
+
+let PlaylistListUpdate = "PlaylistListUpdate"
+
 let SyncInitiatedNotification = "SyncInitiatedNotification"
+let SyncCompletionNotification = "SyncCompletionNotification"

@@ -97,14 +97,27 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     @IBAction func deletePlaylist(sender: AnyObject){
         let row = playlistTable.selectedRow
         if row > -1 {
-            delegate.playlists.removeAtIndex(row)
+            
+            //If in middle of sync, halt and restart sync
+            if delegate.syncActive {
+                delegate.syncHelper.haltSync()
+
+                delegate.playlists.removeAtIndex(row)
+
+                delegate.syncTimerFired()
+            }
+            else{
+                delegate.playlists.removeAtIndex(row)
+            }
+            
+            
             synchronizePlaylistData()
         }
     }
     
     func synchronizePlaylistData(){
         delegate.writePlaylistsToDefaults()
-        NSNotificationCenter.defaultCenter().postNotificationName("playlistsChanged", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(PlaylistListUpdate, object: nil)
         self.playlistTable.reloadData()
     }
     
@@ -139,10 +152,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     
     @IBAction func onChangeEnabled(sender: NSButton) {
         let state = (sender.state == NSOnState)
-        NSUserDefaults.standardUserDefaults().setValue(state, forKey: "syncEnabled")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        //TODO: Probably need to call something to tell it to enable/disable
-        
+        delegate.setSyncEnabled(state)
     }
     
     func getURL() -> NSURL{
@@ -251,7 +261,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         else{
             outputDir = NSFileManager.defaultManager().URLsForDirectory(.MoviesDirectory, inDomains: .UserDomainMask).first! as NSURL
         }
-        outputDirTextField.stringValue = outputDir.absoluteString
+        outputDirTextField.stringValue = outputDir.path!
         self.synchronizePlaylistData()
     }
     

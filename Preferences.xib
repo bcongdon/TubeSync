@@ -28,7 +28,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Account" identifier="1" id="Q9h-kV-Msz">
-                                <view key="view" id="NKk-v7-4h1">
+                                <view key="view" ambiguous="YES" id="NKk-v7-4h1">
                                     <rect key="frame" x="10" y="33" width="204" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -132,7 +132,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Sync Settings" identifier="2" id="B4p-wC-n1I">
-                                <view key="view" ambiguous="YES" id="cBa-Hf-TTK">
+                                <view key="view" id="cBa-Hf-TTK">
                                     <rect key="frame" x="10" y="33" width="413" height="262"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -172,7 +172,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QJ0-9I-bZm">
-                                            <rect key="frame" x="275" y="181" width="38" height="22"/>
+                                            <rect key="frame" x="275" y="181" width="31" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1" drawsBackground="YES" id="lhD-ae-M1d">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="uMo-pH-66i">
                                                     <real key="minimum" value="0.0"/>
@@ -186,7 +186,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyd-6O-tfU">
-                                            <rect key="frame" x="230" y="184" width="39" height="17"/>
+                                            <rect key="frame" x="228" y="183" width="39" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Every" id="MBs-K5-DfG">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -295,13 +295,13 @@
                                             <rect key="frame" x="190" y="210" width="16" height="16"/>
                                         </progressIndicator>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdA-0I-N7a">
-                                            <rect key="frame" x="319" y="178" width="88" height="26"/>
-                                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="dIv-PB-fXq">
+                                            <rect key="frame" x="312" y="178" width="90" height="26"/>
+                                            <popUpButtonCell key="cell" type="push" title="minute(s)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Rox-69-p80" id="dIv-PB-fXq">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
                                                 <menu key="menu" id="mnV-J0-zvk">
                                                     <items>
-                                                        <menuItem title="minute(s)" keyEquivalent="m" id="Rox-69-p80">
+                                                        <menuItem title="minute(s)" state="on" keyEquivalent="m" id="Rox-69-p80">
                                                             <modifierMask key="keyEquivalentModifierMask"/>
                                                         </menuItem>
                                                         <menuItem title="hour(s)" keyEquivalent="h" id="t7j-iP-3VH">

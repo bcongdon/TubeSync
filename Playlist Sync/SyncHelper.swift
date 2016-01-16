@@ -11,7 +11,10 @@ import Foundation
 
 class SyncHelper: NSObject {
     
+    //Directory pointing to the root of the sync folder
     var outputDir:String
+    
+    //Queues for download operations
     let downloadQueue = NSOperationQueue()
     let playlistQueue = NSOperationQueue()
     
@@ -29,6 +32,7 @@ class SyncHelper: NSObject {
         playlistQueue.qualityOfService = .Background
     }
     
+    //Returns a list of files (and potentially folders) at the given path
     static func listFolder(directory:String) -> Array<String>{
         let enumerator = fileManager.enumeratorAtPath(directory)
         var fileList = Array<String>()
@@ -38,6 +42,7 @@ class SyncHelper: NSObject {
         return fileList
     }
     
+    //Tries to delete the file at the given string path
     private func deleteFile(path:String) -> Bool{
         do{
             try SyncHelper.fileManager.removeItemAtPath(path)
@@ -49,20 +54,21 @@ class SyncHelper: NSObject {
         }
     }
     
-    //NOT a blocking function
+    //Tries to download the given playlist by refreshing and downloading files that haven't been downloaded yet
     func downloadPlaylist(playlist:Playlist){
         
         let playlistFolderPath = NSString(string: outputDir).stringByAppendingPathComponent(playlist.title
         )
         
+        //Updates the URLs in the playlist entry array to reflect the most up-to-date version
         youtubeClient.refreshPlaylist(playlist)
         
+        //Reset the playlist's internal download counter
         playlist.progress = 0
         
         let folderList = SyncHelper.listFolder(playlistFolderPath)
-        print("Folder list")
-        print(folderList)
         
+        //
         for entry in playlist.entries {
             if entry.1 != "" && !folderList.contains(entry.1){
                 print("Folder doesn't contain: " + entry.1)
@@ -70,8 +76,6 @@ class SyncHelper: NSObject {
             }
         }
         for entry in playlist.entries {
-            //print(folderList)
-            
             //Download video is filename is unknown, or if the video file isn't in outputDir
             if entry.1.isEmpty {
                 let downloadOp = NSBlockOperation(block: {
@@ -79,8 +83,10 @@ class SyncHelper: NSObject {
                     let fileName = self.youtubeClient.downloadVideo(entry.0, path: playlistFolderPath)
                     //Inform playlist of the resulting file name
                     NSNotificationCenter.defaultCenter().postNotificationName(PlaylistFileDownloadedNotification, object: [entry.0, fileName])
-                    NSNotificationCenter.defaultCenter().postNotificationName(PlaylistDownloadProgressNotification, object: playlist)
                 })
+                downloadOp.completionBlock = {
+                    NSNotificationCenter.defaultCenter().postNotificationName(PlaylistDownloadProgressNotification, object: playlist)
+                }
                 downloadQueue.addOperation(downloadOp)
                 print("Operation count: \(downloadQueue.operationCount)")
             }
@@ -107,10 +113,20 @@ class SyncHelper: NSObject {
                     self.downloadPlaylist(playlist)
                 })
                 downloadPlaylistOp.completionBlock = {
-                    print("**** FINISHED DOWNLOADING " + playlist.title)
+                    print("* FINISHED DOWNLOADING " + playlist.title)
+                    NSNotificationCenter.defaultCenter().postNotificationName(PlaylistSyncCompletionNotification, object: playlist)
                 }
                 playlistQueue.addOperation(downloadPlaylistOp)
             }
         }
+        dispatch_async(GlobalBackgroundQueue){
+            self.playlistQueue.waitUntilAllOperationsAreFinished()
+            NSNotificationCenter.defaultCenter().postNotificationName(SyncCompletionNotification, object: nil)
+        }
+    }
+    
+    func haltSync(){
+        downloadQueue.cancelAllOperations()
+        playlistQueue.cancelAllOperations()
     }
 }
