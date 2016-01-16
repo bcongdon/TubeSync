@@ -19,6 +19,7 @@ class YoutubeClient: NSObject {
     var currentDownloads = 0
     let MAX_CONCURRENT_DOWNLOADS = 1
     var downloadQueue = Array<(String,String)>()
+    var handlesForPlaylists = Dictionary<Playlist,[NSFileHandle]>()
 
     override init(){
         //Initializes Client
@@ -61,8 +62,8 @@ class YoutubeClient: NSObject {
         task.arguments = options
         let logOut = NSPipe()
         let errOut = NSPipe()
-        let logFileHandle = logOut.fileHandleForReading
-        let errFileHandle = errOut.fileHandleForReading
+        //let logFileHandle = logOut.fileHandleForReading
+        //let errFileHandle = errOut.fileHandleForReading
         task.standardOutput = logOut
         task.standardError = errOut
         
@@ -79,7 +80,7 @@ class YoutubeClient: NSObject {
         task.waitUntilExit()
         let logResponse = NSString(data: logOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
         let errResponse = NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
-        print(logResponse as String, errResponse as String)
+        //print(logResponse as String, errResponse as String)
         return (logResponse as String, errResponse as String)
     }
     
@@ -272,25 +273,3 @@ class YoutubeClient: NSObject {
 enum YoutubeResponse{
     case AuthSuccess, NeedCredentials, IncorrectCredentials, ValidPlaylist, InvalidPlaylist, NotPlaylist, DuplicatePlaylist
 }
-
-//    private func runAsyncYTDLTask(options:Array<String>, scriptName:String){
-//        let task = NSTask()
-//        task.launchPath = NSBundle.mainBundle().pathForResource(scriptName, ofType: "py")! as String
-//        task.arguments = options
-//        let logOutPipe = NSPipe()
-//        let errOutPipe = NSPipe()
-//        task.standardOutput = logOutPipe
-//        task.standardError = errOutPipe
-//        let logOut = logOutPipe.fileHandleForReading
-//        let errOut = errOutPipe.fileHandleForReading
-//        errOut.waitForDataInBackgroundAndNotify()
-//        busy = true
-//        task.launch()
-//
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logOut)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
-//            NSTaskDidTerminateNotification, object: task)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errOut)
-//        logOut.waitForDataInBackgroundAndNotify()
-//        errOut.waitForDataInBackgroundAndNotify()
-//    }

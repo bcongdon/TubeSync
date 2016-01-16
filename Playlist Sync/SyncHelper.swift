@@ -69,7 +69,7 @@ class SyncHelper: NSObject {
             //Download video is filename is unknown, or if the video file isn't in outputDir
             if entry.1.isEmpty {
                 self.outstandingTasks += 1
-                dispatch_sync(GlobalBackgroundQueue){
+                dispatch_async(GlobalBackgroundQueue){
                     print("Downloading: " + entry.0)
                     let fileName = self.youtubeClient.downloadVideo(entry.0, path: playlistFolderPath)
                     NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: playlist)
@@ -80,7 +80,8 @@ class SyncHelper: NSObject {
                 }
             }
             else{
-                NSNotificationCenter.defaultCenter().postNotificationName("playlistFileDownloaded", object: playlist)
+                NSNotificationCenter.defaultCenter().postNotificationName("playlistFileDownloaded", object: [entry.0,entry.1])
+                NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: [entry.0,entry.1])
                 print("found completed file")
             }
         }
