@@ -168,8 +168,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         //TODO: Sync when timer fires
         print("should sync")
         print(NSDate())
-        SyncHelper.defaultHelper.outputDir = "/Users/bencongdon/Documents/Test"
-        SyncHelper.defaultHelper.syncPlaylists(self.playlists)
+        if let outputDir = NSUserDefaults.standardUserDefaults().URLForKey("OutputDirectory"){
+            let helper = SyncHelper(outputDir: outputDir.path!)
+            dispatch_async(GlobalBackgroundQueue){
+                helper.syncPlaylists(self.playlists)
+            }
+        }
+        
     }
 
 }

@@ -13,11 +13,9 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     var delegate:AppDelegate?
     
     @IBAction func syncPressed(sender: NSButton) {
-        data.append("x")
-        SyncHelper.defaultHelper.outputDir = "/Users/bencongdon/Documents/Test"
-        dispatch_async(GlobalBackgroundQueue){
-            SyncHelper.defaultHelper.syncPlaylists(self.delegate!.playlists)
-        }
+        
+        delegate?.syncTimerFired()
+        
         tableView.reloadData()
         
     }
@@ -36,7 +34,6 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     
     @IBOutlet weak var tableView: NSTableView!
     
-    var data = ["test","1","2","3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

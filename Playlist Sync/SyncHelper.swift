@@ -10,19 +10,17 @@ import Cocoa
 
 class SyncHelper: NSObject {
     
-    static let defaultHelper = SyncHelper(outputDir: "")
-    
     var outputDir:String
     var outstandingTasks:Int = 0
     
-    private let fileManager = NSFileManager.defaultManager()
+    static private let fileManager = NSFileManager.defaultManager()
     let youtubeClient = YoutubeClient.defaultClient
     
     init(outputDir:String){
         self.outputDir = outputDir
     }
     
-    func listFolder(directory:String) -> Array<String>{
+    static func listFolder(directory:String) -> Array<String>{
         let enumerator = fileManager.enumeratorAtPath(directory)
         var fileList = Array<String>()
         while let element = enumerator?.nextObject() as? String{
@@ -33,7 +31,7 @@ class SyncHelper: NSObject {
     
     private func deleteFile(path:String) -> Bool{
         do{
-            try fileManager.removeItemAtPath(path)
+            try SyncHelper.fileManager.removeItemAtPath(path)
             return true
         }
         catch let error as NSError {
@@ -53,7 +51,7 @@ class SyncHelper: NSObject {
         
         playlist.progress = 0
         
-        let folderList = listFolder(playlistFolderPath)
+        let folderList = SyncHelper.listFolder(playlistFolderPath)
         print("Folder list")
         print(folderList)
         
@@ -69,7 +67,7 @@ class SyncHelper: NSObject {
             //Download video is filename is unknown, or if the video file isn't in outputDir
             if entry.1.isEmpty {
                 self.outstandingTasks += 1
-                dispatch_async(GlobalBackgroundQueue){
+                dispatch_sync(GlobalBackgroundQueue){
                     print("Downloading: " + entry.0)
                     let fileName = self.youtubeClient.downloadVideo(entry.0, path: playlistFolderPath)
                     NSNotificationCenter.defaultCenter().postNotificationName("playlistDownloadProgress", object: playlist)

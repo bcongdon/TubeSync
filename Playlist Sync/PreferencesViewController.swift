@@ -251,7 +251,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         else{
             outputDir = NSFileManager.defaultManager().URLsForDirectory(.MoviesDirectory, inDomains: .UserDomainMask).first! as NSURL
         }
-        outputDirTextField.stringValue = outputDir.path!
+        outputDirTextField.stringValue = outputDir.absoluteString
         self.synchronizePlaylistData()
     }
     

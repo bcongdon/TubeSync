@@ -28,4 +28,5 @@ else:
 
 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
     os.chdir(output_dir)
+    print os.getcwd()
     ydl.download([url])

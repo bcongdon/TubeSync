@@ -80,7 +80,9 @@ class YoutubeClient: NSObject {
         task.waitUntilExit()
         let logResponse = NSString(data: logOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
         let errResponse = NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
-        //print(logResponse as String, errResponse as String)
+        dispatch_async(GlobalMainQueue){
+            print(logResponse as String, errResponse as String)
+        }
         return (logResponse as String, errResponse as String)
     }
     
@@ -167,6 +169,7 @@ class YoutubeClient: NSObject {
         //Blocks until acceptable # of downloads
         while(currentDownloads >= MAX_CONCURRENT_DOWNLOADS){
             sleep(1)
+
         }
         print("Going forward with download: " + url)
         return internalDownload(url, path: path)
@@ -174,9 +177,12 @@ class YoutubeClient: NSObject {
     
     func makeFoldersToPath(path:String){
         do {
+            dispatch_async(GlobalMainQueue){
+                print("path to " + path)
+            }
             try NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
         } catch let error as NSError {
-            print(error.localizedDescription);
+            print("ERROR: " + error.localizedDescription);
         }
     }
     
@@ -219,7 +225,7 @@ class YoutubeClient: NSObject {
     }
     
     func deleteStaleFiles(playlist:Playlist, path:String){
-        let folderList = SyncHelper.defaultHelper.listFolder(path)
+        let folderList = SyncHelper.listFolder(path)
         for file in folderList{
             if file.hasSuffix(".mp4") && !playlist.entries.values.contains(file){
                 let filePath = NSString(string: path).stringByAppendingPathComponent(file)
