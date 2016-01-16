@@ -16,13 +16,13 @@ class SyncHelper: NSObject {
     var outstandingTasks:Int = 0
     
     private let fileManager = NSFileManager.defaultManager()
-    let youtubeClient = YoutubeClient()
+    let youtubeClient = YoutubeClient.defaultClient
     
     init(outputDir:String){
         self.outputDir = outputDir
     }
     
-    private func listFolder(directory:String) -> Array<String>{
+    func listFolder(directory:String) -> Array<String>{
         let enumerator = fileManager.enumeratorAtPath(directory)
         var fileList = Array<String>()
         while let element = enumerator?.nextObject() as? String{
@@ -44,11 +44,14 @@ class SyncHelper: NSObject {
     
     //NOT a blocking function
     func downloadPlaylist(playlist:Playlist){
-        playlist.progress = 0
         
         let playlistFolderPath = NSString(string: outputDir).stringByAppendingPathComponent(playlist.title
         )
-
+        
+        youtubeClient.refreshPlaylist(playlist)
+        youtubeClient.deleteStaleFiles(playlist, path: playlistFolderPath)
+        
+        playlist.progress = 0
         
         let folderList = listFolder(playlistFolderPath)
         print("Folder list")
@@ -82,6 +85,7 @@ class SyncHelper: NSObject {
             }
         }
     }
+    
     func syncPlaylists(playlists:Array<Playlist>){
         if(outputDir == "") {
             print("Warning: Not syncing because outputDir is blank.")

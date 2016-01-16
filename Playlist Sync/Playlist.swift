@@ -25,9 +25,14 @@ class Playlist: NSObject,NSCoding {
     func playlistUpdate(notification:NSNotification){
         var progressCounter:Int = 0
         if let update = notification.object as? Array<String>{
+            
             for entry in entries{
                 //Filename found in update
                 if entry.0 == update[0]{
+                    if update[1] == ""{
+                        print("invalid file name for url " + entry.0)
+                        break
+                    }
                     self.entries[entry.0] = update[1]
                     progressCounter += 1
                     print("New filename " + update[1])

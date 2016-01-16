@@ -9,11 +9,12 @@ ydl_opts = {
     'cookiefile': '.cookie.txt',
     'restrictfilenames':True,
     'outtmpl':'%(title)s.%(ext)s',
-    'consoletitle':True,
+    #'consoletitle':True,
     'extract_flat':True,
     'noplaylist':True,
     'socket-timeout':5,
-    'getfilename':True,
+    #'getfilename':True,
+#'simulate':True,
 }
 output_dir = ""
 url = ""

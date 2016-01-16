@@ -66,19 +66,20 @@ class YoutubeClient: NSObject {
         task.standardOutput = logOut
         task.standardError = errOut
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logFileHandle)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
-            NSTaskDidTerminateNotification, object: task)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errFileHandle)
-        
-        logFileHandle.waitForDataInBackgroundAndNotify()
-        errFileHandle.waitForDataInBackgroundAndNotify()
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logFileHandle)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
+//            NSTaskDidTerminateNotification, object: task)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errFileHandle)
+//        
+//        logFileHandle.waitForDataInBackgroundAndNotify()
+//        errFileHandle.waitForDataInBackgroundAndNotify()
         
         task.launch()
 
         task.waitUntilExit()
         let logResponse = NSString(data: logOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
         let errResponse = NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
+        print(logResponse as String, errResponse as String)
         return (logResponse as String, errResponse as String)
     }
     
@@ -214,6 +215,46 @@ class YoutubeClient: NSObject {
         print(result.logResult)
         print(result.errResult)
         return ""
+    }
+    
+    func deleteStaleFiles(playlist:Playlist, path:String){
+        let folderList = SyncHelper.defaultHelper.listFolder(path)
+        for file in folderList{
+            if file.hasSuffix(".mp4") && !playlist.entries.values.contains(file){
+                let filePath = NSString(string: path).stringByAppendingPathComponent(file)
+                deleteFile(filePath)
+            }
+        }
+    }
+    func deleteFile(path:String){
+        let fileManager = NSFileManager.defaultManager()
+        do {
+            try fileManager.removeItemAtPath(path)
+            print("Removed file: " + path)
+        }
+        catch let error as NSError {
+            print("Something went wrong deleting file: \(error)")
+        }
+    }
+    
+    func refreshPlaylist(playlist:Playlist){
+        let info = YoutubeClient.defaultClient.playlistInfo(playlist.url)
+        var entryDict = Dictionary<String,String>()
+        for entry in info.entries {
+            entryDict[entry] = ""
+        }
+        //Add new videos to entry
+        for newEntry in entryDict {
+            if !playlist.entries.keys.contains(newEntry.0){
+                playlist.entries[newEntry.0] = ""
+            }
+        }
+        //Delete stale videos from dictionary
+        for oldEntry in playlist.entries {
+            if !entryDict.keys.contains(oldEntry.0) {
+                playlist.entries.removeValueForKey(oldEntry.0)
+            }
+        }
     }
     
     func extractIDs(entries:[JSON]) -> Array<String>{
