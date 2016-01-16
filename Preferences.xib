@@ -28,7 +28,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Account" identifier="1" id="Q9h-kV-Msz">
-                                <view key="view" ambiguous="YES" id="NKk-v7-4h1">
+                                <view key="view" id="NKk-v7-4h1">
                                     <rect key="frame" x="10" y="33" width="204" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -132,7 +132,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Sync Settings" identifier="2" id="B4p-wC-n1I">
-                                <view key="view" id="cBa-Hf-TTK">
+                                <view key="view" ambiguous="YES" id="cBa-Hf-TTK">
                                     <rect key="frame" x="10" y="33" width="413" height="262"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -257,6 +257,9 @@
                                                                 <buttonCell key="dataCell" type="check" title="test" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="FHq-Gb-xYw">
                                                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
+                                                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                                                     <connections>
                                                                         <action selector="playlistShouldSyncChanged:" target="WUR-gE-l9W" id="pTU-sA-JtI"/>
                                                                     </connections>

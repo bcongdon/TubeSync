@@ -69,6 +69,9 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
         downloadingStaticLabel.hidden = false
         downloadProgressIndicator.hidden = false
         spinningActivityIndicator.hidden = false
+        dispatch_async(GlobalMainQueue){
+            self.tableView.reloadData()
+        }
     }
     
     func onSyncEnd(notification:NSNotification){
@@ -79,6 +82,9 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
         downloadingStaticLabel.hidden = true
         downloadProgressIndicator.hidden = true
         spinningActivityIndicator.hidden = true
+        dispatch_async(GlobalMainQueue){
+            self.tableView.reloadData()
+        }
     }
     
     func onDownloadUpdate(notification:NSNotification){
@@ -86,6 +92,9 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             return
         }
         if let playlist = notification.object as? Playlist{
+            dispatch_async(GlobalMainQueue){
+                self.tableView.reloadData()
+            }
             print(playlist.entries.count, playlist.progress!)
 
             downloadProgressIndicator.maxValue = Double(playlist.entries.count)
@@ -108,7 +117,16 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             }
             else {
                 let imgView = tableView.makeViewWithIdentifier("status", owner: self) as! NSTableCellView
-                imgView.imageView?.image = NSImage(named: "cog")
+                
+                if delegate.playlists[row].progress >= delegate.playlists[row].entries.count {
+                    imgView.imageView?.image = NSImage(named: "complete")
+                }
+                else if delegate.playlists[row].progress > 0 {
+                    imgView.imageView?.image = NSImage(named: "refresh")
+                }
+                else{
+                    imgView.imageView?.image = NSImage(named: "outOfSync")
+                }
                 return imgView
             }
         }

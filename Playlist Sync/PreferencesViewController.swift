@@ -141,6 +141,10 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     
     @IBAction func playlistShouldSyncChanged(sender: NSTableView) {
         let row = sender.clickedRow
+        //User must "double click" to change state
+        if row != self.playlistTable.selectedRow {
+            return
+        }
         self.delegate.playlists[row].enabled = !self.delegate.playlists[row].enabled
         synchronizePlaylistData()
     }
