@@ -1,10 +1,16 @@
 PODS:
-  - Locksmith (2.0.2)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
+  - CocoaLumberjack/Swift (2.2.0):
+    - CocoaLumberjack/Extensions
 
 DEPENDENCIES:
-  - Locksmith
+  - CocoaLumberjack/Swift
 
 SPEC CHECKSUMS:
-  Locksmith: 7f2b68448449a7712348f9a4ed60604c1cc8dfa6
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
 
 COCOAPODS: 0.39.0

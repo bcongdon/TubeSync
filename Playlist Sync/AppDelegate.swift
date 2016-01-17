@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import CocoaLumberjack
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
@@ -30,6 +31,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     internal var playlists:Array<Playlist> = fetchPlaylistsFromDefaults()
     
     override init(){
+        
+//        DDLog.addLogger(DDTTYLogger.sharedInstance()) // TTY = Xcode console
+//        DDLog.addLogger(DDASLLogger.sharedInstance()) // ASL = Apple System Logs
+//        
+//        let fileLogger: DDFileLogger = DDFileLogger() // File Logger
+//        fileLogger.rollingFrequency = 60*60*24  // 24 hours
+//        fileLogger.logFileManager.maximumNumberOfLogFiles = 7
+//        DDLog.addLogger(fileLogger)
+//        print(fileLogger.currentLogFileInfo().filePath!)
+//        DDLogVerbose("Verbose");
+//        DDLogDebug("Debug");
+//        DDLogInfo("Info");
+//        DDLogWarn("Warn");
+//        DDLogError("Error");
+
+        
         //Initialize and try to authenticate Youtube Client
         youtubeClient = YoutubeClient.defaultClient
         youtubeClient.authenticate()
@@ -42,8 +59,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         statusItem =  NSStatusBar.systemStatusBar().statusItemWithLength(24)
         preferencesWindowController = PreferencesWindowController(windowNibName: "Preferences")
         super.init()
-        
-
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: PlaylistFileDownloadedNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playlistUpdate:", name: PlaylistListUpdate, object: nil)

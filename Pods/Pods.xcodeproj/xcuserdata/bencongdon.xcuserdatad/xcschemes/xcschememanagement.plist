@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Locksmith.xcscheme</key>
+		<key>CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>307F5CFD58B3170E5F351B50F316BBA7</key>
+		<key>D082FD9722F53B9C3A1229257D4008F7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F5E4AE3098259D69D752DD0CC3601FC1</key>
+		<key>E487112CF186AEC6AB04B0CBEA70F555</key>
 		<dict>
 			<key>primary</key>
 			<true/>

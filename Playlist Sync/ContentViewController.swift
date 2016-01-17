@@ -17,6 +17,7 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     @IBOutlet weak var lastSyncLabel: NSTextField!
     @IBOutlet weak var downloadProgressTextField: NSTextField!
     @IBOutlet weak var downloadingStaticLabel: NSTextField!
+    
     @IBAction func syncPressed(sender: NSButton) {
         
         delegate?.syncTimerFired()
@@ -113,6 +114,11 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             if tableColumn?.identifier == "playlist"{
                 let cellView = tableView.makeViewWithIdentifier("playlist", owner: self) as! NSTableCellView
                 cellView.textField?.stringValue = delegate.playlists[row].title
+                
+//                let currentPlaylist = delegate.playlists[row]
+//                if currentPlaylist.progress > 0 && currentPlaylist.progress < currentPlaylist.entries.count {
+//                    cellView.textField?.stringValue = delegate.playlists[row].title + " (\(currentPlaylist.progress) out of \(currentPlaylist.entries.count))"
+//                }
                 return cellView
             }
             else {
