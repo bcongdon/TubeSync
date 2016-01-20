@@ -61,6 +61,8 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onSyncEnd:", name: SyncCompletionNotification, object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedCurrentFileName:", name: CurrentDownloadFileName, object: nil)
+        
     }
     
     func onSyncStart(notification:NSNotification){
@@ -101,7 +103,13 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             downloadProgressIndicator.maxValue = Double(playlist.entries.count)
             downloadProgressIndicator.doubleValue = Double(playlist.progress!)
             
-            downloadProgressTextField.stringValue = "\(playlist.title) (\(playlist.progress!) of \(playlist.entries.count))"
+            //downloadProgressTextField.stringValue = "\(playlist.title) (\(playlist.progress!) of \(playlist.entries.count))"
+        }
+    }
+    
+    func receivedCurrentFileName(notification:NSNotification){
+        if let fileName = notification.object as? String {
+            downloadProgressTextField.stringValue = fileName
         }
     }
     

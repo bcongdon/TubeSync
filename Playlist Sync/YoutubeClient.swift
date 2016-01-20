@@ -19,6 +19,9 @@ class YoutubeClient: NSObject {
     var downloadQueue = Array<(String,String)>()
     var handlesForPlaylists = Dictionary<Playlist,[NSFileHandle]>()
     
+    var partialLogResponse:String = ""
+    var partialErrResponse:String = ""
+    
     override init(){
         //Initializes Client
         options = NSMutableDictionary()
@@ -55,29 +58,32 @@ class YoutubeClient: NSObject {
     }
     
     private func runYTDLTask(options:Array<String>, scriptName:String) -> (logResult:String, errResult:String){
+        partialLogResponse = ""
+        partialErrResponse = ""
+        
         let task = NSTask()
         task.launchPath = NSBundle.mainBundle().pathForResource(scriptName, ofType: "py")! as String
         task.arguments = options
         let logOut = NSPipe()
         let errOut = NSPipe()
-        //let logFileHandle = logOut.fileHandleForReading
-        //let errFileHandle = errOut.fileHandleForReading
+        let logFileHandle = logOut.fileHandleForReading
+        let errFileHandle = errOut.fileHandleForReading
         task.standardOutput = logOut
         task.standardError = errOut
         
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logFileHandle)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
-//            NSTaskDidTerminateNotification, object: task)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errFileHandle)
-//        
-//        logFileHandle.waitForDataInBackgroundAndNotify()
-//        errFileHandle.waitForDataInBackgroundAndNotify()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logFileHandle)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
+            NSTaskDidTerminateNotification, object: task)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errFileHandle)
+        
+        logFileHandle.waitForDataInBackgroundAndNotify()
+        errFileHandle.waitForDataInBackgroundAndNotify()
         
         task.launch()
 
         task.waitUntilExit()
-        let logResponse = NSString(data: logOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
-        let errResponse = NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
+        let logResponse = partialLogResponse //NSString(data: logOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
+        let errResponse = partialErrResponse //NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
         dispatch_async(GlobalMainQueue){
             print(logResponse as String, errResponse as String)
         }
@@ -88,7 +94,11 @@ class YoutubeClient: NSObject {
         let handle = notification.object as! NSFileHandle
         let data = handle.availableData
         if data.length != 0 {
-            print(String(data: data, encoding: NSUTF8StringEncoding)!)
+            let newData = String(data: data, encoding: NSUTF8StringEncoding)!
+            partialLogResponse += newData
+            if let fileName = extractFileName(newData){
+                NSNotificationCenter.defaultCenter().postNotificationName(CurrentDownloadFileName, object: fileName)
+            }
         }
         handle.waitForDataInBackgroundAndNotify()
     }
@@ -102,7 +112,7 @@ class YoutubeClient: NSObject {
         let handle = notification.object as! NSFileHandle
         let data = handle.availableData
         if data.length != 0 {
-            print(String(data: data, encoding: NSUTF8StringEncoding)!)
+            partialErrResponse += String(data: data, encoding: NSUTF8StringEncoding)!
         }
         handle.waitForDataInBackgroundAndNotify()
     }
@@ -187,17 +197,9 @@ class YoutubeClient: NSObject {
         }
     }
     
-    private func internalDownload(url:String, path:String) -> String {
-        
-        makeFoldersToPath(path)
-        
-        //Actually download video
-        let result = runYTDLTask([url,path], scriptName: "Download")
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("videoFinished", object: result.logResult)
-        
+    func extractFileName(data:String) -> String?{
         //Extract file name from output
-        let logResultArray = result.logResult.characters.split{$0 == "\n"}.map(String.init)
+        let logResultArray = data.characters.split{$0 == "\n"}.map(String.init)
         for line in logResultArray {
             let beginString = "[download] Destination: "
             let endString = " has already been downloaded"
@@ -215,6 +217,22 @@ class YoutubeClient: NSObject {
             }
             
         }
+        return nil
+    }
+    
+    private func internalDownload(url:String, path:String) -> String {
+        
+        makeFoldersToPath(path)
+        
+        //Actually download video
+        let result = runYTDLTask([url,path], scriptName: "Download")
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("videoFinished", object: result.logResult)
+        
+        if let fileName = extractFileName(result.logResult){
+            return fileName
+        }
+        
         print("ERROR: Returning null filename:")
         print(result.logResult)
         print(result.errResult)

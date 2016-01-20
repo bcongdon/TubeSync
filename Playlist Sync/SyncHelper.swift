@@ -94,6 +94,7 @@ class SyncHelper: NSObject {
             else{
                 NSNotificationCenter.defaultCenter().postNotificationName(PlaylistFileDownloadedNotification, object: [entry.0,entry.1])
                 NSNotificationCenter.defaultCenter().postNotificationName(PlaylistDownloadProgressNotification, object: playlist)
+                NSNotificationCenter.defaultCenter().postNotificationName(CurrentDownloadFileName, object: entry.1)
                 print("found completed file")
             }
         }
