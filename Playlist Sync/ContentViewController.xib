@@ -11,6 +11,7 @@
                 <outlet property="downloadingStaticLabel" destination="v8T-xW-67D" id="eD4-wd-z8A"/>
                 <outlet property="lastSyncLabel" destination="RTJ-d9-Wa2" id="VNs-AR-zUz"/>
                 <outlet property="spinningActivityIndicator" destination="2Js-ef-YIA" id="pB6-9Y-c77"/>
+                <outlet property="stopSyncButton" destination="zQw-Lr-WBG" id="AH8-Y6-mMN"/>
                 <outlet property="tableView" destination="4cl-c9-ang" id="k87-fQ-CpW"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -151,9 +152,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="2Js-ef-YIA">
-                    <rect key="frame" x="119" y="211" width="16" height="16"/>
-                </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OID-uA-2OB">
                     <rect key="frame" x="85" y="19" width="262" height="12"/>
                     <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="9ku-YU-JjQ">
@@ -170,6 +168,19 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zQw-Lr-WBG">
+                    <rect key="frame" x="108" y="202" width="50" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="lNl-lq-s0N">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="stopSync:" target="-2" id="Ed3-SE-Hj9"/>
+                    </connections>
+                </button>
+                <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="2Js-ef-YIA">
+                    <rect key="frame" x="160" y="211" width="16" height="16"/>
+                </progressIndicator>
             </subviews>
             <point key="canvasLocation" x="290.5" y="234.5"/>
         </customView>

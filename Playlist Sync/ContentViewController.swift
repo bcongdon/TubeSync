@@ -12,6 +12,7 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
 
     var delegate:AppDelegate?
     
+    @IBOutlet weak var stopSyncButton: NSButton!
     @IBOutlet weak var downloadProgressIndicator: NSProgressIndicator!
     @IBOutlet weak var spinningActivityIndicator: NSProgressIndicator!
     @IBOutlet weak var lastSyncLabel: NSTextField!
@@ -40,6 +41,10 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     
     @IBOutlet weak var tableView: NSTableView!
     
+    
+    @IBAction func stopSync(sender: AnyObject) {
+        delegate!.syncHelper.haltSync()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +80,7 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
         dispatch_async(GlobalMainQueue){
             self.tableView.reloadData()
         }
+        stopSyncButton.hidden = false
     }
     
     func onSyncEnd(notification:NSNotification){
@@ -88,6 +94,7 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
         dispatch_async(GlobalMainQueue){
             self.tableView.reloadData()
         }
+        stopSyncButton.hidden = true
     }
     
     func onDownloadUpdate(notification:NSNotification){

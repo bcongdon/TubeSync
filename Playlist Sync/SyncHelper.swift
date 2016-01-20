@@ -136,5 +136,6 @@ class SyncHelper: NSObject {
     func haltSync(){
         downloadQueue.cancelAllOperations()
         playlistQueue.cancelAllOperations()
+        NSNotificationCenter.defaultCenter().postNotificationName(SyncCompletionNotification, object: nil)
     }
 }

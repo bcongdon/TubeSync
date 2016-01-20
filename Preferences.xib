@@ -172,11 +172,11 @@ DQ
                                                 <nil key="backgroundColor"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="JF0-Bm-fZo">
-                                                <rect key="frame" x="-7" y="-14" width="0.0" height="15"/>
+                                                <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="hSX-4l-QLG">
-                                                <rect key="frame" x="-14" y="-7" width="15" height="0.0"/>
+                                                <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -1038,6 +1038,19 @@ DQ
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="aboutClicked:" target="11g-7b-PFK" id="1rj-f1-zbm"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="7m1-RF-552"/>
+                <menuItem title="Sync Now" id="hPW-y7-1Rj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="syncNow:" target="WUR-gE-l9W" id="uwk-qD-Wmr"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Stop" id="oGY-Pf-ukj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="stopSync:" target="WUR-gE-l9W" id="kD0-yr-Zta"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="jzc-QS-S5j"/>

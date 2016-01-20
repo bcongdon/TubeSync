@@ -358,6 +358,13 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     func switchToAbout(){
         tabView.selectTabViewItemAtIndex(2)
     }
+    @IBAction func syncNow(sender: AnyObject) {
+        delegate.syncTimerFired()
+    }
+    
+    @IBAction func stopSync(sender: AnyObject) {
+        delegate.syncHelper.haltSync()
+    }
     func setupFreqUI(interval:Double?){
         var cleanInterval:Double = 0
         if let safeInterval = interval{
