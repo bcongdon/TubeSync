@@ -81,7 +81,7 @@ class SyncHelper: NSObject {
             if entry.1.isEmpty {
                 let downloadOp = NSBlockOperation(block: {
                     print("Downloading: " + entry.0)
-                    let fileName = self.youtubeClient.downloadVideo(entry.0, path: playlistFolderPath)
+                    let fileName = YoutubeClient().downloadVideo(entry.0, path: playlistFolderPath)
                     //Inform playlist of the resulting file name
                     NSNotificationCenter.defaultCenter().postNotificationName(PlaylistFileDownloadedNotification, object: [entry.0, fileName])
                 })
