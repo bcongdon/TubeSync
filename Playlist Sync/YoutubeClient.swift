@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import Python
+import CocoaLumberjack
 
 class YoutubeClient: NSObject {
 
@@ -44,15 +44,18 @@ class YoutubeClient: NSObject {
         let str = response.errResult
         //No credentials provided
         if str.containsString("The playlist doesn't exist or is private, use --username or --netrc"){
+            DDLogWarn("Need account credentials to authenticate.")
             return YoutubeResponse.NeedCredentials
         }
         //Credential check failed
         else if str.containsString("Please use your account password"){
+            DDLogWarn("Provided credentials incorrect.")
             return YoutubeResponse.IncorrectCredentials
         }
         //Able to login
         else{
             authenticated = true
+            DDLogInfo("Authentication successful.")
             return YoutubeResponse.AuthSuccess
         }
     }
@@ -138,15 +141,18 @@ class YoutubeClient: NSObject {
             let jsonResult = JSON(string:result.logResult)
             for(k,v) in jsonResult{
                 if k as! String == "_type" && v.asString == "playlist"{
+                    DDLogInfo("Valid playlist found for url: " + url)
                     return YoutubeResponse.ValidPlaylist
                 }
             }
             return YoutubeResponse.NotPlaylist
         }
         else if result.errResult.containsString("Error 404"){
+            DDLogWarn("404 Error encountered while checking playlist at url: " + url)
             return YoutubeResponse.InvalidPlaylist
         }
         else if result.errResult.containsString("playlist doesn't exist or is private") {
+            DDLogWarn("Playlist at url is either private or nonexistant: " + url)
             return YoutubeResponse.NeedCredentials
         }
         return YoutubeResponse.InvalidPlaylist
@@ -155,10 +161,8 @@ class YoutubeClient: NSObject {
     func youtubeInfo(url:String) -> JSON? {
         let result = runYTDLTask([url], scriptName: "Playlist")
         if result.errResult != "" {
-            print("-----")
             print("ERROR:")
             print(result.errResult)
-            print("-----")
             return nil
         }
         return JSON(string:result.logResult)
@@ -193,7 +197,9 @@ class YoutubeClient: NSObject {
             print("path to " + path)
             try NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
         } catch let error as NSError {
-            print("ERROR: " + error.localizedDescription);
+            print("ERROR: " + error.localizedDescription)
+            DDLogError("Could not make folders to path: " + path)
+            DDLogError(error.description)
         }
     }
     
@@ -213,6 +219,7 @@ class YoutubeClient: NSObject {
             }
             if fileName != ""{
                 print("returning file name: " + fileName)
+                DDLogInfo("Found video with filename: " + fileName)
                 return fileName
             }
             
@@ -236,6 +243,9 @@ class YoutubeClient: NSObject {
         print("ERROR: Returning null filename:")
         print(result.logResult)
         print(result.errResult)
+        DDLogError("Returning null filename for download from url: " + url)
+        DDLogError("Download Logs: " + result.logResult)
+        DDLogError("Error Logs: " + result.errResult)
         return ""
     }
     
@@ -254,9 +264,12 @@ class YoutubeClient: NSObject {
         do {
             try fileManager.removeItemAtPath(path)
             print("DELETE: Removed file: " + path)
+            DDLogInfo("Deleting file at path: " + path)
         }
         catch let error as NSError {
             print("Something went wrong deleting file: \(error)")
+            DDLogError("Unable to delete file at path: " + path)
+            DDLogError(error.description)
         }
     }
     

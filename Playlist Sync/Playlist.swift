@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import CocoaLumberjack
 
 class Playlist: NSObject,NSCoding {
     
@@ -42,6 +43,7 @@ class Playlist: NSObject,NSCoding {
             self.progress! += progressCounter
             dispatch_async(GlobalMainQueue){
                 print("\(self.progress) out of \(self.entries.count)")
+                DDLogInfo("Sync Progress: \(self.progress) out of \(self.entries.count)")
             }
         }
         if self.progress! >= entries.count {

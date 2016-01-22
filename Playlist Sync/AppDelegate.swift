@@ -32,20 +32,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     
     override init(){
         
-//        DDLog.addLogger(DDTTYLogger.sharedInstance()) // TTY = Xcode console
-//        DDLog.addLogger(DDASLLogger.sharedInstance()) // ASL = Apple System Logs
-//        
-//        let fileLogger: DDFileLogger = DDFileLogger() // File Logger
-//        fileLogger.rollingFrequency = 60*60*24  // 24 hours
-//        fileLogger.logFileManager.maximumNumberOfLogFiles = 7
-//        DDLog.addLogger(fileLogger)
-//        print(fileLogger.currentLogFileInfo().filePath!)
-//        DDLogVerbose("Verbose");
-//        DDLogDebug("Debug");
-//        DDLogInfo("Info");
-//        DDLogWarn("Warn");
-//        DDLogError("Error");
-
+        DDLog.addLogger(DDTTYLogger.sharedInstance()) // TTY = Xcode console
+        DDLog.addLogger(DDASLLogger.sharedInstance()) // ASL = Apple System Logs
+        
+        //Setup Loggers (from CocoaLumberjack)
+        let fileLogger: DDFileLogger = DDFileLogger() // File Logger
+        fileLogger.rollingFrequency = 60*60*24  // 24 hours
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 7
+        DDLog.addLogger(fileLogger)
         
         //Initialize and try to authenticate Youtube Client
         youtubeClient = YoutubeClient.defaultClient
@@ -164,6 +158,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         NSUserDefaults.standardUserDefaults().setObject(playlistData, forKey: "playlists")
         NSUserDefaults.standardUserDefaults().synchronize()
         print("Wrote playlists to user defaults")
+        DDLogInfo("Writing playlist data to user defaults.")
     }
 
     func setSyncInterval(seconds:Double){
@@ -174,6 +169,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         }
         self.interval = seconds
         print(self.interval)
+        DDLogInfo("Setting Sync interval to \(self.interval)")
         if let newInterval = self.interval {
             NSUserDefaults.standardUserDefaults().setDouble(newInterval, forKey: "syncFrequency")
         }
@@ -211,11 +207,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
     func syncTimerFired(){
         //TODO: Sync when timer fires
-        print("should sync")
+        DDLogInfo("Initiating Sync")
         if(playlists.count == 0){
             return
         }
-        print(NSDate())
         if let outputDir = NSUserDefaults.standardUserDefaults().URLForKey("OutputDirectory"){
             syncHelper = SyncHelper(outputDir: outputDir.path!)
             dispatch_async(GlobalBackgroundQueue){

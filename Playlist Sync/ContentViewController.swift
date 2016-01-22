@@ -71,7 +71,6 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     }
     
     func onSyncStart(notification:NSNotification){
-        print("starting")
         lastSyncLabel.stringValue = "In progress..."
         spinningActivityIndicator.startAnimation(self)
         downloadingStaticLabel.hidden = false
@@ -105,7 +104,6 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             dispatch_async(GlobalMainQueue){
                 self.tableView.reloadData()
             }
-            print(playlist.entries.count, playlist.progress!)
 
             downloadProgressIndicator.maxValue = Double(playlist.entries.count)
             downloadProgressIndicator.doubleValue = Double(playlist.progress!)
