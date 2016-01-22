@@ -16,7 +16,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="649" y="360" width="459" height="324"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="459" height="324"/>
             <value key="maxSize" type="size" width="459" height="324"/>
             <view key="contentView" id="se5-gp-TjO">
@@ -28,7 +28,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Sync Settings" identifier="2" id="B4p-wC-n1I">
-                                <view key="view" ambiguous="YES" id="cBa-Hf-TTK">
+                                <view key="view" id="cBa-Hf-TTK">
                                     <rect key="frame" x="10" y="33" width="204" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -172,11 +172,11 @@ DQ
                                                 <nil key="backgroundColor"/>
                                             </clipView>
                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="JF0-Bm-fZo">
-                                                <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                                                <rect key="frame" x="-7" y="-14" width="0.0" height="15"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="hSX-4l-QLG">
-                                                <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
+                                                <rect key="frame" x="-14" y="-7" width="15" height="0.0"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                         </scrollView>
@@ -324,7 +324,7 @@ DQ
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="About" identifier="" id="vkz-OB-7V5">
-                                <view key="view" id="bA2-TT-b9T">
+                                <view key="view" ambiguous="YES" id="bA2-TT-b9T">
                                     <rect key="frame" x="10" y="33" width="413" height="262"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -341,7 +341,11 @@ DQ
                                                         <size key="minSize" width="377" height="133"/>
                                                         <size key="maxSize" width="463" height="10000000"/>
                                                         <attributedString key="textStorage">
-                                                            <fragment content="YoutubeSync v0.1 ">
+                                                            <fragment>
+                                                                <string key="content">TubeSync v0.1
+
+Created in January, 2016 by Benjamin Congdon. 
+Project details at github.com/benjamincongdon/TubeSync</string>
                                                                 <attributes>
                                                                     <font key="NSFont" size="12" name="Helvetica"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
