@@ -59,6 +59,7 @@ class Playlist: NSObject,NSCoding {
         self.entries = decoder.decodeObjectForKey("entries") as! Dictionary<String,String>
         self.progress = decoder.decodeObjectForKey("progress") as! Int
     }
+    
     convenience init(url:String,title:String,enabled:Bool,entries:Dictionary<String,String>){
         self.init()
         self.url = url
@@ -67,6 +68,7 @@ class Playlist: NSObject,NSCoding {
         self.entries = entries
         self.progress = 0
     }
+    
     func encodeWithCoder(coder:NSCoder){
         if let url = url {coder.encodeObject(url, forKey:"url")}
         if let title = title {coder.encodeObject(title, forKey:"title")}

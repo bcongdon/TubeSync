@@ -42,6 +42,7 @@ class YoutubeClient: NSObject {
     private func authYoutubeDL(options:Array<String>) -> YoutubeResponse {
         let response = runYTDLTask(options, scriptName: "Authenticate")
         let str = response.errResult
+        DDLogInfo(response.errResult)
         //No credentials provided
         if str.containsString("The playlist doesn't exist or is private, use --username or --netrc"){
             DDLogWarn("Need account credentials to authenticate.")
@@ -63,6 +64,7 @@ class YoutubeClient: NSObject {
     private func runYTDLTask(options:Array<String>, scriptName:String) -> (logResult:String, errResult:String){
         partialLogResponse = ""
         partialErrResponse = ""
+        DDLogVerbose("Running task with options \(options) and script name \(scriptName)")
         
         let task = NSTask()
         task.launchPath = NSBundle.mainBundle().pathForResource(scriptName, ofType: "py")! as String
@@ -75,9 +77,8 @@ class YoutubeClient: NSObject {
         task.standardError = errOut
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logFileHandle)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated", name:
-            NSTaskDidTerminateNotification, object: task)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError", name: NSFileHandleReadCompletionNotification, object: errFileHandle)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated:", name: NSTaskDidTerminateNotification, object: task)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError:", name: NSFileHandleReadCompletionNotification, object: errFileHandle)
         
         logFileHandle.waitForDataInBackgroundAndNotify()
         errFileHandle.waitForDataInBackgroundAndNotify()
@@ -85,10 +86,15 @@ class YoutubeClient: NSObject {
         task.launch()
 
         task.waitUntilExit()
-        let logResponse = partialLogResponse //NSString(data: logOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
-        let errResponse = partialErrResponse //NSString(data: errOut.fileHandleForReading.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)!
+        let logResponse = partialLogResponse
+        let errResponse = partialErrResponse
+        
         dispatch_async(GlobalMainQueue){
             print(logResponse as String, errResponse as String)
+        }
+        DDLogVerbose("StdOut of Task: " + logResponse)
+        if !errResponse.isEmpty{
+            DDLogVerbose("ErrOut of Task: " + errResponse)
         }
         return (logResponse as String, errResponse as String)
     }
@@ -106,7 +112,7 @@ class YoutubeClient: NSObject {
         handle.waitForDataInBackgroundAndNotify()
     }
     
-    func terminated(){
+    func terminated(notification:NSNotification){
         NSNotificationCenter.defaultCenter().removeObserver(self)
         //busy = false
     }
@@ -115,7 +121,8 @@ class YoutubeClient: NSObject {
         let handle = notification.object as! NSFileHandle
         let data = handle.availableData
         if data.length != 0 {
-            partialErrResponse += String(data: data, encoding: NSUTF8StringEncoding)!
+            let newData = String(data: data, encoding: NSUTF8StringEncoding)!
+            partialErrResponse += newData
         }
         handle.waitForDataInBackgroundAndNotify()
     }

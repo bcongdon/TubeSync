@@ -114,28 +114,28 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
     
     @IBAction func deletePlaylist(sender: AnyObject){
         let row = playlistTable.selectedRow
+        //Check to make sure a row is selected
         if row > -1 {
             
             //If in middle of sync, halt and restart sync
             if delegate.syncActive {
                 delegate.syncHelper.haltSync()
-
                 delegate.playlists.removeAtIndex(row)
-
                 delegate.syncTimerFired()
             }
             else{
                 delegate.playlists.removeAtIndex(row)
             }
             
-            
             synchronizePlaylistData()
         }
     }
     
     func synchronizePlaylistData(){
-        delegate.writePlaylistsToDefaults()
+        //Send notification that playlist data has somehow changed, delegate will write to user defaults
         NSNotificationCenter.defaultCenter().postNotificationName(PlaylistListUpdate, object: nil)
+        
+        //Reload tableView with the new data
         self.playlistTable.reloadData()
     }
     
@@ -177,6 +177,7 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
         delegate.setSyncEnabled(state)
     }
     
+    //Prompt for an output directory
     func getURL() -> NSURL{
         let panel:NSOpenPanel = NSOpenPanel()
         panel.allowsMultipleSelection = false
