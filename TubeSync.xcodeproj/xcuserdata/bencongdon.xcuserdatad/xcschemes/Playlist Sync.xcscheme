@@ -62,7 +62,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "78BBFC6A1C42EC1800421236"
-            BuildableName = "Playlist Sync.app"
+            BuildableName = "TubeSync.app"
             BlueprintName = "Playlist Sync"
             ReferencedContainer = "container:TubeSync.xcodeproj">
          </BuildableReference>

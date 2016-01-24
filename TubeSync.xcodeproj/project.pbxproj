@@ -34,6 +34,9 @@
 		78BBFC6F1C42EC1800421236 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC6E1C42EC1800421236 /* AppDelegate.swift */; };
 		78BBFC811C42EC1900421236 /* Playlist_SyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC801C42EC1900421236 /* Playlist_SyncTests.swift */; };
 		78BBFC8C1C42EC1900421236 /* Playlist_SyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */; };
+		78D932151C55789D002F5969 /* youtube.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D932131C55789D002F5969 /* youtube.png */; };
+		78D932161C55789D002F5969 /* youtube@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D932141C55789D002F5969 /* youtube@3x.png */; };
+		78D932191C557A4F002F5969 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78D932181C557A4F002F5969 /* Media.xcassets */; };
 		E8270D965DCE722538F17636 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C205C30198AF23C332A90A34 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +92,9 @@
 		78BBFC871C42EC1900421236 /* Playlist SyncUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Playlist SyncUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BBFC8B1C42EC1900421236 /* Playlist_SyncUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist_SyncUITests.swift; sourceTree = "<group>"; };
 		78BBFC8D1C42EC1900421236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78D932131C55789D002F5969 /* youtube.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youtube.png; sourceTree = "<group>"; };
+		78D932141C55789D002F5969 /* youtube@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "youtube@3x.png"; sourceTree = "<group>"; };
+		78D932181C557A4F002F5969 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BC85D9742821B8B39F490D44 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C205C30198AF23C332A90A34 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -147,8 +153,11 @@
 				783E30FE1C4AFAA3008FAF8E /* complete@2x.png */,
 				783E30F71C4AFA26008FAF8E /* outOfSync@2x.png */,
 				783E30F81C4AFA26008FAF8E /* outOfSync.png */,
+				78D932131C55789D002F5969 /* youtube.png */,
+				78D932141C55789D002F5969 /* youtube@3x.png */,
 				78395B6B1C4433AD00B7B2E7 /* youtube@2x.png */,
 				7879E6D01C4460DD0010443B /* cog@2x.png */,
+				78D932181C557A4F002F5969 /* Media.xcassets */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -335,6 +344,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				783E31001C4AFAA3008FAF8E /* refresh.png in Resources */,
+				78D932161C55789D002F5969 /* youtube@3x.png in Resources */,
+				78D932151C55789D002F5969 /* youtube.png in Resources */,
 				78938DFF1C4701EF003F9047 /* Download.py in Resources */,
 				783E31011C4AFAA3008FAF8E /* complete.png in Resources */,
 				7879E6D11C4460DD0010443B /* cog@2x.png in Resources */,
@@ -348,6 +359,7 @@
 				788B8D271C44068400FDD122 /* Watch_Later_Sync.py in Resources */,
 				783E30FA1C4AFA26008FAF8E /* outOfSync.png in Resources */,
 				783E30FF1C4AFAA3008FAF8E /* refresh@2x.png in Resources */,
+				78D932191C557A4F002F5969 /* Media.xcassets in Resources */,
 				781AD7071C4576F3005AE4A9 /* youtube_dl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
