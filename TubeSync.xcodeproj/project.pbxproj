@@ -80,7 +80,7 @@
 		788F0B8A1C46AE8D00BA9BF9 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		78938DFE1C4701EF003F9047 /* Download.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = Download.py; sourceTree = "<group>"; };
 		78938E001C471C68003F9047 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		78BBFC6B1C42EC1800421236 /* Playlist Sync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Playlist Sync.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		78BBFC6B1C42EC1800421236 /* TubeSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TubeSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BBFC6E1C42EC1800421236 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78BBFC771C42EC1800421236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78BBFC7C1C42EC1900421236 /* Playlist SyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Playlist SyncTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,7 +156,7 @@
 		78BBFC621C42EC1800421236 = {
 			isa = PBXGroup;
 			children = (
-				78BBFC6D1C42EC1800421236 /* Playlist Sync */,
+				78BBFC6D1C42EC1800421236 /* TubeSync */,
 				783E30F21C4AF928008FAF8E /* Icons */,
 				78BBFC7F1C42EC1900421236 /* Playlist SyncTests */,
 				78BBFC8A1C42EC1900421236 /* Playlist SyncUITests */,
@@ -171,14 +171,14 @@
 		78BBFC6C1C42EC1800421236 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				78BBFC6B1C42EC1800421236 /* Playlist Sync.app */,
+				78BBFC6B1C42EC1800421236 /* TubeSync.app */,
 				78BBFC7C1C42EC1900421236 /* Playlist SyncTests.xctest */,
 				78BBFC871C42EC1900421236 /* Playlist SyncUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		78BBFC6D1C42EC1800421236 /* Playlist Sync */ = {
+		78BBFC6D1C42EC1800421236 /* TubeSync */ = {
 			isa = PBXGroup;
 			children = (
 				788F0B8A1C46AE8D00BA9BF9 /* Playlist.swift */,
@@ -195,6 +195,7 @@
 				7879E6DF1C448AFD0010443B /* YoutubeClient.swift */,
 				787B6E661C45EA7E008F66FA /* json.swift */,
 			);
+			name = TubeSync;
 			path = "Playlist Sync";
 			sourceTree = "<group>";
 		};
@@ -246,7 +247,7 @@
 			);
 			name = "Playlist Sync";
 			productName = "Playlist Sync";
-			productReference = 78BBFC6B1C42EC1800421236 /* Playlist Sync.app */;
+			productReference = 78BBFC6B1C42EC1800421236 /* TubeSync.app */;
 			productType = "com.apple.product-type.application";
 		};
 		78BBFC7B1C42EC1900421236 /* Playlist SyncTests */ = {
@@ -308,7 +309,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 78BBFC661C42EC1800421236 /* Build configuration list for PBXProject "Playlist Sync" */;
+			buildConfigurationList = 78BBFC661C42EC1800421236 /* Build configuration list for PBXProject "TubeSync" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -517,6 +518,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = TubeSync;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -554,6 +556,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = TubeSync;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -568,8 +571,8 @@
 				INFOPLIST_FILE = "Playlist Sync/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.benjamincongdon.Playlist-Sync";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = me.benjamincongdon.TubeSync;
+				PRODUCT_NAME = TubeSync;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -584,8 +587,8 @@
 				INFOPLIST_FILE = "Playlist Sync/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.benjamincongdon.Playlist-Sync";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = me.benjamincongdon.TubeSync;
+				PRODUCT_NAME = TubeSync;
 			};
 			name = Release;
 		};
@@ -644,7 +647,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		78BBFC661C42EC1800421236 /* Build configuration list for PBXProject "Playlist Sync" */ = {
+		78BBFC661C42EC1800421236 /* Build configuration list for PBXProject "TubeSync" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				78BBFC8E1C42EC1900421236 /* Debug */,

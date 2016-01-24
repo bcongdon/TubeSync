@@ -29,17 +29,17 @@
                         <tabViewItems>
                             <tabViewItem label="Sync Settings" identifier="2" id="B4p-wC-n1I">
                                 <view key="view" ambiguous="YES" id="cBa-Hf-TTK">
-                                    <rect key="frame" x="10" y="33" width="413" height="262"/>
+                                    <rect key="frame" x="10" y="33" width="204" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="6j9-jZ-LnA">
-                                            <rect key="frame" x="9" y="234" width="395" height="5"/>
+                                            <rect key="frame" x="9" y="-28" width="395" height="5"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U5Q-yO-acr">
-                                            <rect key="frame" x="15" y="211" width="116" height="17"/>
+                                            <rect key="frame" x="15" y="-51" width="116" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlists to Sync:" id="8L5-mY-WT1">
                                                 <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -47,13 +47,13 @@
                                             </textFieldCell>
                                         </textField>
                                         <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="KeP-d0-kVq">
-                                            <rect key="frame" x="212" y="68" width="5" height="160"/>
+                                            <rect key="frame" x="212" y="-194" width="4" height="160"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ipj-Yg-ToZ">
-                                            <rect key="frame" x="228" y="205" width="117" height="23"/>
+                                            <rect key="frame" x="228" y="-57" width="117" height="23"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sync Frequency:" id="vph-tH-g9a">
                                                 <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -61,7 +61,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QJ0-9I-bZm">
-                                            <rect key="frame" x="275" y="181" width="31" height="22"/>
+                                            <rect key="frame" x="275" y="-81" width="31" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1" drawsBackground="YES" id="lhD-ae-M1d">
                                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="uMo-pH-66i">
                                                     <real key="minimum" value="0.0"/>
@@ -75,7 +75,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyd-6O-tfU">
-                                            <rect key="frame" x="228" y="183" width="39" height="17"/>
+                                            <rect key="frame" x="228" y="-79" width="39" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Every" id="MBs-K5-DfG">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -83,13 +83,13 @@
                                             </textFieldCell>
                                         </textField>
                                         <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rwi-fP-ARI">
-                                            <rect key="frame" x="9" y="57" width="395" height="5"/>
+                                            <rect key="frame" x="9" y="-205" width="395" height="4"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <font key="titleFont" metaFont="system"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ca0-gp-3bA">
-                                            <rect key="frame" x="7" y="34" width="99" height="17"/>
+                                            <rect key="frame" x="7" y="-228" width="99" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Output Folder:" id="b9Q-Fe-J2f">
                                                 <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -97,7 +97,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cec-M3-tfv">
-                                            <rect key="frame" x="9" y="4" width="368" height="22"/>
+                                            <rect key="frame" x="9" y="-258" width="368" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="VBu-Eu-vL2">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -105,7 +105,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F2D-hb-s8A">
-                                            <rect key="frame" x="385" y="5" width="19" height="21"/>
+                                            <rect key="frame" x="385" y="-257" width="19" height="21"/>
                                             <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xka-Xw-qWR">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -115,7 +115,7 @@
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hZh-51-79T">
-                                            <rect key="frame" x="137" y="208" width="19" height="21"/>
+                                            <rect key="frame" x="137" y="-54" width="19" height="21"/>
                                             <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SqE-BK-0Fa">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -125,7 +125,7 @@
                                             </connections>
                                         </button>
                                         <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRK-p8-nA4">
-                                            <rect key="frame" x="9" y="68" width="197" height="135"/>
+                                            <rect key="frame" x="9" y="-194" width="197" height="135"/>
                                             <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="ftN-0B-Zk9">
                                                 <rect key="frame" x="1" y="1" width="195" height="133"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -174,7 +174,7 @@ DQ
                                             </scroller>
                                         </scrollView>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSD-Wp-GxN">
-                                            <rect key="frame" x="164" y="208" width="19" height="21"/>
+                                            <rect key="frame" x="164" y="-54" width="19" height="21"/>
                                             <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Irc-ea-X0L">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -184,10 +184,10 @@ DQ
                                             </connections>
                                         </button>
                                         <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="q7G-tB-8FG">
-                                            <rect key="frame" x="190" y="210" width="16" height="16"/>
+                                            <rect key="frame" x="190" y="-52" width="16" height="16"/>
                                         </progressIndicator>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdA-0I-N7a">
-                                            <rect key="frame" x="312" y="178" width="90" height="26"/>
+                                            <rect key="frame" x="312" y="-84" width="90" height="26"/>
                                             <popUpButtonCell key="cell" type="push" title="minute(s)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Rox-69-p80" id="dIv-PB-fXq">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="menu"/>
@@ -210,7 +210,7 @@ DQ
                                             </popUpButtonCell>
                                         </popUpButton>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YYe-4y-6fE">
-                                            <rect key="frame" x="115" y="243" width="182" height="18"/>
+                                            <rect key="frame" x="115" y="-19" width="182" height="18"/>
                                             <buttonCell key="cell" type="check" title="Automatic Sync Enabled" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aQ7-xp-aAD">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" size="13" name=".HelveticaNeueDeskInterface-Bold"/>

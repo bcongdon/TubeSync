@@ -17,7 +17,7 @@
                BlueprintIdentifier = "78BBFC6A1C42EC1800421236"
                BuildableName = "Playlist Sync.app"
                BlueprintName = "Playlist Sync"
-               ReferencedContainer = "container:Playlist Sync.xcodeproj">
+               ReferencedContainer = "container:TubeSync.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "78BBFC7B1C42EC1900421236"
                BuildableName = "Playlist SyncTests.xctest"
                BlueprintName = "Playlist SyncTests"
-               ReferencedContainer = "container:Playlist Sync.xcodeproj">
+               ReferencedContainer = "container:TubeSync.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "78BBFC861C42EC1900421236"
                BuildableName = "Playlist SyncUITests.xctest"
                BlueprintName = "Playlist SyncUITests"
-               ReferencedContainer = "container:Playlist Sync.xcodeproj">
+               ReferencedContainer = "container:TubeSync.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,7 +55,7 @@
             BlueprintIdentifier = "78BBFC6A1C42EC1800421236"
             BuildableName = "Playlist Sync.app"
             BlueprintName = "Playlist Sync"
-            ReferencedContainer = "container:Playlist Sync.xcodeproj">
+            ReferencedContainer = "container:TubeSync.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "78BBFC6A1C42EC1800421236"
             BuildableName = "Playlist Sync.app"
             BlueprintName = "Playlist Sync"
-            ReferencedContainer = "container:Playlist Sync.xcodeproj">
+            ReferencedContainer = "container:TubeSync.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -97,7 +97,7 @@
             BlueprintIdentifier = "78BBFC6A1C42EC1800421236"
             BuildableName = "Playlist Sync.app"
             BlueprintName = "Playlist Sync"
-            ReferencedContainer = "container:Playlist Sync.xcodeproj">
+            ReferencedContainer = "container:TubeSync.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
