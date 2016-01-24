@@ -176,18 +176,21 @@ class YoutubeClient: NSObject {
         return YoutubeResponse.InvalidPlaylist
     }
     
-    func youtubeInfo(url:String) -> JSON? {
+    func youtubeInfo(url:String) throws -> JSON?{
         let result = runYTDLTask([url], scriptName: "Playlist")
         if result.errResult != "" {
             print("ERROR:")
             print(result.errResult)
-            return nil
+            if result.errResult.containsString("[Errno 8] nodename nor servname provided"){
+                throw YoutubeError.NetworkFailure
+            }
+            
         }
         return JSON(string:result.logResult)
     }
     
-    func playlistInfo(url:String) -> (title:String?, entries:Array<String>){
-        let optionalResult = youtubeInfo(url)
+    func playlistInfo(url:String) throws -> (title:String?, entries:Array<String>){
+        let optionalResult = try youtubeInfo(url)
         if let jsonResult = optionalResult {
             guard let title = jsonResult["title"].asString
                 else{
@@ -202,12 +205,6 @@ class YoutubeClient: NSObject {
             return(title,extractIDs(entries))
         }
         return (nil,[""])
-    }
-    
-    //Returns filename
-    func downloadVideo(url:String, path:String) -> String{
-        print("Going forward with download: " + url)
-        return internalDownload(url, path: path)
     }
     
     func makeFoldersToPath(path:String){
@@ -245,7 +242,7 @@ class YoutubeClient: NSObject {
         return nil
     }
     
-    private func internalDownload(url:String, path:String) -> String {
+     func downloadVideo(url:String, path:String) -> String {
         
         makeFoldersToPath(path)
         
@@ -292,7 +289,7 @@ class YoutubeClient: NSObject {
     }
     
     func refreshPlaylist(playlist:Playlist) throws {
-        let info = YoutubeClient.defaultClient.playlistInfo(playlist.url)
+        let info = try YoutubeClient.defaultClient.playlistInfo(playlist.url)
         if info.title == nil{
             print("playlist no longer valid")
             throw YoutubeError.CannotRefreshError
@@ -332,5 +329,5 @@ enum YoutubeResponse{
 }
 
 enum YoutubeError: ErrorType{
-    case CannotRefreshError
+    case CannotRefreshError, NetworkFailure
 }

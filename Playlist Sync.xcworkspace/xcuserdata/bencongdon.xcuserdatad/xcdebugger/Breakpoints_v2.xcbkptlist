@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Playlist Sync/YoutubeClient.swift"
-            timestampString = "475359205.69549"
+            timestampString = "475361286.970354"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "isValidPlaylist(_:)"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
+            landmarkName = "refreshPlaylist(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

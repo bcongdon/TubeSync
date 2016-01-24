@@ -106,10 +106,13 @@ class SyncHelper: NSObject {
     
     func syncPlaylists(playlists:Array<Playlist>){
         if(downloadQueue.operationCount > 0){
+            print("Not beginning sync because downloadQueue still has operations")
+            NSNotificationCenter.defaultCenter().postNotificationName(SyncCompletionNotification, object: nil)
             return
         }
         else if(outputDir == "") {
             print("Warning: Not syncing because outputDir is blank.")
+            NSNotificationCenter.defaultCenter().postNotificationName(SyncCompletionNotification, object: nil)
             return
         }
         for playlist in playlists{
@@ -117,6 +120,9 @@ class SyncHelper: NSObject {
                 let downloadPlaylistOp = NSBlockOperation(block: {
                     do {
                         try self.downloadPlaylist(playlist)
+                    }
+                    catch YoutubeError.NetworkFailure{
+                        self.haltSync()
                     }
                     catch {
                         self.haltSync()

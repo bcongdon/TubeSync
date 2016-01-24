@@ -94,14 +94,20 @@ class PreferencesViewController: NSViewController, NSTableViewDelegate, NSTableV
             dispatch_async(GlobalMainQueue){
                 let response = YoutubeClient.defaultClient.isValidPlaylist(url.absoluteString)
                 if response == YoutubeResponse.ValidPlaylist{
-                    let info = YoutubeClient.defaultClient.playlistInfo(url.absoluteString)
-                    var entryDict = Dictionary<String,String>()
-                    for entry in info.entries {
-                        entryDict[entry] = ""
+                    do {
+                        let info = try YoutubeClient.defaultClient.playlistInfo(url.absoluteString)
+                        var entryDict = Dictionary<String,String>()
+                        for entry in info.entries {
+                            entryDict[entry] = ""
+                        }
+                        self.delegate.playlists.append(Playlist(url: url.description, title: info.title!,enabled:true,entries:entryDict))
+                        self.playlistTable.reloadData()
+                        self.synchronizePlaylistData()
                     }
-                    self.delegate.playlists.append(Playlist(url: url.description, title: info.title!,enabled:true,entries:entryDict))
-                    self.playlistTable.reloadData()
-                    self.synchronizePlaylistData()
+                    catch{
+                        //FIXME
+                        print("Error trying to get playlist data")
+                    }
                 }
                 else{
                     //Alert user to failed playlist lookup
