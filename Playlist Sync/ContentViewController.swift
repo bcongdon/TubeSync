@@ -83,7 +83,6 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     }
     
     func onSyncEnd(notification:NSNotification){
-        print("ending")
         lastSyncLabel.stringValue = NSDate().description
         spinningActivityIndicator.stopAnimation(self)
         downloadProgressTextField.stringValue = ""
@@ -97,9 +96,6 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     }
     
     func onDownloadUpdate(notification:NSNotification){
-        if !delegate!.syncActive{
-            return
-        }
         if let playlist = notification.object as? Playlist{
             dispatch_async(GlobalMainQueue){
                 self.tableView.reloadData()
@@ -128,10 +124,10 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
                 let cellView = tableView.makeViewWithIdentifier("playlist", owner: self) as! NSTableCellView
                 cellView.textField?.stringValue = delegate.playlists[row].title
                 
-//                let currentPlaylist = delegate.playlists[row]
-//                if currentPlaylist.progress > 0 && currentPlaylist.progress < currentPlaylist.entries.count {
-//                    cellView.textField?.stringValue = delegate.playlists[row].title + " (\(currentPlaylist.progress) out of \(currentPlaylist.entries.count))"
-//                }
+                let currentPlaylist = delegate.playlists[row]
+                if currentPlaylist.progress > 0 && currentPlaylist.progress < currentPlaylist.entries.count {
+                    cellView.textField?.stringValue = delegate.playlists[row].title + " (\(currentPlaylist.progress) out of \(currentPlaylist.entries.count))"
+                }
                 return cellView
             }
             else {

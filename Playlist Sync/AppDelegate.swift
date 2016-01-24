@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     var popoverMonitor:AnyObject?
     var preferencesWindowController:PreferencesWindowController
     let youtubeClient:YoutubeClient
-    var syncHelper = SyncHelper(outputDir:"")
+    var syncHelper = SyncHelper.defaultHelper
     let dummyControl = DummyControl()
     var syncActive = false
     
@@ -213,7 +213,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
             return
         }
         if let outputDir = NSUserDefaults.standardUserDefaults().URLForKey("OutputDirectory"){
-            syncHelper = SyncHelper(outputDir: outputDir.path!)
+            self.syncHelper.outputDir = outputDir.path!
             dispatch_async(GlobalBackgroundQueue){
                 self.syncHelper.syncPlaylists(self.playlists)
             }

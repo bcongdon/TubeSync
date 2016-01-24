@@ -43,6 +43,9 @@ let SecondsInDay:Double = 86400
 func fetchPlaylistsFromDefaults() -> Array<Playlist>{
     if let storedPlaylistData = NSUserDefaults.standardUserDefaults().dataForKey("playlists"){
         if let decodedPlaylists = NSKeyedUnarchiver.unarchiveObjectWithData(storedPlaylistData) as? Array<Playlist>{
+//            for playlist in decodedPlaylists{
+//                print(playlist.url)
+//            }
             return decodedPlaylists
         }
     }

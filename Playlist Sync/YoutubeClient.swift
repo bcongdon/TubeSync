@@ -125,8 +125,7 @@ class YoutubeClient: NSObject {
     }
     
     func terminated(notification:NSNotification){
-        //NSNotificationCenter.defaultCenter().removeObserver(self)
-        //busy = false
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func receivedError(notification:NSNotification){

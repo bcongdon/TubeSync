@@ -18,18 +18,21 @@ class SyncHelper: NSObject {
     let downloadQueue = NSOperationQueue()
     let playlistQueue = NSOperationQueue()
     
+    static let defaultHelper = SyncHelper()
+    
     static private let fileManager = NSFileManager.defaultManager()
     
     let youtubeClient = YoutubeClient.defaultClient
     
-    init(outputDir:String){
-        self.outputDir = outputDir
+    private override init(){
+        self.outputDir = ""
         
         downloadQueue.maxConcurrentOperationCount = 3
         downloadQueue.qualityOfService = .Background
         
         playlistQueue.maxConcurrentOperationCount = 1
         playlistQueue.qualityOfService = .Background
+        super.init()
     }
     
     //Returns a list of files (and potentially folders) at the given path
@@ -69,7 +72,6 @@ class SyncHelper: NSObject {
         
         let folderList = SyncHelper.listFolder(playlistFolderPath)
         
-        //
         for entry in playlist.entries {
             if entry.1 != "" && !folderList.contains(entry.1){
                 print("Folder doesn't contain: " + entry.1)
@@ -99,6 +101,7 @@ class SyncHelper: NSObject {
             }
         }
         downloadQueue.waitUntilAllOperationsAreFinished()
+        playlist.progress = 0
     }
     
     func syncPlaylists(playlists:Array<Playlist>){
