@@ -264,11 +264,17 @@ class YoutubeClient: NSObject {
         return ""
     }
     
+    //NOTE: Should only be called *AFTER* a sync
     func deleteStaleFiles(playlist:Playlist, path:String){
         let playlistPath = NSString(string: path).stringByAppendingPathComponent(playlist.title)
         let folderList = SyncHelper.listFolder(playlistPath)
         for file in folderList{
             if file.hasSuffix(".mp4") && !playlist.entries.values.contains(file){
+                let filePath = NSString(string: playlistPath).stringByAppendingPathComponent(file)
+                deleteFile(filePath)
+            }
+            //Any file that has a ".part" extension *AFTER* a sync must be stale.
+            else if file.hasSuffix(".part"){
                 let filePath = NSString(string: playlistPath).stringByAppendingPathComponent(file)
                 deleteFile(filePath)
             }

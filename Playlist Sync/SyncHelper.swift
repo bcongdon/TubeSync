@@ -8,6 +8,7 @@
 
 import Cocoa
 import Foundation
+import CocoaLumberjack
 
 class SyncHelper: NSObject {
     
@@ -101,7 +102,8 @@ class SyncHelper: NSObject {
             }
         }
         downloadQueue.waitUntilAllOperationsAreFinished()
-        playlist.progress = 0
+        //Progress of -1 indicates completion
+        playlist.progress = -1
     }
     
     func syncPlaylists(playlists:Array<Playlist>){
@@ -123,6 +125,8 @@ class SyncHelper: NSObject {
                     }
                     catch YoutubeError.NetworkFailure{
                         self.haltSync()
+                        print("Sync failed due to network failure.")
+                        DDLogError("Sync failed due to network failure.")
                     }
                     catch {
                         self.haltSync()

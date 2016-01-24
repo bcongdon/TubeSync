@@ -133,7 +133,7 @@ class ContentViewController: NSViewController, NSTableViewDelegate, NSTableViewD
             else {
                 let imgView = tableView.makeViewWithIdentifier("status", owner: self) as! NSTableCellView
                 
-                if delegate.playlists[row].progress >= delegate.playlists[row].entries.count {
+                if delegate.playlists[row].progress == -1 {
                     imgView.imageView?.image = NSImage(named: "complete")
                 }
                 else if delegate.playlists[row].progress > 0 {
