@@ -62,9 +62,18 @@ class YoutubeClient: NSObject {
     }
     
     private func runYTDLTask(options:Array<String>, scriptName:String) -> (logResult:String, errResult:String){
+        if !partialErrResponse.isEmpty || !partialLogResponse.isEmpty {
+            DDLogError("Tried to start YTDL task when one hasn't completed yet.")
+            return ("","")
+        }
         partialLogResponse = ""
         partialErrResponse = ""
-        DDLogVerbose("Running task with options \(options) and script name \(scriptName)")
+        if scriptName != "Authenticate" {
+            DDLogVerbose("Running task with options \(options) and script name \(scriptName)")
+        }
+        else{
+            DDLogVerbose("Running authentication task.")
+        }
         
         let task = NSTask()
         task.launchPath = NSBundle.mainBundle().pathForResource(scriptName, ofType: "py")! as String
@@ -78,7 +87,7 @@ class YoutubeClient: NSObject {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedData:", name: NSFileHandleDataAvailableNotification, object: logFileHandle)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "terminated:", name: NSTaskDidTerminateNotification, object: task)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError:", name: NSFileHandleReadCompletionNotification, object: errFileHandle)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedError:", name: NSFileHandleDataAvailableNotification, object: errFileHandle)
         
         logFileHandle.waitForDataInBackgroundAndNotify()
         errFileHandle.waitForDataInBackgroundAndNotify()
@@ -90,13 +99,16 @@ class YoutubeClient: NSObject {
         let errResponse = partialErrResponse
         
         dispatch_async(GlobalMainQueue){
-            print(logResponse as String, errResponse as String)
+            print(logResponse, errResponse)
         }
         DDLogVerbose("StdOut of Task: " + logResponse)
         if !errResponse.isEmpty{
             DDLogVerbose("ErrOut of Task: " + errResponse)
         }
-        return (logResponse as String, errResponse as String)
+        partialLogResponse = ""
+        partialErrResponse = ""
+        return (logResponse, errResponse)
+        
     }
     
     func receivedData(notification:NSNotification){
@@ -113,7 +125,7 @@ class YoutubeClient: NSObject {
     }
     
     func terminated(notification:NSNotification){
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        //NSNotificationCenter.defaultCenter().removeObserver(self)
         //busy = false
     }
     

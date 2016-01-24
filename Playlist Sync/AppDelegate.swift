@@ -40,6 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         fileLogger.rollingFrequency = 60*60*24  // 24 hours
         fileLogger.logFileManager.maximumNumberOfLogFiles = 7
         DDLog.addLogger(fileLogger)
+        print("Logger Location: " + fileLogger.currentLogFileInfo().filePath)
         
         //Initialize and try to authenticate Youtube Client
         youtubeClient = YoutubeClient.defaultClient
