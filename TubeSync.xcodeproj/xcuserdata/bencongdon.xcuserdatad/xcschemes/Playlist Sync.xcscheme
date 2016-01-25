@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "78BBFC6A1C42EC1800421236"
-               BuildableName = "Playlist Sync.app"
+               BuildableName = "TubeSync.app"
                BlueprintName = "Playlist Sync"
                ReferencedContainer = "container:TubeSync.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "78BBFC6A1C42EC1800421236"
-            BuildableName = "Playlist Sync.app"
+            BuildableName = "TubeSync.app"
             BlueprintName = "Playlist Sync"
             ReferencedContainer = "container:TubeSync.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "78BBFC6A1C42EC1800421236"
-            BuildableName = "Playlist Sync.app"
+            BuildableName = "TubeSync.app"
             BlueprintName = "Playlist Sync"
             ReferencedContainer = "container:TubeSync.xcodeproj">
          </BuildableReference>
