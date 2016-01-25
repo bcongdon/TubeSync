@@ -17,3 +17,8 @@ Using `TubeSync` is simple:
   
 3. Click on the `+` near `Output Folder` to set the root directory where `TubeSync` will download your playlists.
 4. That's it! You can go back the main menu and click `Sync Now` to do the initial sync, after which `TubeSync` will keep the local copy of your videos up-to-date on the automatic time interval you set.
+
+## Todo / Possible Further Development
+* 1-off Video Downloads (functionally, just a nice GUI wrapper of Youtube-DL)
+* UI for showing all the videos in a playlist and their download state
+* Expose more of Youtube-DL's flexibility (i.e. Filename templating, sites other than Youtube, mp3 extraction, etc.)
