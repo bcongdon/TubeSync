@@ -1,4 +1,7 @@
 # TubeSync
+
+**Unfortunately, the Youtube API has changed since this project was started, rendering some of the documentation of this project out-of-date. I plan to update this at some point, but this probably will not be in the near future. As always, PRs are welcome. 🙂**
+
 A small Menu Bar OSX application to sync your Youtube Playlists to your Mac.
 
 ## Download
